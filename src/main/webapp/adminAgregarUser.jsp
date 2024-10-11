@@ -11,31 +11,48 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm fixed-top bg-light">
-        <div class="container-fluid">
-        	<ul>
-        		<li class="d-inline"><a href="admin.jsp" class="navbar-brand"><img src="imagenes/logo_siesweb.jpg" alt="" class="img-fluid"></a></li>
-        		<li class="d-inline"><a href="#" class="navbar-brand"><img src="imagenes/logo-ing-vias.PNG" alt="" class="img-fluid"></a></li>
-        	</ul>
-        	<ul class="nav nav-pills justify-content-end">
-        		<li class="nav-item"><a class="nav-link" href="admin.jsp">Inicio</a></li>
-        		<li class="nav-item dropdown">
-	          		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Usuarios</a>
-	          		<ul class="dropdown-menu">
-			            <li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
-			            <li><a class="dropdown-item" href="adminActualizarUser.jsp">Actualizar</a></li>
-			            <li><a class="dropdown-item" href="adminBuscarUser.jsp">Buscar</a></li>
-			            <li><a class="dropdown-item" href="adminEliminarUser.jsp">Eliminar</a></li>
-			            <li><a class="dropdown-item" href="listar">Listar</a></li>
-	          		</ul>
-        		</li> 
-                <li class="nav-item"><a class="nav-link" href="#sec-avances">Avances</a></li> 
-                <li class="nav-item"><a class="nav-link" href="#sec-proyectos">Proyectos</a></li>               
-       			<li class="nav-item"><a class="nav-link" href="#sec-temas">Temas</a></li>
-       			<li class="nav-item"><a class="nav-link" href="#sec-roles">Roles</a></li>               
-       			<li class="nav-item"><a class="nav-link" href="#sec-tiposDoc">Tipos de documento</a></li>                
-            </ul>
-        </div>
-    </nav>
+		<div class="container-fluid">
+			<ul>
+				<li class="d-inline"><a href="admin.jsp" class="navbar-brand"><img
+						src="imagenes/logo_siesweb.jpg" alt="" class="img-fluid"></a></li>
+				<li class="d-inline"><a href="#" class="navbar-brand"><img
+						src="imagenes/logo-ing-vias.PNG" alt="" class="img-fluid"></a></li>
+			</ul>
+			<ul class="nav nav-pills">
+				<li class="nav-item"><a class="nav-link" href="admin.jsp">Inicio</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" role="button"
+					data-bs-toggle="dropdown">Usuarios</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
+						<li><a class="dropdown-item" href="adminActualizarUser">Actualizar</a></li>
+						<li><a class="dropdown-item" href="adminBuscarUser.jsp">Buscar</a></li>
+						<li><a class="dropdown-item" href="adminEliminarUser.jsp">Eliminar</a></li>
+						<li><a class="dropdown-item" href="listar">Listar</a></li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" role="button"
+					data-bs-toggle="dropdown">Avances</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="adminAgregarUser.jsp">CRUD</a></li>
+						<li><a class="dropdown-item" href="listar">Listar</a></li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" role="button"
+					data-bs-toggle="dropdown">Más</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Tipos de documento</a></li>
+						<li><a class="dropdown-item" href="#">Roles</a></li>
+						<li><a class="dropdown-item" href="#">Proyectos</a></li>
+						<li><a class="dropdown-item" href="#">Solicitudes</a></li>
+						<li><a class="dropdown-item" href="#">Temas</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
     <section class="container-fluid bg-body p-5 pt-1" style="margin-top: 100px;">
         <h1><b>Agregar usuarios</b></h1>
         <h6>Es necesario llenar todos los campos del formulario.</h6>
