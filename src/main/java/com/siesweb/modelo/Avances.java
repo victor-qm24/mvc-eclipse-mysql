@@ -1,10 +1,8 @@
 package com.siesweb.modelo;
 
-import java.sql.Date;
-
 public class Avances {
 	private int id;
-	private Date fecha;
+	private String fecha;
 	private String tramo_amp;
 	private String tramo_mej;
 	private String tramo_sub;
@@ -15,7 +13,7 @@ public class Avances {
 	private String porcentaje_ejecucion;
 	private int proyectoId;
 	
-	public Avances(int id, Date fecha, String tramo_amp, String tramo_mej, String tramo_sub, String tramo_bas,
+	public Avances(int id, String fecha, String tramo_amp, String tramo_mej, String tramo_sub, String tramo_bas,
 			String tramo_asf, String cunetas, String muros, String porcentaje_ejecucion, int proyectoId) {
 		super();
 		this.id = id;
@@ -32,7 +30,7 @@ public class Avances {
 	}
 
 	public int getId() {return id;}
-	public Date getFecha() {return fecha;}
+	public String getFecha() {return fecha;}
 	public String getTramo_amp() {return tramo_amp;}
 	public String getTramo_mej() {return tramo_mej;}
 	public String getTramo_sub() {return tramo_sub;}

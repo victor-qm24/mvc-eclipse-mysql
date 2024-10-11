@@ -25,7 +25,7 @@
 					data-bs-toggle="dropdown">Usuarios</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
-						<li><a class="dropdown-item" href="adminActualizarUser">Actualizar</a></li>
+						<li><a class="dropdown-item" href="adminActualizarUser.jsp">Actualizar</a></li>
 						<li><a class="dropdown-item" href="adminBuscarUser.jsp">Buscar</a></li>
 						<li><a class="dropdown-item" href="adminEliminarUser.jsp">Eliminar</a></li>
 						<li><a class="dropdown-item" href="listar">Listar</a></li>
@@ -35,8 +35,10 @@
 					class="nav-link dropdown-toggle" href="#" role="button"
 					data-bs-toggle="dropdown">Avances</a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="adminAgregarUser.jsp">CRUD</a></li>
-						<li><a class="dropdown-item" href="listar">Listar</a></li>
+						<li><a class="dropdown-item" href="adminInsertarAvc.jsp">Insertar</a></li>
+						<li><a class="dropdown-item" href="adminActualizarAvc.jsp">Actualizar</a></li>
+						<li><a class="dropdown-item" href="adminBuscarEliminarAvc.jsp">Buscar - Eliminar</a></li>
+						<li><a class="dropdown-item" href="listarAvc">Listar</a></li>
 					</ul>
 				</li>
 				<li class="nav-item dropdown"><a
@@ -193,7 +195,7 @@
                                 <p><i class="material-icons me-2">assignment_late</i><b>Error: </b>Por favor rellena el formulario correctamente.</p>
                             </div>
                             <div class="formulario__grupo formulario__grupo-btn-enviar">                                                       
-                                <input type="submit" value="Actualizar" class="btn btn-primary float-end formulario__btn">
+                                <input type="submit" value="Agregar" class="btn btn-primary float-end formulario__btn">
                                 <p class="formulario__mensaje-exito text-success d-none" id="formulario__mensaje-exito">Te has registrado exitosamente!</p>
                             </div>
                         </div>                         

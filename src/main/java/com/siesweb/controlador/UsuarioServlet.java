@@ -2,7 +2,6 @@ package com.siesweb.controlador;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 import com.siesweb.modelo.*;
 import com.siesweb.dao.*;
@@ -199,7 +197,7 @@ public class UsuarioServlet extends HttpServlet {
                 	RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarUser.jsp");
         	        dispatcher.forward(request, response);
                 } else {
-                    
+                	System.out.println("es nulo");
                 }
             } catch (SQLException e) {
             }
