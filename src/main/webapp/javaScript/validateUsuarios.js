@@ -1,25 +1,74 @@
-function validarId() {
-    var id = document.getElementById("id").value;
-	var inputId = document.getElementById("id");
+function validarIdActualizar() {
+    var idActualizar = document.getElementById("idActualizar").value;
+	var inputIdActualizar = document.getElementById("idActualizar");	
     var mensaje = document.getElementById("idError");
 	var icon = document.getElementById("iconId");
 	var IdRegex = /^[0-9]{1,3}$/;
 	
-    if (id === "") {
+    if (idActualizar === "") {
         mensaje.textContent = "El id es obligatorio.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
-		inputId.style.borderColor = "red";
-    } else if(!IdRegex.test(id)){
+		inputIdActualizar.style.borderColor = "red";
+    } else if(!IdRegex.test(idActualizar)){
 		mensaje.textContent = "El id admite solo numeros de hasta 3 cifras.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
-		inputId.style.borderColor = "red";
+		inputIdActualizar.style.borderColor = "red";
 	}else{
 		mensaje.textContent = "";
 		mensaje.style.color = "green";
 		icon.style.color = "green";
-		inputId.style.borderColor = "green";
+		inputIdActualizar.style.borderColor = "green";
+	}
+}
+function validarIdBuscar() {
+	var idBuscar = document.getElementById("idBuscar").value;
+	var inputIdBuscar = document.getElementById("idBuscar");	
+    var mensaje = document.getElementById("idError");
+	var icon = document.getElementById("iconId");
+	var IdRegex = /^[0-9]{1,3}$/;
+	
+    if (idBuscar === "") {
+        mensaje.textContent = "El id es obligatorio.";
+        mensaje.style.color = "red";
+		icon.style.color = "red";
+		inputIdBuscar.style.borderColor = "red";
+    } else if(!IdRegex.test(idBuscar)){
+		mensaje.textContent = "El id admite solo numeros de hasta 3 cifras.";
+        mensaje.style.color = "red";
+		icon.style.color = "red";
+		inputIdBuscar.style.borderColor = "red";
+	}else{
+		mensaje.textContent = "";
+		mensaje.style.color = "green";
+		icon.style.color = "green";
+		inputIdBuscar.style.borderColor = "green";
+	}
+}
+
+function validarIdEliminar() {
+	var idEliminar = document.getElementById("idEliminar").value;
+	var inputIdEliminar = document.getElementById("idEliminar");	
+    var mensaje = document.getElementById("idError");
+	var icon = document.getElementById("iconId");
+	var IdRegex = /^[0-9]{1,3}$/;
+	
+    if (idEliminar === "") {
+        mensaje.textContent = "El id es obligatorio.";
+        mensaje.style.color = "red";
+		icon.style.color = "red";
+		inputIdEliminar.style.borderColor = "red";
+    } else if(!IdRegex.test(idEliminar)){
+		mensaje.textContent = "El id admite solo numeros de hasta 3 cifras.";
+        mensaje.style.color = "red";
+		icon.style.color = "red";
+		inputIdEliminar.style.borderColor = "red";
+	}else{
+		mensaje.textContent = "";
+		mensaje.style.color = "green";
+		icon.style.color = "green";
+		inputIdEliminar.style.borderColor = "green";
 	}
 }
 
@@ -257,7 +306,9 @@ function validarProyecto() {
 function validarFormulario() {
     validarUsuario();
     validarPassword();
-	validarId();
+	validarIdActualizar();
+	validarIdBuscar();
+	validarIdEliminar();
 	validarNombre();
 	validarApellido();
 	validarTipo();

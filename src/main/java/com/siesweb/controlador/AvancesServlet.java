@@ -85,7 +85,7 @@ public class AvancesServlet extends HttpServlet {
 	}
 	
 	private void actualizarAvc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String idString = request.getParameter("id");
+		String idString = request.getParameter("idUpdate");
 
         if (!idString.isEmpty()) {
 

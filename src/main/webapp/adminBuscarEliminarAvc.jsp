@@ -28,8 +28,7 @@
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
 						<li><a class="dropdown-item" href="adminActualizarUser.jsp">Actualizar</a></li>
-						<li><a class="dropdown-item" href="adminBuscarUser.jsp">Buscar</a></li>
-						<li><a class="dropdown-item" href="adminEliminarUser.jsp">Eliminar</a></li>
+						<li><a class="dropdown-item" href="adminBuscarEliminarUser.jsp">Buscar - Eliminar</a></li>
 						<li><a class="dropdown-item" href="listar">Listar</a></li>
 					</ul>
 				</li>
@@ -70,7 +69,7 @@
 			        				<!--grupo__id-->
 		                            <div class="formulario__grupo" id="grupo__id">                                
 		                                <div class="formulario__grupo-input d-flex">
-		                                    <input type="text" name="idLoad" id="idLoad" class=" form-control formulario__input" placeholder="Id" oninput="validarId()">
+		                                    <input type="text" name="idLoad" id="idLoad" class=" form-control formulario__input" placeholder="Id" oninput="validarIdLoad()">
 		                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconId">check_circle</i>
 		                                </div>
 		                                <p class="formulario__input-error" id="idError"></p>
@@ -87,7 +86,7 @@
 			        				<!--grupo__id-->
 		                            <div class="formulario__grupo" id="grupo__id">                                
 		                                <div class="formulario__grupo-input d-flex">
-		                                    <input type="text" name="idDelete" id="idDelete" class=" form-control formulario__input" placeholder="Id" oninput="validarId()">
+		                                    <input type="text" name="idDelete" id="idDelete" class=" form-control formulario__input" placeholder="Id" oninput="validarIdDelete()">
 		                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconId">check_circle</i>
 		                                </div>
 		                                <p class="formulario__input-error" id="idError"></p>
@@ -158,5 +157,6 @@
             <li class="d-inline p-2"><i class="material-icons">mail</i> sieswebvial@gmail.com</li>
         </ul>
     </footer>
+    <script type="text/javascript" src="javaScript/validateAvances.js"></script>
 </body>
 </html>

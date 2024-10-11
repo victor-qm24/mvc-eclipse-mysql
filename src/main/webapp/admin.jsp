@@ -27,8 +27,7 @@
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
 						<li><a class="dropdown-item" href="adminActualizarUser.jsp">Actualizar</a></li>
-						<li><a class="dropdown-item" href="adminBuscarUser.jsp">Buscar</a></li>
-						<li><a class="dropdown-item" href="adminEliminarUser.jsp">Eliminar</a></li>
+						<li><a class="dropdown-item" href="adminBuscarEliminarUser.jsp">Buscar - Eliminar</a></li>
 						<li><a class="dropdown-item" href="listar">Listar</a></li>
 					</ul>
 				</li>

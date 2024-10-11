@@ -121,7 +121,7 @@ public class UsuarioServlet extends HttpServlet {
 	}
 	
 	private void actualizar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String idString = request.getParameter("id");
+		String idString = request.getParameter("idActualizar");
 
         if (!idString.isEmpty()) {
 
@@ -160,12 +160,12 @@ public class UsuarioServlet extends HttpServlet {
 	}
 	
 	private void eliminar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String idString = request.getParameter("id");
+		String idString = request.getParameter("idEliminar");
         if (!idString.isEmpty()) {
             int id = Integer.parseInt(idString);
             try {
                 usuarioDAO.eliminarUsuario(id);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("adminEliminarUser.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarUser.jsp");
 		        dispatcher.forward(request, response);
             } catch (SQLException e) {
             }
@@ -187,14 +187,14 @@ public class UsuarioServlet extends HttpServlet {
 	}
 	
 	private void buscar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String idStr = request.getParameter("id");
+		String idStr = request.getParameter("idBuscar");
         if (!idStr.isEmpty()) {
             int id = Integer.parseInt(idStr);
             try {
             	List<Usuarios> user = usuarioDAO.buscarUsuario(id);
                 if (user != null) {                	
                 	request.setAttribute("User", user);
-                	RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarUser.jsp");
+                	RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarUser.jsp");
         	        dispatcher.forward(request, response);
                 } else {
                 	System.out.println("es nulo");

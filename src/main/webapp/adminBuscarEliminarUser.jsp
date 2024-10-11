@@ -28,8 +28,7 @@
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
 						<li><a class="dropdown-item" href="adminActualizarUser.jsp">Actualizar</a></li>
-						<li><a class="dropdown-item" href="adminBuscarUser.jsp">Buscar</a></li>
-						<li><a class="dropdown-item" href="adminEliminarUser.jsp">Eliminar</a></li>
+						<li><a class="dropdown-item" href="adminBuscarEliminarUser.jsp">Buscar - Eliminar</a></li>						
 						<li><a class="dropdown-item" href="listar">Listar</a></li>
 					</ul>
 				</li>
@@ -62,30 +61,44 @@
         <h6>Es necesario conocer el id del usuario a buscar..</h6>
         <div class="row mt-3">
             <div class="col-sm-8 bg-dark-subtle pt-3 rounded">
-                <form action="buscar" method="POST" class="formulario" id="formulario" onsubmit="return validarFormulario();">
-                    <div class="row mb-2">
-                    	<div class="col-sm-3">
-                    		<!--grupo__id-->
-                            <div class="formulario__grupo" id="grupo__id">                                
-                                <div class="formulario__grupo-input d-flex">
-                                    <input type="text" name="id" id="id" class=" form-control formulario__input mb-2" placeholder="Id" oninput="validarId()">
-                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconId">check_circle</i>
-                                </div>
-                                <p class="formulario__input-error" id="idError"></p>
-                            </div>
-                    	</div>
-                    	<div class="col-sm-3">
-                            <!--Mensaje-exito-error-->                            
-                            <div class="formulario__mensaje h-50 border rounded bg-danger ps-2 pe-2 lh-1 d-none mt-2" id="formulario__mensaje">
-                                <p><i class="material-icons me-2">assignment_late</i><b>Error: </b>Por favor rellena el formulario correctamente.</p>
-                            </div>
-                            <div class="formulario__grupo formulario__grupo-btn-enviar">                                                       
-                                <input type="submit" value="Buscar" class="btn btn-primary float-start formulario__btn">
-                                <p class="formulario__mensaje-exito text-success d-none" id="formulario__mensaje-exito">Te has registrado exitosamente!</p>
-                            </div>
-                        </div> 
-                    </div>             
-                </form>
+                <div class="row pt-3">
+            		<div class="col-sm">
+            			<form action="buscar" method="POST" class="formulario" id="formulario" onsubmit="return validarFormulario();">
+		                    <div class="row">                    	
+			        			<div class="col-sm-2">
+			        				<!--grupo__id-->
+		                            <div class="formulario__grupo" id="grupo__id">                                
+		                                <div class="formulario__grupo-input d-flex">
+		                                    <input type="text" name="idBuscar" id="idBuscar" class=" form-control formulario__input" placeholder="Id" oninput="validarIdBuscar()">
+		                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconId">check_circle</i>
+		                                </div>
+		                                <p class="formulario__input-error" id="idError"></p>
+		                            </div>
+			        			</div>
+			        			<div class="col-sm-3">
+			        				<input type="submit" value="Buscar" class="btn btn-success formulario__btn">	        					        				
+			        			</div>
+		                    </div> 		                                
+		                </form>
+		                <form action="eliminar" method="POST" class="formulario" id="formulario" onsubmit="return validarFormulario();">
+		                    <div class="row">                    	
+			        			<div class="col-sm-2">
+			        				<!--grupo__id-->
+		                            <div class="formulario__grupo" id="grupo__id">                                
+		                                <div class="formulario__grupo-input d-flex">
+		                                    <input type="text" name="idEliminar" id="idEliminar" class=" form-control formulario__input" placeholder="Id" oninput="validarIdEliminar()">
+		                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconId">check_circle</i>
+		                                </div>
+		                                <p class="formulario__input-error" id="idError"></p>
+		                            </div>
+			        			</div> 
+			        			<div class="col-sm-3">
+			        				<input type="submit" value="Eliminar" class="btn btn-danger float-start formulario__btn">	        					        				
+			        			</div>
+		                    </div> 		                               
+		                </form>
+            		</div>            		
+            	</div>
                 <div class="container-fluid table-responsive" style="max-height: 200px; overflow-y: auto;">
 				    <table class="table table-hover mt-3 text-center">
 				        <thead class="table-primary">
