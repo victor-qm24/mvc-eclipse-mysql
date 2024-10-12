@@ -23,7 +23,7 @@
         <h6>Acceder para ingresar a SIES WEB Vial</h6>
         <div class="row mt-3">
             <div class="col-sm-6">
-                <form action="iniciarSesion" method="POST" class="formulario bg-dark-subtle rounded p-5 h-100" id="formulario" name="formulario" onsubmit="return validarFormulario();">
+                <form action="iniciarSesion" method="POST" class="formulario bg-dark-subtle rounded p-5 h-100" id="formulario" name="formulario">
                     <div class="row mb-3 pt-5">
                         <div class="col-sm-4"><img src="imagenes/logo_login.png" alt="" class="img-fluid w-100"></div>
                         <div class="col-sm-8">
@@ -31,7 +31,7 @@
                             <div class="formulario__grupo" id="grupo__usuario">
                                 <label for="usuario" class="form-label formulario__label">Usuario</label>
                                 <div class="formulario__grupo-input d-flex">
-                                    <input type="text" name="usuario" id="usuario" class="formulario__input form-control mb-2" oninput="validarUsuario()">
+                                    <input type="text" name="usuario" id="usuario" class="formulario__input form-control mb-2">
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconUsuario">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="usuarioError"></p>
@@ -40,7 +40,7 @@
                             <div class="formulario__grupo" id="grupo__password">
                                 <label for="usuario" class="form-label formulario__label">Password</label>
                                 <div class="formulario__grupo-input d-flex">
-                                    <input type="password" name="password" id="password" class="formulario__input form-control" oninput="validarPassword()">
+                                    <input type="password" name="password" id="password" class="formulario__input form-control">
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconPassword">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="passwordError"></p>

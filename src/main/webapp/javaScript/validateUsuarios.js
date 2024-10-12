@@ -77,7 +77,7 @@ function validarNombre() {
 	var inputNombre = document.getElementById("nombre");
     var mensaje = document.getElementById("nombreError");
 	var icon = document.getElementById("iconNombre");
-	var nombreRegex = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;	
+	var nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}$/;	
 
     if (nombre === "") {
         mensaje.textContent = "El nombre es obligatorio.";
@@ -102,7 +102,7 @@ function validarApellido() {
 	var inputApellido = document.getElementById("apellido");
     var mensaje = document.getElementById("apellidoError");
 	var icon = document.getElementById("iconApellido");
-	var apellidoRegex = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;	
+	var apellidoRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}$/;	
 
     if (apellido === "") {
         mensaje.textContent = "El apellido es obligatorio.";
@@ -171,7 +171,8 @@ function validarEmail() {
 	var inputEmail = document.getElementById("email");
     var mensaje = document.getElementById("emailError");
 	var icon = document.getElementById("iconEmail");
-	var emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;	
+	var emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+		
 
     if (email === "") {
         mensaje.textContent = "El email es obligatorio.";
@@ -196,7 +197,7 @@ function validarTelefono() {
 	var inputTelefono = document.getElementById("telefono");
     var mensaje = document.getElementById("telefonoError");
 	var icon = document.getElementById("iconTelefono");
-	var TelefonoRegex = /^\d{7,14}$/;	
+	var TelefonoRegex = /^[0-9]{7,14}$/;	
 
     if (telefono === "") {
         mensaje.textContent = "El telefono es obligatorio.";
@@ -221,7 +222,8 @@ function validarUsuario() {
 	var inputUser = document.getElementById("usuario");
     var mensaje = document.getElementById("usuarioError");
 	var icon = document.getElementById("iconUsuario");
-	var usuarioRegex = /^[a-zA-Z0-9\_\-]{4,16}$/;	
+	var usuarioRegex = /^[a-zA-Z0-9._-]{4,16}$/;
+		
 
     if (usuario === "") {
         mensaje.textContent = "El usuario es obligatorio.";
@@ -245,7 +247,8 @@ function validarPassword() {
 	var inputPass = document.getElementById("password");
     var mensaje = document.getElementById("passwordError");
 	var icon = document.getElementById("iconPassword");	
-	var passwordRegex = /^.{8,12}$/;
+	var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+	                    
 
     if (password === "") {
         mensaje.textContent = "El password es obligatorio.";
@@ -253,7 +256,7 @@ function validarPassword() {
 		icon.style.color = "red";
 		inputPass.style.borderColor = "red";
     } else if(!passwordRegex.test(password)){
-        mensaje.textContent = "El password debe estar entre 8 a 12 caracteres.";
+        mensaje.textContent = "El password debe ser de 8 caracteres o más, debe inluir un numero, letra mayuscula y minuscula y un caracter especial.";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputPass.style.borderColor = "red";

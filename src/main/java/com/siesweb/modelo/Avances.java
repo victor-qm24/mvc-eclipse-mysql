@@ -12,7 +12,7 @@ public class Avances {
 	private String muros;
 	private String porcentaje_ejecucion;
 	private int proyectoId;
-	
+
 	public Avances(int id, String fecha, String tramo_amp, String tramo_mej, String tramo_sub, String tramo_bas,
 			String tramo_asf, String cunetas, String muros, String porcentaje_ejecucion, int proyectoId) {
 		super();
@@ -29,17 +29,49 @@ public class Avances {
 		this.proyectoId = proyectoId;
 	}
 
-	public int getId() {return id;}
-	public String getFecha() {return fecha;}
-	public String getTramo_amp() {return tramo_amp;}
-	public String getTramo_mej() {return tramo_mej;}
-	public String getTramo_sub() {return tramo_sub;}
-	public String getTramo_bas() {return tramo_bas;}
-	public String getTramo_asf() {return tramo_asf;}
-	public String getCunetas() {return cunetas;}
-	public String getMuros() {return muros;}
-	public String getPorcentaje_ejecucion() {return porcentaje_ejecucion;}
-	public int getProyectoId() {return proyectoId;}
+	public int getId() {
+		return id;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public String getTramo_amp() {
+		return tramo_amp;
+	}
+
+	public String getTramo_mej() {
+		return tramo_mej;
+	}
+
+	public String getTramo_sub() {
+		return tramo_sub;
+	}
+
+	public String getTramo_bas() {
+		return tramo_bas;
+	}
+
+	public String getTramo_asf() {
+		return tramo_asf;
+	}
+
+	public String getCunetas() {
+		return cunetas;
+	}
+
+	public String getMuros() {
+		return muros;
+	}
+
+	public String getPorcentaje_ejecucion() {
+		return porcentaje_ejecucion;
+	}
+
+	public int getProyectoId() {
+		return proyectoId;
+	}
 
 	@Override
 	public String toString() {
