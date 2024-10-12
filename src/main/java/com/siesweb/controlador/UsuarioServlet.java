@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import com.siesweb.modelo.*;
 import com.siesweb.dao.*;
 
-@WebServlet({ "/UsuarioServlet", "/iniciarSesion", "/registrar", "/actualizar", "/eliminar", "/listar", "/buscar" })
+@WebServlet({ "/UsuarioServlet", "/iniciarSesion", "/registrar", "/actualizar", "/eliminar", "/listar", "/buscar"})
 public class UsuarioServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -54,7 +54,7 @@ public class UsuarioServlet extends HttpServlet {
 			break;
 		case "/buscar":
 			buscar(request, response);
-			break;
+			break;		
 		default:
 			System.out.println("No se reconoce la opcion enviada!");
 		}

@@ -45,11 +45,11 @@
 					class="nav-link dropdown-toggle" href="#" role="button"
 					data-bs-toggle="dropdown">Más</a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Tipos de documento</a></li>
-						<li><a class="dropdown-item" href="#">Roles</a></li>
-						<li><a class="dropdown-item" href="#">Proyectos</a></li>
-						<li><a class="dropdown-item" href="#">Solicitudes</a></li>
-						<li><a class="dropdown-item" href="#">Temas</a></li>
+						<li><a class="dropdown-item" href="adminTipo.jsp">Tipos de documento</a></li>
+						<li><a class="dropdown-item" href="adminRol.jsp">Roles</a></li>
+						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
+						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
+						<li><a class="dropdown-item" href="adminTema.jsp">Temas</a></li>
 					</ul>
 				</li>
 			</ul>

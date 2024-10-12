@@ -74,8 +74,8 @@ public class Usuarios {
 
 	@Override
 	public String toString() {
-		return "ID: " + id + ", Nombre: " + nombre + ", Apellido: " + apellido + ", Documento: " + documento
-				+ ", Email: " + email + ", Telefono: " + telefono + ", Usuario: " + usuario + ", Contraseña: "
-				+ password;
+		return "Usuarios [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", documento=" + documento
+				+ ", email=" + email + ", telefono=" + telefono + ", usuario=" + usuario + ", password=" + password
+				+ ", tipoDocumentoId=" + tipoDocumentoId + ", proyectoId=" + proyectoId + ", rolId=" + rolId + "]";
 	}
 }
