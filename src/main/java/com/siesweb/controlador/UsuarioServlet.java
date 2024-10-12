@@ -157,14 +157,13 @@ public class UsuarioServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		} catch (SQLException e) {
-			System.out.println("No se pudo obtener el Id." + e);
+			System.out.println("No se pudo obtener el Id de rol, tipo y proyecto" + e);
 		}
 	}
 
 	private void actualizar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String idString = request.getParameter("idActualizar");
-		int id = Integer.parseInt(idString);
+		String idString = request.getParameter("idActualizar");		
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
 		String documento = request.getParameter("documento");
@@ -186,8 +185,9 @@ public class UsuarioServlet extends HttpServlet {
 						&& validarDocumento(documento) && validarEmail(email) && validarTelefono(telefono)
 						&& validarUsuario(usuario) && validarPassword(password) && tipo != "-" && rol != "-"
 						&& proyecto != "-") {
-
-					try {
+					
+					int id = Integer.parseInt(idString);
+					try {						
 						TiposDocumentos tipoDocumento = tiposDocumentosDAO.obtenerIdTipo(tipo);
 						Proyectos proy = proyectosDAO.obtenerIdProyecto(proyecto);
 						Roles rl = rolesDAO.obtenerIdRol(rol);

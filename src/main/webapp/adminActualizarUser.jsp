@@ -66,9 +66,9 @@
                             <div class="formulario__grupo" id="grupo__id">                                
                                 <div class="formulario__grupo-input d-flex">
                                     <input type="text" name="idActualizar" id="idActualizar" class=" form-control formulario__input mb-2" placeholder="Id" oninput="validarIdActualizar()">
-                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconId">check_circle</i>
+                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconIdActualizar">check_circle</i>
                                 </div>
-                                <p class="formulario__input-error" id="idError"></p>
+                                <p class="formulario__input-error" id="idActualizarError"></p>
                             </div>
                     	</div>
                     </div>

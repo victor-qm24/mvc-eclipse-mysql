@@ -1,8 +1,8 @@
 function validarIdActualizar() {
     var idActualizar = document.getElementById("idActualizar").value;
 	var inputIdActualizar = document.getElementById("idActualizar");	
-    var mensaje = document.getElementById("idError");
-	var icon = document.getElementById("iconId");
+    var mensaje = document.getElementById("idActualizarError");
+	var icon = document.getElementById("iconIdActualizar");
 	var IdRegex = /^[0-9]{1,3}$/;
 	
     if (idActualizar === "") {
@@ -25,8 +25,8 @@ function validarIdActualizar() {
 function validarIdBuscar() {
 	var idBuscar = document.getElementById("idBuscar").value;
 	var inputIdBuscar = document.getElementById("idBuscar");	
-    var mensaje = document.getElementById("idError");
-	var icon = document.getElementById("iconId");
+    var mensaje = document.getElementById("idBuscarError");
+	var icon = document.getElementById("iconIdBuscar");
 	var IdRegex = /^[0-9]{1,3}$/;
 	
     if (idBuscar === "") {
@@ -50,8 +50,8 @@ function validarIdBuscar() {
 function validarIdEliminar() {
 	var idEliminar = document.getElementById("idEliminar").value;
 	var inputIdEliminar = document.getElementById("idEliminar");	
-    var mensaje = document.getElementById("idError");
-	var icon = document.getElementById("iconId");
+    var mensaje = document.getElementById("idEliminarError");
+	var icon = document.getElementById("iconIdEliminar");
 	var IdRegex = /^[0-9]{1,3}$/;
 	
     if (idEliminar === "") {
@@ -77,7 +77,8 @@ function validarNombre() {
 	var inputNombre = document.getElementById("nombre");
     var mensaje = document.getElementById("nombreError");
 	var icon = document.getElementById("iconNombre");
-	var nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}$/;	
+	var nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}$/;
+	
 
     if (nombre === "") {
         mensaje.textContent = "El nombre es obligatorio.";

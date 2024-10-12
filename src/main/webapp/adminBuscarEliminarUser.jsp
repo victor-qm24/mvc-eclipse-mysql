@@ -70,9 +70,9 @@
 		                            <div class="formulario__grupo" id="grupo__id">                                
 		                                <div class="formulario__grupo-input d-flex">
 		                                    <input type="text" name="idBuscar" id="idBuscar" class=" form-control formulario__input" placeholder="Id" oninput="validarIdBuscar()">
-		                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconId">check_circle</i>
+		                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconIdBuscar">check_circle</i>
 		                                </div>
-		                                <p class="formulario__input-error" id="idError"></p>
+		                                <p class="formulario__input-error" id="idBuscarError"></p>
 		                            </div>
 			        			</div>
 			        			<div class="col-sm-3">
@@ -87,9 +87,9 @@
 		                            <div class="formulario__grupo" id="grupo__id">                                
 		                                <div class="formulario__grupo-input d-flex">
 		                                    <input type="text" name="idEliminar" id="idEliminar" class=" form-control formulario__input" placeholder="Id" oninput="validarIdEliminar()">
-		                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconId">check_circle</i>
+		                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconIdEliminar">check_circle</i>
 		                                </div>
-		                                <p class="formulario__input-error" id="idError"></p>
+		                                <p class="formulario__input-error" id="idEliminarError"></p>
 		                            </div>
 			        			</div> 
 			        			<div class="col-sm-3">

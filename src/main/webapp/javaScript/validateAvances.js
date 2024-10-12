@@ -1,8 +1,8 @@
 function validarIdUpdate() {
     var idUpdate = document.getElementById("idUpdate").value;
 	var inputIdUpdate = document.getElementById("idUpdate");	
-    var mensaje = document.getElementById("idError");
-	var icon = document.getElementById("iconId");
+    var mensaje = document.getElementById("idUpdateError");
+	var icon = document.getElementById("iconIdUpdate");
 	var IdRegex = /^[0-9]{1,3}$/;
 	
     if (idUpdate === "") {
@@ -25,8 +25,8 @@ function validarIdUpdate() {
 function validarIdLoad() {
 	var idLoad = document.getElementById("idLoad").value;
 	var inputIdLoad = document.getElementById("idLoad");	
-    var mensaje = document.getElementById("idError");
-	var icon = document.getElementById("iconId");
+    var mensaje = document.getElementById("idLoadError");
+	var icon = document.getElementById("iconIdLoad");
 	var IdRegex = /^[0-9]{1,3}$/;
 	
     if (idLoad === "") {
@@ -50,8 +50,8 @@ function validarIdLoad() {
 function validarIdDelete() {
 	var idDelete = document.getElementById("idDelete").value;
 	var inputIdDelete = document.getElementById("idDelete");	
-    var mensaje = document.getElementById("idError");
-	var icon = document.getElementById("iconId");
+    var mensaje = document.getElementById("idDeleteError");
+	var icon = document.getElementById("iconIdDelete");
 	var IdRegex = /^[0-9]{1,3}$/;
 	
     if (idDelete === "") {
@@ -77,15 +77,15 @@ function validarFecha() {
 	var inputFecha = document.getElementById("fecha");
     var mensaje = document.getElementById("fechaError");
 	var icon = document.getElementById("iconFecha");
-	var FechaRegex = /^\d{4}-\d{2}-\d{2}$/;	
+	var FechaRegex = /^(19|20)\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/;	
 
     if (telefono === "") {
-        mensaje.textContent = "El telefono es obligatorio.";
+        mensaje.textContent = "La fecha es obligatorio.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputFecha.style.borderColor = "red";
     } else if(!FechaRegex.test(fecha)){
-        mensaje.textContent = "El telefono admite solo numeros, además, debe estar entre 7 y 14 digitos.";
+        mensaje.textContent = "El fecha admite el formato yyyy/MM/dd";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputFecha.style.borderColor = "red";
@@ -102,7 +102,8 @@ function validarTramo_amp() {
 	var input = document.getElementById("tramo_amp");
     var mensaje = document.getElementById("tramo_ampError");
 	var icon = document.getElementById("iconTramo_amp");
-	var Regex = /^(?:\d{5,7}|\d{5,6}\.\d+|\d{7}\.\d{0,2})$/;
+	var Regex = /^(?:[1-9]\d*|[1-9]\d*\.\d{2})$/;
+	
 
     if (tramo === "") {
         mensaje.textContent = "El tramo_amp es obligatorio.";
@@ -126,7 +127,7 @@ function validarTramo_mej() {
 	var input = document.getElementById("tramo_mej");
     var mensaje = document.getElementById("tramo_mejError");
 	var icon = document.getElementById("iconTramo_mej");
-	var Regex = /^(?:\d{5,7}|\d{5,6}\.\d+|\d{7}\.\d{0,2})$/;
+	var Regex = /^(?:[1-9]\d*|[1-9]\d*\.\d{2})$/;
 
     if (tramo === "") {
         mensaje.textContent = "El tramo_mej es obligatorio.";
@@ -150,7 +151,7 @@ function validarTramo_sub() {
 	var input = document.getElementById("tramo_sub");
     var mensaje = document.getElementById("tramo_subError");
 	var icon = document.getElementById("iconTramo_sub");
-	var Regex = /^(?:\d{5,7}|\d{5,6}\.\d+|\d{7}\.\d{0,2})$/;
+	var Regex = /^(?:[1-9]\d*|[1-9]\d*\.\d{2})$/;
 
     if (tramo === "") {
         mensaje.textContent = "El tramo_sub es obligatorio.";
@@ -174,7 +175,7 @@ function validarTramo_bas() {
 	var input = document.getElementById("tramo_bas");
     var mensaje = document.getElementById("tramo_basError");
 	var icon = document.getElementById("iconTramo_bas");
-	var Regex = /^(?:\d{5,7}|\d{5,6}\.\d+|\d{7}\.\d{0,2})$/;
+	var Regex = /^(?:[1-9]\d*|[1-9]\d*\.\d{2})$/;
 
     if (tramo === "") {
         mensaje.textContent = "El tramo_bas es obligatorio.";
@@ -198,7 +199,7 @@ function validarTramo_asf() {
 	var input = document.getElementById("tramo_asf");
     var mensaje = document.getElementById("tramo_asfError");
 	var icon = document.getElementById("iconTramo_asf");
-	var Regex = /^(?:\d{5,7}|\d{5,6}\.\d+|\d{7}\.\d{0,2})$/;
+	var Regex = /^(?:[1-9]\d*|[1-9]\d*\.\d{2})$/;
 
     if (tramo === "") {
         mensaje.textContent = "El tramo_asf es obligatorio.";
@@ -222,7 +223,7 @@ function validarCunetas() {
 	var input = document.getElementById("cunetas");
     var mensaje = document.getElementById("cunetasError");
 	var icon = document.getElementById("iconCunetas");
-	var Regex = /^\d$/;
+	var Regex = /^[0-9]\d*$/;
 
     if (cunetas === "") {
         mensaje.textContent = "Las cunetas es obligatoria.";
@@ -246,7 +247,7 @@ function validarMuros() {
 	var input = document.getElementById("muros");
     var mensaje = document.getElementById("murosError");
 	var icon = document.getElementById("iconMuros");
-	var Regex = /^\d$/;
+	var Regex = /^[1-9]\d*$/;
 
     if (muros === "") {
         mensaje.textContent = "Los muros es obligatorio.";
