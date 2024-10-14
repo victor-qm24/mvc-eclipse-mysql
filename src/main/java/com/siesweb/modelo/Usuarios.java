@@ -9,12 +9,13 @@ public class Usuarios {
 	private final String telefono;
 	private final String usuario;
 	private final String password;
+	private final String estado;
 	private final int tipoDocumentoId;
 	private final int proyectoId;
 	private final int rolId;
 
 	public Usuarios(int id, String nombre, String apellido, String documento, String email, String telefono,
-			String usuario, String password, int tipoDocumentoId, int proyectoId, int rolId) {
+			String usuario, String password, String estado, int tipoDocumentoId, int proyectoId, int rolId) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -23,6 +24,7 @@ public class Usuarios {
 		this.telefono = telefono;
 		this.usuario = usuario;
 		this.password = password;
+		this.estado = estado;
 		this.tipoDocumentoId = tipoDocumentoId;
 		this.proyectoId = proyectoId;
 		this.rolId = rolId;
@@ -59,6 +61,10 @@ public class Usuarios {
 	public String getPassword() {
 		return password;
 	}
+	
+	public String getEstado() {
+		return estado;
+	}
 
 	public int getTipoDocumentoId() {
 		return tipoDocumentoId;
@@ -76,6 +82,6 @@ public class Usuarios {
 	public String toString() {
 		return "Usuarios [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", documento=" + documento
 				+ ", email=" + email + ", telefono=" + telefono + ", usuario=" + usuario + ", password=" + password
-				+ ", tipoDocumentoId=" + tipoDocumentoId + ", proyectoId=" + proyectoId + ", rolId=" + rolId + "]";
+				+ ", estado=" + estado + ", tipoDocumentoId=" + tipoDocumentoId + ", proyectoId=" + proyectoId + ", rolId=" + rolId + "]";
 	}
 }

@@ -26,8 +26,8 @@
 					class="nav-link dropdown-toggle" href="#" role="button"
 					data-bs-toggle="dropdown">Usuarios</a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
-						<li><a class="dropdown-item" href="adminActualizarUser.jsp">Actualizar</a></li>
+						<li><a class="dropdown-item" href="cargarInsercion">Agregar</a></li>
+						<li><a class="dropdown-item" href="cargarActualizacion">Actualizar</a></li>
 						<li><a class="dropdown-item" href="adminBuscarEliminarUser.jsp">Buscar - Eliminar</a></li>
 						<li><a class="dropdown-item" href="listar">Listar</a></li>
 					</ul>
@@ -98,7 +98,7 @@
 				        <thead class="table-primary">
 				            <tr>				                
 				                <th>ID</th>
-				                
+				                <th>Fecha</th>
 				                <th>Observacion</th>				                
 				                <th>Proyecto</th>
 				                <th>Tema</th>
@@ -113,7 +113,7 @@
 					            	for(Solicitudes solicitud:listaSolicitudes){
 					            		out.print("<tr>");
 					            		out.print("<td>" + solicitud.getId() + "</td>");
-					            		//out.print("<td>" + solicitud.getFecha() + "</td>");
+					            		out.print("<td>" + solicitud.getFecha() + "</td>");
 					            		out.print("<td>" + solicitud.getObservacion() + "</td>");
 					            		
 					            		if(solicitud.getProyectoId() == 1){
@@ -136,6 +136,13 @@
 			    </div>
         	</div>
         </div>
-    </section>	
+    </section>
+    <footer class="p-2 bg-dark text-white text-center">
+        <ul class="list-unstyled">
+            <li class="d-inline p-2"><i class="material-icons">phone</i> +57-313-573-5659</li>
+            <li class="d-inline p-2"><i class="material-icons">facebook</i> /sieswebvial</li>
+            <li class="d-inline p-2"><i class="material-icons">mail</i> sieswebvial@gmail.com</li>
+        </ul>
+    </footer>	
 </body>
 </html>

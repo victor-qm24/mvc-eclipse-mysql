@@ -31,7 +31,7 @@
                             <div class="formulario__grupo" id="grupo__usuario">
                                 <label for="usuario" class="form-label formulario__label">Usuario</label>
                                 <div class="formulario__grupo-input d-flex">
-                                    <input type="text" name="usuario" id="usuario" class="formulario__input form-control mb-2">
+                                    <input type="text" name="usuario" id="usuario" class="formulario__input form-control mb-2" oninput="validarUsuario()">
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconUsuario">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="usuarioError"></p>
@@ -40,7 +40,7 @@
                             <div class="formulario__grupo" id="grupo__password">
                                 <label for="usuario" class="form-label formulario__label">Password</label>
                                 <div class="formulario__grupo-input d-flex">
-                                    <input type="password" name="password" id="password" class="formulario__input form-control">
+                                    <input type="password" name="password" id="password" class="formulario__input form-control" oninput="validarPassword()">
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconPassword">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="passwordError"></p>
@@ -53,7 +53,7 @@
                                 <p><i class="material-icons me-2">assignment_late</i><b>Error: </b>Datos no registrados en la base de datos..</p>
                             </div>
                             <div class="formulario__grupo formulario__grupo-btn-enviar mt-4">
-                                <a href="Registro.jsp" class="">Eres nuevo, registrate.</a>
+                                <a href="cargarRegistro" class="">Eres nuevo, registrate.</a>
                                 <input type="submit" value="Iniciar sesión" class="btn btn-primary float-end formulario__btn">
                                 <p class="formulario__mensaje-exito text-success d-none" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
                             </div>
@@ -67,7 +67,7 @@
         </div>
     </section>
 
-    <footer class="p-2 bg-dark text-white text-center position-absolute w-100 bottom-0">
+    <footer class="p-2 bg-dark text-white text-center">
         <ul class="list-unstyled">
             <li class="d-inline p-2"><i class="material-icons">phone</i> +57-313-573-5659</li>
             <li class="d-inline p-2"><i class="material-icons">facebook</i> /sieswebvial</li>

@@ -26,8 +26,8 @@
 					class="nav-link dropdown-toggle" href="#" role="button"
 					data-bs-toggle="dropdown">Usuarios</a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
-						<li><a class="dropdown-item" href="adminActualizarUser.jsp">Actualizar</a></li>
+						<li><a class="dropdown-item" href="cargarInsercion">Agregar</a></li>
+						<li><a class="dropdown-item" href="cargarActualizacion">Actualizar</a></li>
 						<li><a class="dropdown-item" href="adminBuscarEliminarUser.jsp">Buscar - Eliminar</a></li>
 						<li><a class="dropdown-item" href="listar">Listar</a></li>
 					</ul>
@@ -171,7 +171,7 @@
         	</div>
         </div>
     </section>
-    <footer class="p-2 bg-dark text-white text-center position-absolute w-100 bottom-0">
+    <footer class="p-2 bg-dark text-white text-center">
         <ul class="list-unstyled">
             <li class="d-inline p-2"><i class="material-icons">phone</i> +57-313-573-5659</li>
             <li class="d-inline p-2"><i class="material-icons">facebook</i> /sieswebvial</li>

@@ -269,6 +269,25 @@ function validarPassword() {
 	}
 }
 
+function validarEstado() {
+    var estado = document.getElementById("estado").value;
+	var inputEstado = document.getElementById("estaddo");
+    var mensaje = document.getElementById("estadoError");
+	var icon = document.getElementById("iconEstado");
+	
+    if (estado === "" || estado === "-") {
+        mensaje.textContent = "El estado es obligatorio.";
+        mensaje.style.color = "red";
+		icon.style.color = "red";
+		inputEstado.style.borderColor = "red";
+    } else {
+		mensaje.textContent = "";
+		mensaje.style.color = "green";
+		icon.style.color = "green";
+		inputEstado.style.borderColor = "green";
+	}
+}
+
 function validarRol() {
     var rol = document.getElementById("rol").value;
 	var inputRol = document.getElementById("rol");

@@ -23,4 +23,19 @@ public class ProyectosDAO {
 		}
 		return null;
 	}
+	
+	public List<Proyectos> obtenerProyectos() throws SQLException {
+		List<Proyectos> proyectos = new ArrayList<>();
+		String sql = "SELECT * FROM Proyectos";
+		try (Connection conn = ConexionBD.getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				Proyectos proyecto = new Proyectos(rs.getInt("id"), rs.getString("titulo"), rs.getString("estado"), rs.getString("ubicacion"));
+				proyectos.add(proyecto);
+			}
+		}
+		return proyectos;
+	}
+		
 }

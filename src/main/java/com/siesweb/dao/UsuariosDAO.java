@@ -8,16 +8,15 @@ import com.siesweb.modelo.*;
 
 public class UsuariosDAO {
 
-	public Usuarios buscarDatosSesion(String user, String pass) throws SQLException {
-		String sql = "SELECT * FROM Usuarios WHERE usuario = ? and contraseña = ?";
+	public Usuarios buscarDatosSesion(String user) throws SQLException {
+		String sql = "SELECT * FROM Usuarios WHERE usuario = ?";
 		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, user);
-			pstmt.setString(2, pass);
+			pstmt.setString(1, user);			
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return new Usuarios(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"),
 						rs.getString("documento"), rs.getString("email"), rs.getString("telefono"),
-						rs.getString("usuario"), rs.getString("contraseña"), rs.getInt("tipo_documento_id_usuario"),
+						rs.getString("usuario"), rs.getString("contraseña"), rs.getString("estado"), rs.getInt("tipo_documento_id_usuario"),
 						rs.getInt("proyecto_id_usuario"), rs.getInt("rol_id_usuario"));
 			}
 		}
@@ -26,8 +25,8 @@ public class UsuariosDAO {
 
 	public void agregarUsuario(Usuarios usuario) throws SQLException {
 		String sql = "INSERT INTO Usuarios (nombre, apellido, documento, email, "
-				+ "telefono, usuario, contraseña, tipo_documento_id_usuario, "
-				+ "proyecto_id_usuario, rol_id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "telefono, usuario, contraseña, estado, tipo_documento_id_usuario, "
+				+ "proyecto_id_usuario, rol_id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, usuario.getNombre());
 			pstmt.setString(2, usuario.getApellido());
@@ -36,16 +35,17 @@ public class UsuariosDAO {
 			pstmt.setString(5, usuario.getTelefono());
 			pstmt.setString(6, usuario.getUsuario());
 			pstmt.setString(7, usuario.getPassword());
-			pstmt.setInt(8, usuario.getTipoDocumentoId());
-			pstmt.setInt(9, usuario.getProyectoId());
-			pstmt.setInt(10, usuario.getRolId());
+			pstmt.setString(8, usuario.getEstado());
+			pstmt.setInt(9, usuario.getTipoDocumentoId());
+			pstmt.setInt(10, usuario.getProyectoId());
+			pstmt.setInt(11, usuario.getRolId());
 			pstmt.executeUpdate();
 		}
 	}
 
 	public void actualizarUsuario(Usuarios usuario) throws SQLException {
 		String sql = "UPDATE Usuarios SET nombre = ?, apellido = ?, documento = ?, "
-				+ "email = ?, telefono = ?, usuario = ?, contraseña = ?, "
+				+ "email = ?, telefono = ?, usuario = ?, contraseña = ?, estado = ?, "
 				+ "tipo_documento_id_usuario = ?, proyecto_id_usuario = ?," + "rol_id_usuario = ? WHERE id = ?";
 		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, usuario.getNombre());
@@ -55,10 +55,11 @@ public class UsuariosDAO {
 			pstmt.setString(5, usuario.getTelefono());
 			pstmt.setString(6, usuario.getUsuario());
 			pstmt.setString(7, usuario.getPassword());
-			pstmt.setInt(8, usuario.getTipoDocumentoId());
-			pstmt.setInt(9, usuario.getProyectoId());
-			pstmt.setInt(10, usuario.getRolId());
-			pstmt.setInt(11, usuario.getId());
+			pstmt.setString(8, usuario.getEstado());
+			pstmt.setInt(9, usuario.getTipoDocumentoId());
+			pstmt.setInt(10, usuario.getProyectoId());
+			pstmt.setInt(11, usuario.getRolId());
+			pstmt.setInt(12, usuario.getId());
 			pstmt.executeUpdate();
 		}
 	}
@@ -80,7 +81,7 @@ public class UsuariosDAO {
 			while (rs.next()) {
 				Usuarios usuario = new Usuarios(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"),
 						rs.getString("documento"), rs.getString("email"), rs.getString("telefono"),
-						rs.getString("usuario"), rs.getString("contraseña"), rs.getInt("tipo_documento_id_usuario"),
+						rs.getString("usuario"), rs.getString("contraseña"), rs.getString("estado"), rs.getInt("tipo_documento_id_usuario"),
 						rs.getInt("proyecto_id_usuario"), rs.getInt("rol_id_usuario"));
 				usuarios.add(usuario);
 			}
@@ -97,7 +98,7 @@ public class UsuariosDAO {
 			while (rs.next()) {
 				Usuarios usuario = new Usuarios(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"),
 						rs.getString("documento"), rs.getString("email"), rs.getString("telefono"),
-						rs.getString("usuario"), rs.getString("contraseña"), rs.getInt("tipo_documento_id_usuario"),
+						rs.getString("usuario"), rs.getString("contraseña"), rs.getString("estado"), rs.getInt("tipo_documento_id_usuario"),
 						rs.getInt("proyecto_id_usuario"), rs.getInt("rol_id_usuario"));
 				usuarios.add(usuario);
 			}

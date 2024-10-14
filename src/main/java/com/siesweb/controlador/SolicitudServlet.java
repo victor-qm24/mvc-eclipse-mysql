@@ -66,7 +66,7 @@ public class SolicitudServlet extends HttpServlet {
 					if (!solicitud.isEmpty()) {
 						int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
 						if (respuesta == JOptionPane.YES_OPTION) {
-							solicitudDAO.actualizarSolicitud(new Solicitudes(id,"",estado,0,0,0));
+							solicitudDAO.actualizarSolicitud(new Solicitudes(id,"","",estado,0,0,0));
 							RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
 							dispatcher.forward(request, response);
 						} else {

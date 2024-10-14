@@ -18,7 +18,7 @@ public class SolicitudesDAO {
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Solicitudes solicitud = new Solicitudes(rs.getInt("id"), rs.getString("observacion"), rs.getString("estado"), rs.getInt("proyecto_id_solicitud"),
+				Solicitudes solicitud = new Solicitudes(rs.getInt("id"), rs.getString("fecha"), rs.getString("observacion"), rs.getString("estado"), rs.getInt("proyecto_id_solicitud"),
 						rs.getInt("tema_id_solicitud"), rs.getInt("usuario_id_solicitud"));
 				solicitudes.add(solicitud);
 			}
@@ -41,7 +41,7 @@ public class SolicitudesDAO {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)) {
 			while (rs.next()) {
-				Solicitudes solicitud = new Solicitudes(rs.getInt("id"), rs.getString("observacion"), rs.getString("estado"), rs.getInt("proyecto_id_solicitud"),
+				Solicitudes solicitud = new Solicitudes(rs.getInt("id"), rs.getString("fecha"), rs.getString("observacion"), rs.getString("estado"), rs.getInt("proyecto_id_solicitud"),
 						rs.getInt("tema_id_solicitud"), rs.getInt("usuario_id_solicitud"));
 				solicitudes.add(solicitud);
 			}

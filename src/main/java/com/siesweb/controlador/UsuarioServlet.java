@@ -13,11 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 import com.siesweb.modelo.*;
 import com.siesweb.dao.*;
 
-@WebServlet({ "/UsuarioServlet", "/iniciarSesion", "/registrar", "/actualizar", "/eliminar", "/listar", "/buscar"})
+@WebServlet({ "/UsuarioServlet", "/iniciarSesion", "/registrar", "/insertar","/actualizar", "/eliminar", "/listar", "/buscar"
+	,"/cargarRegistro","/cargarInsercion","/cargarActualizacion"})
 public class UsuarioServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -29,12 +31,13 @@ public class UsuarioServlet extends HttpServlet {
 
 	public UsuarioServlet() {
 		super();
-	}
+		
+	}	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String action = request.getServletPath();
+		String action = request.getServletPath();		
 
 		switch (action) {
 		case "/iniciarSesion":
@@ -42,6 +45,9 @@ public class UsuarioServlet extends HttpServlet {
 			break;
 		case "/registrar":
 			registrar(request, response);
+			break;
+		case "/insertar":
+			insertar(request, response);
 			break;
 		case "/actualizar":
 			actualizar(request, response);
@@ -54,7 +60,16 @@ public class UsuarioServlet extends HttpServlet {
 			break;
 		case "/buscar":
 			buscar(request, response);
-			break;		
+			break;
+		case "/cargarRegistro":			
+			loadRegistro(request, response);
+			break;
+		case "/cargarInsercion":			
+			loadInsercion(request, response);
+			break;
+		case "/cargarActualizacion":			
+			loadActualizacion(request, response);
+			break;
 		default:
 			System.out.println("No se reconoce la opcion enviada!");
 		}
@@ -70,11 +85,14 @@ public class UsuarioServlet extends HttpServlet {
 
 		String user = request.getParameter("usuario");
 		String pass = request.getParameter("password");
+		//Encriptar la contraseña
+		
 
 		if (!user.isEmpty() && !pass.isEmpty()) {
 			try {
-				Usuarios usuario = usuarioDAO.buscarDatosSesion(user, pass);
-				if (usuario != null) {
+				Usuarios usuario = usuarioDAO.buscarDatosSesion(user);
+				String passHash = usuario.getPassword();
+				if (BCrypt.checkpw(pass, passHash)) {
 					int idRol = usuario.getRolId();
 					String nombreUser = usuario.getNombre();
 					request.setAttribute("nombreUser", nombreUser);
@@ -113,7 +131,11 @@ public class UsuarioServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String telefono = request.getParameter("telefono");
 		String usuario = request.getParameter("usuario");
+		
 		String password = request.getParameter("password");
+		String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		
+		String estado = "Activo";
 		String tipo = request.getParameter("tipo");
 		String rol = request.getParameter("rol");
 		String proyecto = request.getParameter("proyecto");
@@ -134,7 +156,68 @@ public class UsuarioServlet extends HttpServlet {
 					if (tipoDocumento != null && proy != null && rl != null) {
 
 						usuarioDAO.agregarUsuario(new Usuarios(0, nombre, apellido, documento, email, telefono, usuario,
-								password, tipoDocumento.getId(), proy.getId(), rl.getId()));
+								hashedPassword, estado, tipoDocumento.getId(), proy.getId(), rl.getId()));
+						JOptionPane.showMessageDialog(null, "Usuario agregado con exito.", "!Advertencia¡",
+								JOptionPane.INFORMATION_MESSAGE);
+						RequestDispatcher dispatcher = request.getRequestDispatcher("Registro.jsp");
+						dispatcher.forward(request, response);
+					} else {
+						System.out.println("No se pudo obtener el id de tipo, rol o proyecto.");
+					}
+				} else {
+					System.out.println("Uno o varios campos no son validos.");
+					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
+							JOptionPane.INFORMATION_MESSAGE);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("Registro.jsp");
+					dispatcher.forward(request, response);
+				}
+			} else {
+				System.out.println("Debe llenar todos los campos.");
+				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("Registro.jsp");
+				dispatcher.forward(request, response);
+			}
+		} catch (SQLException e) {
+			System.out.println("No se pudo obtener el Id de rol, tipo y proyecto" + e);
+		}
+	}
+	
+	private void insertar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String nombre = request.getParameter("nombre");
+		String apellido = request.getParameter("apellido");
+		String documento = request.getParameter("documento");
+		String email = request.getParameter("email");
+		String telefono = request.getParameter("telefono");
+		String usuario = request.getParameter("usuario");
+		
+		String password = request.getParameter("password");
+		String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		
+		String estado = request.getParameter("estado");
+		String tipo = request.getParameter("tipo");
+		String rol = request.getParameter("rol");
+		String proyecto = request.getParameter("proyecto");
+
+		try {
+			TiposDocumentos tipoDocumento = tiposDocumentosDAO.obtenerIdTipo(tipo);
+			Proyectos proy = proyectosDAO.obtenerIdProyecto(proyecto);
+			Roles rl = rolesDAO.obtenerIdRol(rol);
+
+			if (!nombre.isEmpty() && !apellido.isEmpty() && !documento.isEmpty() && !email.isEmpty()
+					&& !telefono.isEmpty() && !usuario.isEmpty() && !password.isEmpty() && !estado.isEmpty() 
+					&& !tipo.isEmpty() && !proyecto.isEmpty() && !rol.isEmpty()) {
+
+				if (validarNombre(nombre) && validarNombre(apellido) && validarDocumento(documento)
+						&& validarEmail(email) && validarTelefono(telefono) && validarUsuario(usuario)
+						&& validarPassword(password)) {
+
+					if (tipoDocumento != null && proy != null && rl != null) {
+
+						usuarioDAO.agregarUsuario(new Usuarios(0, nombre, apellido, documento, email, telefono, usuario,
+								hashedPassword, estado, tipoDocumento.getId(), proy.getId(), rl.getId()));
 						JOptionPane.showMessageDialog(null, "Usuario agregado con exito.", "!Advertencia¡",
 								JOptionPane.INFORMATION_MESSAGE);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("Registro.jsp");
@@ -170,7 +253,11 @@ public class UsuarioServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String telefono = request.getParameter("telefono");
 		String usuario = request.getParameter("usuario");
+		
 		String password = request.getParameter("password");
+		String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		
+		String estado = request.getParameter("estado");
 		String tipo = request.getParameter("tipo");
 		String rol = request.getParameter("rol");
 		String proyecto = request.getParameter("proyecto");
@@ -178,13 +265,12 @@ public class UsuarioServlet extends HttpServlet {
 		if (!idString.isEmpty()) {
 
 			if (!nombre.isEmpty() && !apellido.isEmpty() && !documento.isEmpty() && !email.isEmpty()
-					&& !telefono.isEmpty() && !usuario.isEmpty() && !password.isEmpty() && !tipo.isEmpty()
-					&& !proyecto.isEmpty() && !rol.isEmpty()) {
+					&& !telefono.isEmpty() && !usuario.isEmpty() && !password.isEmpty() && !estado.isEmpty() &&
+					!tipo.isEmpty() && !proyecto.isEmpty() && !rol.isEmpty()) {
 
 				if (validarId(idString) && validarNombre(nombre) && validarNombre(apellido)
 						&& validarDocumento(documento) && validarEmail(email) && validarTelefono(telefono)
-						&& validarUsuario(usuario) && validarPassword(password) && tipo != "-" && rol != "-"
-						&& proyecto != "-") {
+						&& validarUsuario(usuario) && validarPassword(password)) {
 					
 					int id = Integer.parseInt(idString);
 					try {						
@@ -198,7 +284,7 @@ public class UsuarioServlet extends HttpServlet {
 							if (respuesta == JOptionPane.YES_OPTION) {
 
 								usuarioDAO.actualizarUsuario(new Usuarios(id, nombre, apellido, documento, email,
-										telefono, usuario, password, tipoDocumento.getId(), proy.getId(), rl.getId()));
+										telefono, usuario, hashedPassword, estado, tipoDocumento.getId(), proy.getId(), rl.getId()));
 								RequestDispatcher dispatcher = request.getRequestDispatcher("adminActualizarUser.jsp");
 								dispatcher.forward(request, response);
 							} else {
@@ -325,6 +411,52 @@ public class UsuarioServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 	}
+	
+	private void loadRegistro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        try {
+            List<TiposDocumentos> tipos = tiposDocumentosDAO.obtenerTipos();
+            List<Roles> roles = rolesDAO.obtenerRoles();
+            List<Proyectos> proyectos = proyectosDAO.obtenerProyectos();            
+            request.setAttribute("listaTipos", tipos);
+            request.setAttribute("listaRoles", roles);
+            request.setAttribute("listaProyectos", proyectos);           
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Registro.jsp");
+			dispatcher.forward(request, response);
+            
+        } catch (SQLException e) {
+        	System.out.println("no se agrego nada");
+        }
+    }
+	private void loadInsercion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        try {
+            List<TiposDocumentos> tipos = tiposDocumentosDAO.obtenerTipos();
+            List<Roles> roles = rolesDAO.obtenerRoles();
+            List<Proyectos> proyectos = proyectosDAO.obtenerProyectos();            
+            request.setAttribute("listaTipos", tipos);
+            request.setAttribute("listaRoles", roles);
+            request.setAttribute("listaProyectos", proyectos);           
+            RequestDispatcher dispatcher = request.getRequestDispatcher("adminAgregarUser.jsp");
+			dispatcher.forward(request, response);
+            
+        } catch (SQLException e) {
+        	System.out.println("no se agrego nada");
+        }
+    }
+	private void loadActualizacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        try {
+            List<TiposDocumentos> tipos = tiposDocumentosDAO.obtenerTipos();
+            List<Roles> roles = rolesDAO.obtenerRoles();
+            List<Proyectos> proyectos = proyectosDAO.obtenerProyectos();            
+            request.setAttribute("listaTipos", tipos);
+            request.setAttribute("listaRoles", roles);
+            request.setAttribute("listaProyectos", proyectos);           
+            RequestDispatcher dispatcher = request.getRequestDispatcher("adminActualizarUser.jsp");
+			dispatcher.forward(request, response);
+            
+        } catch (SQLException e) {
+        	System.out.println("no se agrego nada");
+        }
+    }
 
 	public static boolean validarId(String id) {
 		String regex = "^[0-9]{1,3}$";

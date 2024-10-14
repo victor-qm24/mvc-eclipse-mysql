@@ -26,8 +26,8 @@
 					class="nav-link dropdown-toggle" href="#" role="button"
 					data-bs-toggle="dropdown">Usuarios</a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
-						<li><a class="dropdown-item" href="adminActualizarUser.jsp">Actualizar</a></li>
+						<li><a class="dropdown-item" href="cargarInsercion">Agregar</a></li>
+						<li><a class="dropdown-item" href="cargarActualizacion">Actualizar</a></li>
 						<li><a class="dropdown-item" href="adminBuscarEliminarUser.jsp">Buscar - Eliminar</a></li>
 						<li><a class="dropdown-item" href="listar">Listar</a></li>
 					</ul>

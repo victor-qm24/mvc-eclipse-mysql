@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.siesweb.modelo.TiposDocumentos" %>
+<%@ page import="com.siesweb.modelo.Roles" %>
+<%@ page import="com.siesweb.modelo.Proyectos" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +69,7 @@
                     		<!--grupo__id-->
                             <div class="formulario__grupo" id="grupo__id">                                
                                 <div class="formulario__grupo-input d-flex">
-                                    <input type="text" name="idActualizar" id="idActualizar" class=" form-control formulario__input mb-2" placeholder="Id" oninput="validarIdActualizar()">
+                                    <input type="text" name="idActualizar" id="idActualizar" class=" form-control formulario__input" placeholder="Id" oninput="validarIdActualizar()">
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconIdActualizar">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="idActualizarError"></p>
@@ -77,7 +81,7 @@
                             <!--grupo__nombre-->
                             <div class="formulario__grupo" id="grupo__nombre">                                
                                 <div class="formulario__grupo-input d-flex">
-                                    <input type="text" name="nombre" id="nombre" class=" form-control formulario__input mb-2" placeholder="Nombres" oninput="validarNombre()">
+                                    <input type="text" name="nombre" id="nombre" class=" form-control formulario__input" placeholder="Nombres" oninput="validarNombre()">
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconNombre">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="nombreError"></p>
@@ -87,7 +91,7 @@
                             <!--grupo__apellidos-->
                             <div class="formulario__grupo" id="grupo__apellido">                                
                                 <div class="formulario__grupo-input d-flex">
-                                    <input type="text" name="apellido" id="apellido" class=" form-control formulario__input mb-2" placeholder="Apellidos" oninput="validarApellido()">
+                                    <input type="text" name="apellido" id="apellido" class=" form-control formulario__input" placeholder="Apellidos" oninput="validarApellido()">
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconApellido">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="apellidoError"></p>
@@ -100,11 +104,17 @@
                             <div class="formulario__grupo" id="grupo__tipo">
                                 <label for="tipo" class="form-label formulario__label">Tipo de documento</label>                                
                                 <div class="formulario__grupo-input d-flex">
-                                    <select name="tipo" id="tipo" class="form-select formulario__input mb-2" oninput="validarTipo()">                                        
-                                        <option value="-">-</option>
-                                        <option value="Cedula de ciudadania">Cedula de ciudadania</option>
-                                        <option value="Cedula extrangera">Cedula extrangera</option>
-                                        <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+                                    <select name="tipo" id="tipo" class="form-select formulario__input" oninput="validarTipo()">                                        
+                                        <%
+								            List<TiposDocumentos> listaTipos = (List<TiposDocumentos>) request.getAttribute("listaTipos");
+								            if(listaTipos != null){
+                                				for (TiposDocumentos tipo : listaTipos) {
+								        %>
+								            <option value="<%= tipo.getDescripcion_tipo() %>"><%= tipo.getDescripcion_tipo() %></option>
+								        <%
+								            	}
+								            }
+								        %>
                                     </select>
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconTipo">check_circle</i>
                                 </div>
@@ -116,7 +126,7 @@
                             <div class="formulario__grupo" id="grupo__documento">
                                 <label for="documento" class="form-label formulario__label">Documento</label>                                
                                 <div class="formulario__grupo-input d-flex">
-                                    <input type="text" name="documento" id="documento" class=" form-control formulario__input mb-2" placeholder="Documento" oninput="validarDocumento()">
+                                    <input type="text" name="documento" id="documento" class=" form-control formulario__input" placeholder="Documento" oninput="validarDocumento()">
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconDocumento">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="documentoError"></p>
@@ -128,7 +138,7 @@
                             <!--grupo__email-->
                             <div class="formulario__grupo" id="grupo__email">                                
                                 <div class="formulario__grupo-input d-flex">
-                                    <input type="text" name="email" id="email" class=" form-control formulario__input mb-2" placeholder="Email" oninput="validarEmail()">
+                                    <input type="text" name="email" id="email" class=" form-control formulario__input" placeholder="Email" oninput="validarEmail()">
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconEmail">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="emailError"></p>
@@ -150,7 +160,7 @@
                             <!--grupo-usuario-->
                             <div class="formulario__grupo" id="grupo__usuario">                                
                                 <div class="formulario__grupo-input d-flex">
-                                    <input type="text" name="usuario" id="usuario" class="formulario__input form-control mb-2" oninput="validarUsuario()" placeholder="Usuario">
+                                    <input type="text" name="usuario" id="usuario" class="formulario__input form-control" oninput="validarUsuario()" placeholder="Usuario">
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconUsuario">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="usuarioError"></p>
@@ -173,11 +183,17 @@
                             <div class="formulario__grupo" id="grupo__rol">
                                 <label for="rol" class="form-label formulario__label">Rol</label>                                
                                 <div class="formulario__grupo-input d-flex">
-                                    <select name="rol" id="rol" class="form-select formulario__input mb-2" oninput="validarRol()">
-                                        <option value="-">-</option>
-                                        <option value="Administrador">Administrador</option>
-                                        <option value="Cliente">Cliente</option>
-                                        <option value="Invitado">Invitado</option>                                        
+                                    <select name="rol" id="rol" class="form-select formulario__input" oninput="validarRol()">
+                                        <%
+								            List<Roles> listaRol = (List<Roles>) request.getAttribute("listaRoles");
+								            if(listaRol != null){
+                                				for (Roles rol : listaRol) {
+								        %>
+								            <option value="<%= rol.getDescripcion_rol() %>"><%= rol.getDescripcion_rol() %></option>
+								        <%
+								            	}
+								            }
+								        %>                                        
                                     </select>
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconRol">check_circle</i>
                                 </div>
@@ -189,14 +205,39 @@
                             <div class="formulario__grupo" id="grupo__proyecto">
                                 <label for="proyecto" class="form-label formulario__label">Proyecto</label>                                
                                 <div class="formulario__grupo-input d-flex">
-                                    <select name="proyecto" id="proyecto" class="form-select formulario__input mb-2" oninput="validarProyecto()">
-                                        <option value="-">-</option>
-                                        <option value="Pavimentacion PALMITAS-LERMA">Pavimentacion PALMITAS-LERMA</option>                                        
+                                    <select name="proyecto" id="proyecto" class="form-select formulario__input" oninput="validarProyecto()">
+                                        <%
+								            List<Proyectos> listaProyecto = (List<Proyectos>) request.getAttribute("listaProyectos");
+								            if(listaProyecto != null){
+                                				for (Proyectos proyecto : listaProyecto) {
+								        %>
+								            <option value="<%= proyecto.getTitulo() %>"><%= proyecto.getTitulo() %></option>
+								        <%
+								            	}
+								            }
+								        %>                                        
                                     </select>
                                     <i class="formulario__validacion-estado material-icons ms-1" id="iconProyecto">check_circle</i>
                                 </div>
                                 <p class="formulario__input-error" id="proyectoError"></p>
                             </div>                          
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-sm-6">
+                            <!--grupo__estado-->
+                            <div class="formulario__grupo" id="grupo__estado">
+                                <label for="estado" class="form-label formulario__label">Estado</label>                                
+                                <div class="formulario__grupo-input d-flex">
+                                    <select name="estado" id="estado" class="form-select formulario__input" oninput="validarEstado()">
+                                        <option value="-">-</option>
+                                        <option value="Activo">Activo</option>
+                                        <option value="Inactivo">Inactivo</option>                                                                              
+                                    </select>
+                                    <i class="formulario__validacion-estado material-icons ms-1" id="iconEstado">check_circle</i>
+                                </div>
+                                <p class="formulario__input-error" id="estadoError"></p>
+                            </div>                            
                         </div>
                     </div>   
                     <div class="row mt-4">
@@ -219,7 +260,7 @@
             </div>
         </div>
     </section>
-    <footer class="p-2 bg-dark text-white text-center position-absolute w-100 bottom-0">
+    <footer class="p-2 bg-dark text-white text-center">
         <ul class="list-unstyled">
             <li class="d-inline p-2"><i class="material-icons">phone</i> +57-313-573-5659</li>
             <li class="d-inline p-2"><i class="material-icons">facebook</i> /sieswebvial</li>
