@@ -53,6 +53,7 @@
 						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
 						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
 						<li><a class="dropdown-item" href="adminTema.jsp">Temas</a></li>
+						<li><a class="dropdown-item" href="logout">Cerrar sesión</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -190,12 +191,18 @@
         	</div>
         </div>
 	</section>
-	<footer class="p-2 bg-dark text-white text-center">
-        <ul class="list-unstyled">
-            <li class="d-inline p-2"><i class="material-icons">phone</i> +57-313-573-5659</li>
-            <li class="d-inline p-2"><i class="material-icons">facebook</i> /sieswebvial</li>
-            <li class="d-inline p-2"><i class="material-icons">mail</i> sieswebvial@gmail.com</li>
-        </ul>
+	<footer class="p-2 bg-dark text-white text-center position-absolute w-100 bottom-0">
+    	<div class="row">
+    		<div class="col-sm-3"></div>
+    		<div class="col-sm-6">
+	   			<ul class="list-unstyled">
+		            <li class="d-inline p-2"><i class="material-icons">phone</i> +57-313-573-5659</li>
+		            <li class="d-inline p-2"><i class="material-icons">facebook</i> /sieswebvial</li>
+		            <li class="d-inline p-2"><i class="material-icons">mail</i> sieswebvial@gmail.com</li>
+		        </ul>
+    		</div>
+    		<div class="col-sm-3"></div>
+    	</div>        
     </footer>
     <script type="text/javascript" src="javaScript/validateAvances.js"></script>
 </body>

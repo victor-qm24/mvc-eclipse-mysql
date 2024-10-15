@@ -105,4 +105,13 @@ public class UsuariosDAO {
 		}
 		return usuarios;
 	}
+	
+	public void inactivarUsuario(Usuarios usuario) throws SQLException {
+		String sql = "UPDATE Usuarios SET estado = ? WHERE id = ?";
+		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, usuario.getEstado());			
+			pstmt.setInt(2, usuario.getId());
+			pstmt.executeUpdate();
+		}
+	}
 }

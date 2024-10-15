@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.siesweb.modelo.Usuarios"%>
+<%@ page import="javax.servlet.http.HttpSession"%>
+<%@ page import="javax.servlet.RequestDispatcher"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +14,13 @@
 <body>
 	<nav class="navbar navbar-expand-sm fixed-top bg-light">
 		<div class="container-fluid">
-			<ul>
+			<ul class="d-flex justify-content-center align-items-center nav-justified"> 
 				<li class="d-inline"><a href="admin.jsp" class="navbar-brand"><img
 						src="imagenes/logo_siesweb.jpg" alt="" class="img-fluid"></a></li>
 				<li class="d-inline"><a href="#" class="navbar-brand"><img
 						src="imagenes/logo-ing-vias.PNG" alt="" class="img-fluid"></a></li>
 			</ul>
-			<ul class="nav nav-pills">
+			<ul class="nav nav-pills d-flex justify-content-center align-items-center nav-justified">
 				<li class="nav-item"><a class="nav-link" href="admin.jsp">Inicio</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" role="button"
@@ -49,16 +50,22 @@
 						<li><a class="dropdown-item" href="adminRol.jsp">Roles</a></li>
 						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
 						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
-						<li><a class="dropdown-item" href="adminTema.jsp">Temas</a></li>
+						<li><a class="dropdown-item" href="adminTema.jsp">Temas</a></li>						
 					</ul>
 				</li>
+				<li><a class="dropdown-item" href="logout"><i class="material-icons text-primary">logout</i></a></li>
 			</ul>
 		</div>
 	</nav>
     <section class="container-fluid p-3 border-bottom" style="margin-top: 100px;" id="sec-inicio">
-        <% 
-        	String name = (String) request.getAttribute("nombreUser");
-        	out.print("<h1> !Bienvenido <strong>" + name + "</strong>¡</h1>");
+        <% 	
+        	if (session != null && session.getAttribute("nombreUser") != null) {
+	        	String name = (String) session.getAttribute("nombreUser");
+	        	out.print("<h1> !Bienvenido <strong>" + name + "</strong>¡</h1>");
+        	}else {
+        		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+    			dispatcher.forward(request, response);
+            }
         %>
         <hr>
         <div class="row mt-4">
@@ -93,11 +100,17 @@
         </div>
     </section>
     <footer class="p-2 bg-dark text-white text-center">
-        <ul class="list-unstyled">
-            <li class="d-inline p-2"><i class="material-icons">phone</i> +57-313-573-5659</li>
-            <li class="d-inline p-2"><i class="material-icons">facebook</i> /sieswebvial</li>
-            <li class="d-inline p-2"><i class="material-icons">mail</i> sieswebvial@gmail.com</li>
-        </ul>
+        <div class="row">
+    		<div class="col-sm-3"></div>
+    		<div class="col-sm-6">
+	   			<ul class="list-unstyled">
+		            <li class="d-inline p-2"><i class="material-icons">phone</i> +57-313-573-5659</li>
+		            <li class="d-inline p-2"><i class="material-icons">facebook</i> /sieswebvial</li>
+		            <li class="d-inline p-2"><i class="material-icons">mail</i> sieswebvial@gmail.com</li>
+		        </ul>
+    		</div>
+    		<div class="col-sm-3"></div>
+    	</div>
     </footer>
 </body>
 </html>

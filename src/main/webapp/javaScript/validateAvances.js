@@ -79,8 +79,8 @@ function validarFecha() {
 	var icon = document.getElementById("iconFecha");
 	var FechaRegex = /^(19|20)\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/;	
 
-    if (telefono === "") {
-        mensaje.textContent = "La fecha es obligatorio.";
+    if (fecha === "") {
+        mensaje.textContent = "La fecha es obligatoria.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputFecha.style.borderColor = "red";
@@ -226,12 +226,12 @@ function validarCunetas() {
 	var Regex = /^[0-9]\d*$/;
 
     if (cunetas === "") {
-        mensaje.textContent = "Las cunetas es obligatoria.";
+        mensaje.textContent = "La cantidad de cunetas son obligatorias.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
 		input.style.borderColor = "red";
     } else if(!Regex.test(cunetas)){
-        mensaje.textContent = "Las cunetas admite solo numeros enteros";
+        mensaje.textContent = "El campo cunetas admite solo numeros enteros";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		input.style.borderColor = "red";
@@ -250,12 +250,12 @@ function validarMuros() {
 	var Regex = /^[1-9]\d*$/;
 
     if (muros === "") {
-        mensaje.textContent = "Los muros es obligatorio.";
+        mensaje.textContent = "La cantidad de muros es obligatorio.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
 		input.style.borderColor = "red";
     } else if(!Regex.test(tramo)){
-        mensaje.textContent = "Los muros admite solo numeros enteros";
+        mensaje.textContent = "El campo muros admite solo numeros enteros";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		input.style.borderColor = "red";
@@ -279,7 +279,7 @@ function validarEjecucion() {
 		icon.style.color = "red";
 		input.style.borderColor = "red";
     } else if(!Regex.test(ejecucion)){
-        mensaje.textContent = "El porcentaje de ejecucion admite solo numeros enteros y decimales postivos menores a 100%";
+        mensaje.textContent = "El campo de porcentaje de ejecucion admite solo numeros enteros y decimales postivos menores a 100%";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		input.style.borderColor = "red";

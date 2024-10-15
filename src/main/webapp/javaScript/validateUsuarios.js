@@ -71,7 +71,30 @@ function validarIdEliminar() {
 		inputIdEliminar.style.borderColor = "green";
 	}
 }
-
+function validarIdInactivar() {
+    var idInactivar = document.getElementById("idInactivar").value;
+	var inputIdInactivar = document.getElementById("idInactivar");	
+    var mensaje = document.getElementById("idInactivarError");
+	var icon = document.getElementById("iconIdInactivar");
+	var IdRegex = /^[0-9]{1,3}$/;
+	
+    if (idInactivar === "") {
+        mensaje.textContent = "El id es obligatorio.";
+        mensaje.style.color = "red";
+		icon.style.color = "red";
+		inputIdInactivar.style.borderColor = "red";
+    } else if(!IdRegex.test(idInactivar)){
+		mensaje.textContent = "El id admite solo numeros de hasta 3 cifras.";
+        mensaje.style.color = "red";
+		icon.style.color = "red";
+		inputIdInactivar.style.borderColor = "red";
+	}else{
+		mensaje.textContent = "";
+		mensaje.style.color = "green";
+		icon.style.color = "green";
+		inputIdInactivar.style.borderColor = "green";
+	}
+}
 function validarNombre() {
     var nombre = document.getElementById("nombre").value;
 	var inputNombre = document.getElementById("nombre");
@@ -129,7 +152,7 @@ function validarTipo() {
     var mensaje = document.getElementById("tipoError");
 	var icon = document.getElementById("iconTipo");
 	
-    if (tipo === "" || tipo === "-") {
+    if (tipo === "") {
         mensaje.textContent = "El tipo de documento es obligatorio.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
@@ -294,7 +317,7 @@ function validarRol() {
     var mensaje = document.getElementById("rolError");
 	var icon = document.getElementById("iconRol");
 	
-    if (rol === "" || rol === "-") {
+    if (rol === "") {
         mensaje.textContent = "El rol es obligatorio.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
@@ -313,7 +336,7 @@ function validarProyecto() {
     var mensaje = document.getElementById("proyectoError");
 	var icon = document.getElementById("iconProyecto");
 	
-    if (proyecto === "" || proyecto === "-") {
+    if (proyecto === "") {
         mensaje.textContent = "El proyecto es obligatorio.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
@@ -332,6 +355,7 @@ function validarFormulario() {
 	validarIdActualizar();
 	validarIdBuscar();
 	validarIdEliminar();
+	validarIdInactivar();
 	validarNombre();
 	validarApellido();
 	validarTipo();

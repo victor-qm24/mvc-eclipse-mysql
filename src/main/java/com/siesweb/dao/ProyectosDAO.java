@@ -37,5 +37,48 @@ public class ProyectosDAO {
 		}
 		return proyectos;
 	}
+	
+	public void insertarProyecto(Proyectos proyecto) throws SQLException {
+		String sql = "INSERT INTO Proyectos (titulo, estado, ubicacion) VALUES (?,?,?)";
+		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, proyecto.getTitulo());
+			pstmt.setString(2, proyecto.getEstado());
+			pstmt.setString(3, proyecto.getUbicacion());
+			pstmt.executeUpdate();
+		}
+	}
+	
+	public void actualizarProyecto(Proyectos proyecto) throws SQLException {
+		String sql = "UPDATE Proyectos SET titulo = ?, estado = ?, ubicacion = ? WHERE id = ?";
+		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, proyecto.getTitulo());
+			pstmt.setString(2, proyecto.getEstado());
+			pstmt.setString(3, proyecto.getUbicacion());		
+			pstmt.setInt(4, proyecto.getId());
+			pstmt.executeUpdate();
+		}
+	}
+	
+	public List<Proyectos> buscarProyecto(int id) throws SQLException {
+		List<Proyectos> proyectos = new ArrayList<>();
+		String sql = "SELECT * FROM Proyectos WHERE id = ?";
+		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Proyectos proyecto = new Proyectos(rs.getInt("id"), rs.getString("titulo"), rs.getString("estado"), rs.getString("ubicacion"));
+				proyectos.add(proyecto);
+			}
+		}
+		return proyectos;
+	}
+	
+	public void eliminarProyecto(int id) throws SQLException {
+		String sql = "DELETE FROM Proyectos WHERE id = ?";
+		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+		}
+	}
 		
 }

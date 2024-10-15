@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.siesweb.modelo.Avances"%>
+<%@ page import="java.util.List"%>    
+<%@ page import="com.siesweb.modelo.Proyectos"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,20 +14,20 @@
 <body>
 	<nav class="navbar navbar-expand-sm fixed-top bg-light">
 		<div class="container-fluid">
-			<ul>
+			<ul class="d-flex justify-content-center align-items-center nav-justified">
 				<li class="d-inline"><a href="admin.jsp" class="navbar-brand"><img
 						src="imagenes/logo_siesweb.jpg" alt="" class="img-fluid"></a></li>
 				<li class="d-inline"><a href="#" class="navbar-brand"><img
 						src="imagenes/logo-ing-vias.PNG" alt="" class="img-fluid"></a></li>
 			</ul>
-			<ul class="nav nav-pills">
+			<ul class="nav nav-pills d-flex justify-content-center align-items-center nav-justified">
 				<li class="nav-item"><a class="nav-link" href="admin.jsp">Inicio</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" role="button"
 					data-bs-toggle="dropdown">Usuarios</a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="cargarInsercion">Agregar</a></li>
-						<li><a class="dropdown-item" href="cargarActualizacion">Actualizar</a></li>
+						<li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
+						<li><a class="dropdown-item" href="adminActualizarUser.jsp">Actualizar</a></li>
 						<li><a class="dropdown-item" href="adminBuscarEliminarUser.jsp">Buscar - Eliminar</a></li>
 						<li><a class="dropdown-item" href="listar">Listar</a></li>
 					</ul>
@@ -49,13 +50,14 @@
 						<li><a class="dropdown-item" href="adminRol.jsp">Roles</a></li>
 						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
 						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
-						<li><a class="dropdown-item" href="adminTema.jsp">Temas</a></li>
+						<li><a class="dropdown-item" href="adminTema.jsp">Temas</a></li>						
 					</ul>
 				</li>
+				<li><a class="dropdown-item" href="logout"><i class="material-icons text-primary">logout</i></a></li>
 			</ul>
 		</div>
 	</nav>
-    <section class="container-fluid p-3 border-bottom" style="margin-top: 100px;" id="sec-tipo">
+    <section class="container-fluid p-3" style="margin-top: 100px;" id="sec-tipo">
         <h1><b>CRUD Proyectos</b></h1>
         <h6>Aqui puedes insertar, actualizar, eliminar y listar.</h6>        
         <div class="row p-3">
@@ -212,7 +214,7 @@
         		</div>
         	</div>
         	<div class="col-sm-6">
-        		<div class="container-fluid table-responsive" style="max-height: 100px; overflow-y: auto;">
+        		<div class="container-fluid table-responsive" style="max-height: 200px; overflow-y: auto;">
 				    <table class="table table-hover text-center">
 				        <thead class="table-primary">
 				            <tr>				                
@@ -223,16 +225,18 @@
 				            </tr>
 				        </thead>
 				        <tbody>
-				            <% /*
-				            	List<Avances> listaAvances = (List<Avances>) request.getAttribute("Avanc");
-				            	if(listaAvances != null){
-					            	for(Avances avance:listaAvances){
+				            <% 
+				            	List<Proyectos> listaProyectos = (List<Proyectos>) request.getAttribute("listaProyectos");
+				            	if(listaProyectos != null){
+					            	for(Proyectos proyecto:listaProyectos){
 					            		out.print("<tr>");
-					            		out.print("<td>" + avance.getId() + "</td>");
-					            		out.print("<td>" + avance.getFecha() + "</td>");					            		
+					            		out.print("<td>" + proyecto.getId() + "</td>");
+					            		out.print("<td>" + proyecto.getTitulo() + "</td>");
+					            		out.print("<td>" + proyecto.getEstado() + "</td>");
+					            		out.print("<td>" + proyecto.getUbicacion() + "</td>");
 					            		out.print("<tr>");
 					            	}
-				            	}*/
+				            	}
 				            %>
 				        </tbody>
 				    </table>
@@ -240,12 +244,18 @@
         	</div>
         </div>
     </section>
-    <footer class="p-2 bg-dark text-white text-center">
-        <ul class="list-unstyled">
-            <li class="d-inline p-2"><i class="material-icons">phone</i> +57-313-573-5659</li>
-            <li class="d-inline p-2"><i class="material-icons">facebook</i> /sieswebvial</li>
-            <li class="d-inline p-2"><i class="material-icons">mail</i> sieswebvial@gmail.com</li>
-        </ul>
+    <footer class="p-2 bg-dark text-white text-center position-absolute w-100 bottom-0">
+    	<div class="row">
+    		<div class="col-sm-3"></div>
+    		<div class="col-sm-6">
+	   			<ul class="list-unstyled">
+		            <li class="d-inline p-2"><i class="material-icons">phone</i> +57-313-573-5659</li>
+		            <li class="d-inline p-2"><i class="material-icons">facebook</i> /sieswebvial</li>
+		            <li class="d-inline p-2"><i class="material-icons">mail</i> sieswebvial@gmail.com</li>
+		        </ul>
+    		</div>
+    		<div class="col-sm-3"></div>
+    	</div>        
     </footer>
 </body>
 </html>
