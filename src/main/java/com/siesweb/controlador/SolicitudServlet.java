@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import com.siesweb.dao.ProyectosDAO;
@@ -64,13 +65,21 @@ public class SolicitudServlet extends HttpServlet {
 					List<Solicitudes> solicitud = solicitudDAO.buscarSolicitud(id);
 					
 					if (!solicitud.isEmpty()) {
-						int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-						if (respuesta == JOptionPane.YES_OPTION) {
-							solicitudDAO.actualizarSolicitud(new Solicitudes(id,"","",estado,0,0,0));
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
-							dispatcher.forward(request, response);
-						} else {
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
+						HttpSession session = request.getSession(false);
+						if (session != null && session.getAttribute("nombreUser") != null) {
+							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+							if (respuesta == JOptionPane.YES_OPTION) {
+								solicitudDAO.actualizarSolicitud(new Solicitudes(id,"","",estado,0,0,0));
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
+								dispatcher.forward(request, response);
+							} else {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
+								dispatcher.forward(request, response);
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
@@ -100,13 +109,18 @@ public class SolicitudServlet extends HttpServlet {
 	
 	private void listarSolicitud(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			
-			List<Solicitudes> solicitudes = solicitudDAO.obtenerSolicitudes();
-			//int id = solicitudes.get(0)
-			//List<Usuarios> user = usuarioDAO.buscarUsuario(0)
-			request.setAttribute("listaSolicitudes", solicitudes);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
-			dispatcher.forward(request, response);
+			HttpSession session = request.getSession(false);
+			if (session != null && session.getAttribute("nombreUser") != null) {
+				List<Solicitudes> solicitudes = solicitudDAO.obtenerSolicitudes();			
+				request.setAttribute("listaSolicitudes", solicitudes);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
+				dispatcher.forward(request, response);
+			}else {
+				JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

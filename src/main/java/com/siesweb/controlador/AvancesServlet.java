@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import com.siesweb.dao.ProyectosDAO;
@@ -19,7 +20,8 @@ import com.siesweb.modelo.Proyectos;
 import com.siesweb.dao.AvancesDAO;
 import com.siesweb.modelo.Avances;
 
-@WebServlet({ "/AvancesServlet", "/insertarAvc", "/actualizarAvc", "/buscarAvce", "/eliminarAvc", "/listarAvc" })
+@WebServlet({ "/AvancesServlet", "/insertarAvc", "/actualizarAvc", "/buscarAvce", "/eliminarAvc", "/listarAvc",
+	"/cargarInsercionAvc", "/cargarActualizacionAvc"})
 public class AvancesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final ProyectosDAO proyectosDAO = new ProyectosDAO();
@@ -47,6 +49,12 @@ public class AvancesServlet extends HttpServlet {
 			break;
 		case "/listarAvc":
 			listarAvc(request, response);
+			break;
+		case "/cargarInsercionAvc":
+			loadInsercionAvc(request, response);
+			break;
+		case "/cargarActualizacionAvc":
+			loadActualizacionAvc(request, response);
 			break;
 		default:
 			System.out.println("No ha elegido ninguna opcion");
@@ -85,11 +93,18 @@ public class AvancesServlet extends HttpServlet {
 						&& proyecto != "-") {
 					
 					if (proy != null) {
-						
-						avancesDAO.insertarAvc(new Avances(0, fecha, tramo_amp, tramo_mej, tramo_sub, tramo_bas, tramo_asf,
-								cunetas, muros, ejecucion, proy.getId()));
-						RequestDispatcher dispatcher = request.getRequestDispatcher("adminInsertarAvc.jsp");
-						dispatcher.forward(request, response);
+						HttpSession session = request.getSession(false);
+						if (session != null && session.getAttribute("nombreUser") != null) {
+							avancesDAO.insertarAvc(new Avances(0, fecha, tramo_amp, tramo_mej, tramo_sub, tramo_bas, tramo_asf,
+									cunetas, muros, ejecucion, proy.getId()));
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminInsertarAvc.jsp");
+							dispatcher.forward(request, response);
+						}else {
+							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+							dispatcher.forward(request, response);
+						}
 					} else {
 						System.out.println("Algo salio mal!");
 					}
@@ -142,14 +157,22 @@ public class AvancesServlet extends HttpServlet {
 						Proyectos proy = proyectosDAO.obtenerIdProyecto(proyecto);
 		
 						if (proy != null) {
-							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-							if (respuesta == JOptionPane.YES_OPTION) {
-								avancesDAO.actualizarAvc(new Avances(id, fecha, tramo_amp, tramo_mej, tramo_sub, tramo_bas,
-										tramo_asf, cunetas, muros, ejecucion, proy.getId()));
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminActualizarAvc.jsp");
-								dispatcher.forward(request, response);
+							HttpSession session = request.getSession(false);
+							if (session != null && session.getAttribute("nombreUser") != null) {
+								int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+								if (respuesta == JOptionPane.YES_OPTION) {
+									avancesDAO.actualizarAvc(new Avances(id, fecha, tramo_amp, tramo_mej, tramo_sub, tramo_bas,
+											tramo_asf, cunetas, muros, ejecucion, proy.getId()));
+									RequestDispatcher dispatcher = request.getRequestDispatcher("adminActualizarAvc.jsp");
+									dispatcher.forward(request, response);
+								}else {
+									RequestDispatcher dispatcher = request.getRequestDispatcher("adminActualizarAvc.jsp");
+									dispatcher.forward(request, response);
+								}
 							}else {
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminActualizarAvc.jsp");
+								JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+										JOptionPane.INFORMATION_MESSAGE);
+								RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 								dispatcher.forward(request, response);
 							}
 						} else {
@@ -188,16 +211,24 @@ public class AvancesServlet extends HttpServlet {
 			if (validarId(idStr)) {
 				int id = Integer.parseInt(idStr);
 				try {
-					List<Avances> avanc = avancesDAO.buscarAvc(id);
-					if (!avanc.isEmpty()) {
-						request.setAttribute("Avanc", avanc);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
-						dispatcher.forward(request, response);
-					} else {
-						System.out.println("Usuario no encontrado.");
-						JOptionPane.showMessageDialog(null, "Usuario no encontrado.", "!Advertencia¡",
+					HttpSession session = request.getSession(false);
+					if (session != null && session.getAttribute("nombreUser") != null) {
+						List<Avances> avanc = avancesDAO.buscarAvc(id);
+						if (!avanc.isEmpty()) {
+							request.setAttribute("Avanc", avanc);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
+							dispatcher.forward(request, response);
+						} else {
+							System.out.println("Usuario no encontrado.");
+							JOptionPane.showMessageDialog(null, "Usuario no encontrado.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
+							dispatcher.forward(request, response);
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 								JOptionPane.INFORMATION_MESSAGE);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
+						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 						dispatcher.forward(request, response);
 					}
 				} catch (SQLException e) {
@@ -227,13 +258,21 @@ public class AvancesServlet extends HttpServlet {
 				try {
 					List<Avances> avanc = avancesDAO.buscarAvc(id);
 					if (!avanc.isEmpty()) {
-						int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-						if (respuesta == JOptionPane.YES_OPTION) {
-							avancesDAO.eliminarAvc(id);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
-							dispatcher.forward(request, response);
+						HttpSession session = request.getSession(false);
+						if (session != null && session.getAttribute("nombreUser") != null) {
+							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+							if (respuesta == JOptionPane.YES_OPTION) {
+								avancesDAO.eliminarAvc(id);
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
+								dispatcher.forward(request, response);
+							}else {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
+								dispatcher.forward(request, response);
+							}
 						}else {
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
+							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 							dispatcher.forward(request, response);
 						}
 					}else {
@@ -264,14 +303,45 @@ public class AvancesServlet extends HttpServlet {
 	private void listarAvc(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			List<Avances> avanc = avancesDAO.obtenerAvc();
-			request.setAttribute("Avanc", avanc);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("adminListarAvc.jsp");
-			dispatcher.forward(request, response);
+			HttpSession session = request.getSession(false);
+			if (session != null && session.getAttribute("nombreUser") != null) {
+				List<Avances> avanc = avancesDAO.obtenerAvc();
+				request.setAttribute("Avanc", avanc);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminListarAvc.jsp");
+				dispatcher.forward(request, response);
+			}else {
+				JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
+			}
 		} catch (SQLException e) {			
 			e.printStackTrace();
 		}
 	}
+	
+	private void loadInsercionAvc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        try {            
+            List<Proyectos> proyectos = proyectosDAO.obtenerProyectos(); 
+            request.setAttribute("listaProyectos", proyectos);           
+            RequestDispatcher dispatcher = request.getRequestDispatcher("adminInsertarAvc.jsp");
+			dispatcher.forward(request, response);
+            
+        } catch (SQLException e) {
+        	System.out.println("no se agrego nada");
+        }
+    }
+	private void loadActualizacionAvc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        try {
+            List<Proyectos> proyectos = proyectosDAO.obtenerProyectos(); 
+            request.setAttribute("listaProyectos", proyectos);           
+            RequestDispatcher dispatcher = request.getRequestDispatcher("adminActualizarAvc.jsp");
+			dispatcher.forward(request, response);
+            
+        } catch (SQLException e) {
+        	System.out.println("no se agrego nada");
+        }
+    }
 	
 	public static boolean validarId(String id) {
 		String regex = "^[0-9]{1,3}$";

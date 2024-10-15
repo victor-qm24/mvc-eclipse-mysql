@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import com.siesweb.dao.ProyectosDAO;
@@ -61,12 +62,20 @@ public class ProyectoServlet extends HttpServlet {
 		
 		try {
 			if (!titulo.isEmpty() && !estado.isEmpty() && !ubicacion.isEmpty()) {
-				if (validar(titulo) && validar(estado) && validar(ubicacion)) {						
-					proyectosDAO.insertarProyecto(new Proyectos(0, titulo, estado, ubicacion));
-						JOptionPane.showMessageDialog(null, "Proyecto agregado con exito.", "!Advertencia¡",
+				if (validar(titulo) && validar(estado) && validar(ubicacion)) {
+					HttpSession session = request.getSession(false);
+					if (session != null && session.getAttribute("nombreUser") != null) {
+						proyectosDAO.insertarProyecto(new Proyectos(0, titulo, estado, ubicacion));
+							JOptionPane.showMessageDialog(null, "Proyecto agregado con exito.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+							dispatcher.forward(request, response);
+					}else {
+						JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 								JOptionPane.INFORMATION_MESSAGE);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
-						dispatcher.forward(request, response);					
+						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+						dispatcher.forward(request, response);
+					}
 				} else {
 					System.out.println("Uno o varios campos no son validos.");
 					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
@@ -99,16 +108,24 @@ public class ProyectoServlet extends HttpServlet {
 					if (validar(titulo) && validar(estado) && validar(ubicacion) && validarId(idString)) {						
 						
 						int id = Integer.parseInt(idString);
-						int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-						if (respuesta == JOptionPane.YES_OPTION) {
-						
-							proyectosDAO.actualizarProyecto(new Proyectos(id, titulo, estado, ubicacion));
-							JOptionPane.showMessageDialog(null, "Proyecto actualizado con exito.", "!Advertencia¡",
-									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
-							dispatcher.forward(request, response);
+						HttpSession session = request.getSession(false);
+						if (session != null && session.getAttribute("nombreUser") != null) {
+							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+							if (respuesta == JOptionPane.YES_OPTION) {
+							
+								proyectosDAO.actualizarProyecto(new Proyectos(id, titulo, estado, ubicacion));
+								JOptionPane.showMessageDialog(null, "Proyecto actualizado con exito.", "!Advertencia¡",
+										JOptionPane.INFORMATION_MESSAGE);
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+								dispatcher.forward(request, response);
+							}else {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+								dispatcher.forward(request, response);
+							}
 						}else {
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
@@ -146,13 +163,21 @@ public class ProyectoServlet extends HttpServlet {
 				try {
 					List<Proyectos> proyecto = proyectosDAO.buscarProyecto(id);
 					if (!proyecto.isEmpty()) {
-						int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-						if (respuesta == JOptionPane.YES_OPTION) {
-							proyectosDAO.eliminarProyecto(id);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
-							dispatcher.forward(request, response);
-						} else {
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+						HttpSession session = request.getSession(false);
+						if (session != null && session.getAttribute("nombreUser") != null) {
+							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+							if (respuesta == JOptionPane.YES_OPTION) {
+								proyectosDAO.eliminarProyecto(id);
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+								dispatcher.forward(request, response);
+							} else {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+								dispatcher.forward(request, response);
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
@@ -182,10 +207,18 @@ public class ProyectoServlet extends HttpServlet {
 	
 	private void listarProyecto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			List<Proyectos> proyectos = proyectosDAO.obtenerProyectos();
-			request.setAttribute("listaProyectos", proyectos);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
-			dispatcher.forward(request, response);
+			HttpSession session = request.getSession(false);
+			if (session != null && session.getAttribute("nombreUser") != null) {
+				List<Proyectos> proyectos = proyectosDAO.obtenerProyectos();
+				request.setAttribute("listaProyectos", proyectos);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+				dispatcher.forward(request, response);
+			}else {
+				JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -199,7 +232,7 @@ public class ProyectoServlet extends HttpServlet {
 	}
 	
 	public static boolean validar(String validar) {
-		String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}$";
+		String regex = "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,40}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(validar);
 		return matcher.matches();

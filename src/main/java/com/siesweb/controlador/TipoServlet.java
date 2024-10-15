@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import com.siesweb.dao.TiposDocumentosDAO;
@@ -58,12 +59,20 @@ public class TipoServlet extends HttpServlet {
 		String descripcion = request.getParameter("descTipo");
 		try {
 			if (!descripcion.isEmpty()) {
-				if (validarDescripcion(descripcion) ) {						
-					tiposDocumentosDAO.insertarTipo(new TiposDocumentos(0, descripcion));
-						JOptionPane.showMessageDialog(null, "Usuario agregado con exito.", "!Advertencia¡",
+				if (validarDescripcion(descripcion) ) {
+					HttpSession session = request.getSession(false);
+					if (session != null && session.getAttribute("nombreUser") != null) {
+						tiposDocumentosDAO.insertarTipo(new TiposDocumentos(0, descripcion));
+							JOptionPane.showMessageDialog(null, "Usuario agregado con exito.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("Registro.jsp");
+							dispatcher.forward(request, response);
+					}else {
+						JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 								JOptionPane.INFORMATION_MESSAGE);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("Registro.jsp");
-						dispatcher.forward(request, response);					
+						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+						dispatcher.forward(request, response);
+					}
 				} else {
 					System.out.println("Uno o varios campos no son validos.");
 					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
@@ -93,16 +102,24 @@ public class TipoServlet extends HttpServlet {
 					if (validarDescripcion(descripcion) && validarId(idString)) {						
 						
 						int id = Integer.parseInt(idString);
-						int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-						if (respuesta == JOptionPane.YES_OPTION) {
-						
-							tiposDocumentosDAO.actualizarTipo(new TiposDocumentos(id, descripcion));
-							JOptionPane.showMessageDialog(null, "Tipo de documento actualizado con exito.", "!Advertencia¡",
-									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
-							dispatcher.forward(request, response);
+						HttpSession session = request.getSession(false);
+						if (session != null && session.getAttribute("nombreUser") != null) {
+							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+							if (respuesta == JOptionPane.YES_OPTION) {
+							
+								tiposDocumentosDAO.actualizarTipo(new TiposDocumentos(id, descripcion));
+								JOptionPane.showMessageDialog(null, "Tipo de documento actualizado con exito.", "!Advertencia¡",
+										JOptionPane.INFORMATION_MESSAGE);
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+								dispatcher.forward(request, response);
+							}else {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+								dispatcher.forward(request, response);
+							}
 						}else {
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
@@ -140,13 +157,21 @@ public class TipoServlet extends HttpServlet {
 				try {
 					List<TiposDocumentos> tipo = tiposDocumentosDAO.buscarTipo(id);
 					if (!tipo.isEmpty()) {
-						int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-						if (respuesta == JOptionPane.YES_OPTION) {
-							tiposDocumentosDAO.eliminarTipo(id);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
-							dispatcher.forward(request, response);
-						} else {
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+						HttpSession session = request.getSession(false);
+						if (session != null && session.getAttribute("nombreUser") != null) {
+							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+							if (respuesta == JOptionPane.YES_OPTION) {
+								tiposDocumentosDAO.eliminarTipo(id);
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+								dispatcher.forward(request, response);
+							} else {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+								dispatcher.forward(request, response);
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
@@ -176,10 +201,18 @@ public class TipoServlet extends HttpServlet {
 	
 	private void listarTipo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			List<TiposDocumentos> tipos = tiposDocumentosDAO.obtenerTipos();
-			request.setAttribute("listaTipos", tipos);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
-			dispatcher.forward(request, response);
+			HttpSession session = request.getSession(false);
+			if (session != null && session.getAttribute("nombreUser") != null) {
+				List<TiposDocumentos> tipos = tiposDocumentosDAO.obtenerTipos();
+				request.setAttribute("listaTipos", tipos);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+				dispatcher.forward(request, response);
+			}else {
+				JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

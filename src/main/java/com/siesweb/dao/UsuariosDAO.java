@@ -114,4 +114,21 @@ public class UsuariosDAO {
 			pstmt.executeUpdate();
 		}
 	}
+	
+	public Usuarios buscarUsuarioById(int id) throws SQLException {
+		
+		String sql = "SELECT * FROM Usuarios WHERE id = ?";
+		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Usuarios usuario = new Usuarios(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"),
+						rs.getString("documento"), rs.getString("email"), rs.getString("telefono"),
+						rs.getString("usuario"), rs.getString("contraseña"), rs.getString("estado"), rs.getInt("tipo_documento_id_usuario"),
+						rs.getInt("proyecto_id_usuario"), rs.getInt("rol_id_usuario"));
+				return usuario;
+			}
+		}
+		return null;
+	}
 }

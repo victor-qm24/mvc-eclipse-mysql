@@ -4,6 +4,7 @@
 <%@ page import="com.siesweb.modelo.TiposDocumentos" %>
 <%@ page import="com.siesweb.modelo.Roles" %>
 <%@ page import="com.siesweb.modelo.Proyectos" %>
+<%@ page import="com.siesweb.modelo.Usuarios" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +13,17 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<title>Actualizar usuario</title>
+	<style>
+		.nav-link {color: #ffffff;}
+        .nav-link:hover {color: blue;}
+	</style>	
 </head>
-<body>
-	<nav class="navbar navbar-expand-sm fixed-top bg-light">
+<body>	
+	<nav class="navbar navbar-expand-sm fixed-top bg-success">
 		<div class="container-fluid">
-			<ul class="d-flex justify-content-center align-items-center nav-justified">
+			<ul class="d-flex justify-content-center align-items-center nav-justified "> 
 				<li class="d-inline"><a href="admin.jsp" class="navbar-brand"><img
-						src="imagenes/logo_siesweb.jpg" alt="" class="img-fluid"></a></li>
+						src="imagenes/logo_siesweb_v2.jpg" alt="" class="img-fluid"></a></li>
 				<li class="d-inline"><a href="#" class="navbar-brand"><img
 						src="imagenes/logo-ing-vias.PNG" alt="" class="img-fluid"></a></li>
 			</ul>
@@ -28,8 +33,8 @@
 					class="nav-link dropdown-toggle" href="#" role="button"
 					data-bs-toggle="dropdown">Usuarios</a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="adminAgregarUser.jsp">Agregar</a></li>
-						<li><a class="dropdown-item" href="adminActualizarUser.jsp">Actualizar</a></li>
+						<li><a class="dropdown-item" href="cargarInsercion">Agregar</a></li>
+						<li><a class="dropdown-item" href="cargarActualizacion">Actualizar</a></li>
 						<li><a class="dropdown-item" href="adminBuscarEliminarUser.jsp">Buscar - Eliminar</a></li>
 						<li><a class="dropdown-item" href="listar">Listar</a></li>
 					</ul>
@@ -38,8 +43,8 @@
 					class="nav-link dropdown-toggle" href="#" role="button"
 					data-bs-toggle="dropdown">Avances</a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="adminInsertarAvc.jsp">Insertar</a></li>
-						<li><a class="dropdown-item" href="adminActualizarAvc.jsp">Actualizar</a></li>
+						<li><a class="dropdown-item" href="cargarInsercionAvc">Insertar</a></li>
+						<li><a class="dropdown-item" href="cargarActualizacionAvc">Actualizar</a></li>
 						<li><a class="dropdown-item" href="adminBuscarEliminarAvc.jsp">Buscar - Eliminar</a></li>
 						<li><a class="dropdown-item" href="listarAvc">Listar</a></li>
 					</ul>
@@ -55,7 +60,7 @@
 						<li><a class="dropdown-item" href="adminTema.jsp">Temas</a></li>						
 					</ul>
 				</li>
-				<li><a class="dropdown-item" href="logout"><i class="material-icons text-primary">logout</i></a></li>
+				<li><a class="dropdown-item " href="logout"><i class="material-icons nav-link">logout</i></a></li>
 			</ul>
 		</div>
 	</nav>
@@ -63,9 +68,9 @@
         <h1><b>Actualizar usuarios</b></h1>
         <h6>Es necesario llenar todos los campos del formulario.</h6>
         <div class="row mt-3">
-            <div class="col-sm-6 bg-dark-subtle p-3 rounded">
+            <div class="col-sm-6 bg-dark-subtle p-3 rounded">            	
                 <form action="actualizar" method="POST" class="formulario" id="formulario" onsubmit="return validarFormulario();">
-                    <div class="row mb-2">
+                    <div class="row">
                     	<div class="col-sm-3">
                     		<!--grupo__id-->
                             <div class="formulario__grupo" id="grupo__id">                                
@@ -77,7 +82,7 @@
                             </div>
                     	</div>
                     </div>
-                    <div class="row mb-2">
+                    <div class="row">
                         <div class="col-sm-6">
                             <!--grupo__nombre-->
                             <div class="formulario__grupo" id="grupo__nombre">                                
@@ -99,7 +104,7 @@
                             </div>                            
                         </div>
                     </div>                    
-                    <div class="row mb-1">
+                    <div class="row">
                         <div class="col-sm-6">
                             <!--grupo__tipo-->
                             <div class="formulario__grupo" id="grupo__tipo">
@@ -134,7 +139,7 @@
                             </div>                            
                         </div>
                     </div>
-                    <div class="row mb-1">
+                    <div class="row">
                         <div class="col-sm-6">
                             <!--grupo__email-->
                             <div class="formulario__grupo" id="grupo__email">                                
@@ -156,7 +161,7 @@
                             </div>                            
                         </div>
                     </div>
-                    <div class="row mb-1">
+                    <div class="row">
                         <div class="col-sm-6">
                             <!--grupo-usuario-->
                             <div class="formulario__grupo" id="grupo__usuario">                                
@@ -178,7 +183,7 @@
                             </div>                            
                         </div>
                     </div>
-                    <div class="row mb-1">
+                    <div class="row">
                         <div class="col-sm-6">
                             <!--grupo__rol-->
                             <div class="formulario__grupo" id="grupo__rol">
@@ -224,7 +229,7 @@
                             </div>                          
                         </div>
                     </div>
-                    <div class="row mb-1">
+                    <div class="row">
                         <div class="col-sm-6">
                             <!--grupo__estado-->
                             <div class="formulario__grupo" id="grupo__estado">
@@ -241,14 +246,14 @@
                             </div>                            
                         </div>
                     </div>   
-                    <div class="row mt-4">
+                    <div class="row">
                         <div class="col-sm">
                             <!--Mensaje-exito-error-->                            
                             <div class="formulario__mensaje h-50 border rounded bg-danger ps-2 pe-2 lh-1 d-none mt-2" id="formulario__mensaje">
                                 <p><i class="material-icons me-2">assignment_late</i><b>Error: </b>Por favor rellena el formulario correctamente.</p>
                             </div>
                             <div class="formulario__grupo formulario__grupo-btn-enviar">                                                       
-                                <input type="submit" value="Actualizar" class="btn btn-primary float-end formulario__btn">
+                                <input type="submit" value="Actualizar" class="btn btn-secondary float-end formulario__btn">
                                 <p class="formulario__mensaje-exito text-success d-none" id="formulario__mensaje-exito">Te has registrado exitosamente!</p>
                             </div>
                         </div>                         

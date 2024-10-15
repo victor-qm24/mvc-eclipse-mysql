@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import com.siesweb.dao.TemasDAO;
@@ -58,12 +59,20 @@ public class TemaServlet extends HttpServlet {
 		String descripcion = request.getParameter("descTema");
 		try {
 			if (!descripcion.isEmpty()) {
-				if (validarDescripcion(descripcion) ) {						
-					temaDAO.insertarTema(new Temas(0, descripcion));
-						JOptionPane.showMessageDialog(null, "Tema agregado con exito.", "!Advertencia¡",
+				if (validarDescripcion(descripcion) ) {
+					HttpSession session = request.getSession(false);
+					if (session != null && session.getAttribute("nombreUser") != null) {
+						temaDAO.insertarTema(new Temas(0, descripcion));
+							JOptionPane.showMessageDialog(null, "Tema agregado con exito.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
+							dispatcher.forward(request, response);
+					}else {
+						JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 								JOptionPane.INFORMATION_MESSAGE);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
-						dispatcher.forward(request, response);					
+						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+						dispatcher.forward(request, response);
+					}
 				} else {
 					System.out.println("Uno o varios campos no son validos.");
 					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
@@ -93,16 +102,24 @@ public class TemaServlet extends HttpServlet {
 					if (validarDescripcion(descripcion) && validarId(idString)) {						
 						
 						int id = Integer.parseInt(idString);
-						int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-						if (respuesta == JOptionPane.YES_OPTION) {
-						
-							temaDAO.actualizarTema(new Temas(id, descripcion));
-							JOptionPane.showMessageDialog(null, "Tema actualizado con exito.", "!Advertencia¡",
-									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
-							dispatcher.forward(request, response);
+						HttpSession session = request.getSession(false);
+						if (session != null && session.getAttribute("nombreUser") != null) {
+							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+							if (respuesta == JOptionPane.YES_OPTION) {
+							
+								temaDAO.actualizarTema(new Temas(id, descripcion));
+								JOptionPane.showMessageDialog(null, "Tema actualizado con exito.", "!Advertencia¡",
+										JOptionPane.INFORMATION_MESSAGE);
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
+								dispatcher.forward(request, response);
+							}else {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
+								dispatcher.forward(request, response);
+							}
 						}else {
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
+							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
@@ -140,13 +157,21 @@ public class TemaServlet extends HttpServlet {
 				try {
 					List<Temas> tema = temaDAO.buscarTema(id);
 					if (!tema.isEmpty()) {
-						int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-						if (respuesta == JOptionPane.YES_OPTION) {
-							temaDAO.eliminarTema(id);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
-							dispatcher.forward(request, response);
-						} else {
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
+						HttpSession session = request.getSession(false);
+						if (session != null && session.getAttribute("nombreUser") != null) {
+							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+							if (respuesta == JOptionPane.YES_OPTION) {
+								temaDAO.eliminarTema(id);
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
+								dispatcher.forward(request, response);
+							} else {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
+								dispatcher.forward(request, response);
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
@@ -176,10 +201,18 @@ public class TemaServlet extends HttpServlet {
 	
 	private void listarTema(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			List<Temas> temas = temaDAO.obtenerTemas();
-			request.setAttribute("listaTemas", temas);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
-			dispatcher.forward(request, response);
+			HttpSession session = request.getSession(false);
+			if (session != null && session.getAttribute("nombreUser") != null) {
+				List<Temas> temas = temaDAO.obtenerTemas();
+				request.setAttribute("listaTemas", temas);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
+				dispatcher.forward(request, response);
+			}else {
+				JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

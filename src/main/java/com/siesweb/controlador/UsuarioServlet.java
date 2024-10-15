@@ -73,7 +73,7 @@ public class UsuarioServlet extends HttpServlet {
 			break;
 		case "/inactivar":			
 			inactivar(request, response);
-			break;
+			break;		
 		case "/logout":			
 			HttpSession session = request.getSession(false); // No crea una nueva sesión si no existe
 	        if (session != null) {
@@ -96,8 +96,7 @@ public class UsuarioServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String user = request.getParameter("usuario");
-		String pass = request.getParameter("password");
-		//Encriptar la contraseña
+		String pass = request.getParameter("password");	
 		
 
 		if (!user.isEmpty() && !pass.isEmpty()) {
@@ -240,7 +239,7 @@ public class UsuarioServlet extends HttpServlet {
 						}else {
 							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("indexjsp");
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
@@ -281,7 +280,7 @@ public class UsuarioServlet extends HttpServlet {
 		String estado = request.getParameter("estado");
 		String tipo = request.getParameter("tipo");
 		String rol = request.getParameter("rol");
-		String proyecto = request.getParameter("proyecto");
+		String proyecto = request.getParameter("proyecto");	
 
 		if (!idString.isEmpty()) {
 
@@ -316,7 +315,7 @@ public class UsuarioServlet extends HttpServlet {
 							}else {
 								JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 										JOptionPane.INFORMATION_MESSAGE);
-								RequestDispatcher dispatcher = request.getRequestDispatcher("indexjsp");
+								RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 								dispatcher.forward(request, response);
 							}	
 						} else {
@@ -563,7 +562,7 @@ public class UsuarioServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 	}
-
+	
 	public static boolean validarId(String id) {
 		String regex = "^[0-9]{1,3}$";
 		Pattern pattern = Pattern.compile(regex);
