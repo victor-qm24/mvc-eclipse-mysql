@@ -87,7 +87,7 @@ public class AvancesServlet extends HttpServlet {
 					&& !tramo_bas.isEmpty() && !tramo_asf.isEmpty() && !cunetas.isEmpty() && !muros.isEmpty()
 					&& !ejecucion.isEmpty() && !proyecto.isEmpty()) {
 				
-				if (validarFecha(fecha) && validarTramo(tramo_mej) && validarTramo(tramo_amp)
+				if ( validarTramo(tramo_mej) && validarTramo(tramo_amp)
 						&& validarTramo(tramo_sub) && validarTramo(tramo_bas) && validarTramo(tramo_asf)
 						&& validarCunetasMuros(cunetas) && validarCunetasMuros(muros) && validarEjecucion(ejecucion) 
 						&& proyecto != "-") {
@@ -351,7 +351,7 @@ public class AvancesServlet extends HttpServlet {
 	}
 
 	public static boolean validarFecha(String fecha) {
-		String regex = "^(19|20)\\\\d\\\\d/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$";
+		String regex = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(19|20)\\d\\d$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(fecha);
 		return matcher.matches();

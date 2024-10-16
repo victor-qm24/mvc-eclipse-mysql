@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.siesweb.modelo.Usuarios"%>
+<%@ page import="com.siesweb.modelo.Avances"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +13,22 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <title>SIES WEBb</title>
+<style>
+.nav-link {
+	color: #ffffff;
+}
+
+.nav-link:hover {
+	color: blue;
+}
+</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm fixed-top bg-success">
 		<div class="container-fluid">
 			<ul>
 				<li class="d-inline"><a href="admin.jsp" class="navbar-brand"><img
-						src="imagenes/logo_siesweb.jpg" alt="" class="img-fluid"></a></li>
+						src="imagenes/logo_siesweb_v2.jpg" alt="" class="img-fluid"></a></li>
 				<li class="d-inline"><a href="#" class="navbar-brand"><img
 						src="imagenes/logo-ing-vias.PNG" alt="" class="img-fluid"></a></li>
 			</ul>
@@ -29,112 +38,94 @@
 					href="#sec-estadisticas">Estadisticas</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="#sec-solicitudes">Solicitudes</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="#sec-quienesSomos">¿Quienes somos?</a></li>
+				<li><a class="dropdown-item " href="logout"><i
+					class="material-icons nav-link">logout</i></a></li>
 			</ul>
 		</div>
 	</nav>
 	<section class="container-fluid p-3" style="margin-top: 100px;"
 		id="sec-inicio">
 		<% 
-        	String name = (String) request.getAttribute("nombreUser");
+		if (session != null && session.getAttribute("nombreUser") != null) {
+        	String name = (String) session.getAttribute("nombreUser");
         	out.print("<h1> !Bienvenido <strong>" + name + "</strong>¡</h1>");
+    	}else {
+    		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
+        }
         %>
 		<hr>
-		<div class="row mt-4">
-			<div class="col-sm-6">
-
-				<div class="row text-center">
-					<div class="col-sm">
-						<h2>
-							<b>Nombre del proyecto</b>
-						</h2>
-						<p class="display-7">Desarrollo de un prototipo web para la
-							visualización de estadísticas viales mediante el análisis de la
-							información sobre el manejo de solicitudes por intervención de
-							propiedades privadas en la obra de pavimentación Palmitas Lerma</p>
-					</div>
-				</div>
-				<hr>
-				<div class="row text-center">
+		<div class="container-fluid bg-light">
+			<div class="row text-center">			
+				<div class="col-sm">
 					<h2>
-						<b>¿Quienes somos?</b>
+						<b>Nombre del proyecto</b>
 					</h2>
-					<div class="col-sm-6">
-						<img src="imagenes/foto-personal.jpg" alt=""
-							class="img-fluid float-end">
-					</div>
-					<div
-						class="col-sm-6 d-flex justify-content-center align-items-center">
-						<ul class="list-unstyled">
-							<li>Victor Manuel Quinayas Meneses</li>
-							<li>Desarrollador del software SIESWEB vial</li>
-							<li>Ingeniero Electronico</li>
-						</ul>
-					</div>
-				</div>
+					<p class="display-6">Desarrollo de un aplicativo web para la
+						visualización de estadísticas viales mediante el análisis de la
+						información sobre el manejo de solicitudes por intervención de
+						propiedades privadas en la obra de pavimentación PALMITAS-LERMA</p>							
+				</div>			
 			</div>
-			<div class="col-sm-6">
-				<img src="imagenes/vias-3.jpg" alt="" srcset=""
-					class="d-block w-100">
+			<div class="row p-4">			
+				<div class="col-sm embed-responsive">
+					<video class="embed-responsive-item mx-auto d-block" controls>
+				    	<source src="imagenes/lerma-via.mp4" type="video/mp4">			    			    
+					</video>								
+				</div>			
 			</div>
-		</div>
+		</div>		
 	</section>
-	<section class="container-fluid bg-light p-5 pt-1"
-		style="margin-top: 100px;" id="sec-estadisticas">
+	<section class="container-fluid p-3"
+		id="sec-estadisticas">
 		<h1>
 			<b>Pavimentación Palmitas - Lerma</b>
 		</h1>
-		<h6>Avances estadisticos</h6>
-		<div class="row border bordered mt-5">
-			<div
-				class="col-sm-2 border-2 border-dark border-end d-block text-center p-3">
-				<h3 class="text-primary">
-					<strong>1000 m</strong>
-				</h3>
-				<h5>Tramo ampliado</h5>
-			</div>
-			<div
-				class="col-sm-2 border-2 border-dark border-end d-block text-center p-3">
-				<h3 class="text-primary">
-					<strong>1000 m</strong>
-				</h3>
-				<h5>Tramo mejorado</h5>
-			</div>
-			<div
-				class="col-sm-2 border-2 border-dark border-end d-block text-center p-3">
-				<h3 class="text-primary">
-					<strong>1000 m</strong>
-				</h3>
-				<h5>Tramo sub-base</h5>
-			</div>
-			<div
-				class="col-sm-2 border-2 border-dark border-end d-block text-center p-3">
-				<h3 class="text-primary">
-					<strong>1000 m</strong>
-				</h3>
-				<h5>Tramo base</h5>
-			</div>
-			<div
-				class="col-sm-2 border-2 border-dark border-end d-block text-center p-3">
-				<h3 class="text-primary">
-					<strong>1000 m</strong>
-				</h3>
-				<h5>Tramo asfaltado</h5>
-			</div>
-			<div
-				class="col-sm-2 border-2 border-dark border-end d-block text-center p-3">
-				<h3 class="text-primary">
-					<strong>1000 m</strong>
-				</h3>
-				<h5>% ejecucion</h5>
+		<h4>Avances estadisticos</h4>
+		<div class="row mt-5">
+			<div class="col-sm p-3 rounded">
+				<div class="container-fluid table-responsive"
+					style="max-height: 500px; overflow-y: auto;">
+					<table class="table table-borderless text-center">
+						<thead class="">
+							<tr class="">
+								<th class="text-primary"><h5>Tramo ampliado (m)</h5></th>
+								<th class="text-primary"><h5>Tramo mejorado (m)</h5></th>
+								<th class="text-primary"><h5>Tramo subBase (m)</h5></th>
+								<th class="text-primary"><h5>Tramo base (m)</h5></th>
+								<th class="text-primary"><h5>Tramo asfaltado (m)</h5></th>								
+								<th class="text-primary"><h5>Ejecucion (%)</h5></th>
+							</tr>
+						</thead>
+						<tbody>
+							<% 
+				            	Avances avance = (Avances) request.getAttribute("avancesUltimo");
+				            	if(avance != null){					            	
+					            		out.print("<tr>");					            		
+					            		out.print("<td><h2 class='display-2'>" + avance.getTramo_amp() + "</h2></td>");
+					            		out.print("<td><h2 class='display-2'>" + avance.getTramo_mej() + "</h2></td>");
+					            		out.print("<td><h2 class='display-2'>" + avance.getTramo_sub() + "</h2></td>");
+					            		out.print("<td><h2 class='display-2'>" + avance.getTramo_bas() + "</h2></td>");
+					            		out.print("<td><h2 class='display-2'>" + avance.getTramo_asf() + "</h2></td>");					            		
+					            		out.print("<td><h2 class='display-2'>" + avance.getPorcentaje_ejecucion() + "</td>");
+					            		out.print("<tr>");					            	
+				            	}
+				            %>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-		<div class="row border bordered mt-5">
+		<hr>
+		<div class="row mt-3">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4"></div>
 		</div>
 	</section>
-	<section class="container-fluid p-5" id="sec-solicitudes">
+	<section class="container-fluid p-5 bg-light" id="sec-solicitudes">
 		<h1>
 			<b>Solicitudes</b>
 		</h1>

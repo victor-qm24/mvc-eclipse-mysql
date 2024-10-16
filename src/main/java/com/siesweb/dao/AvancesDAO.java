@@ -92,4 +92,20 @@ public class AvancesDAO {
 		}
 		return avances;
 	}
+	
+	public Avances obtenerUltimoAvc() throws SQLException {		
+		String sql = "SELECT * FROM Avances ORDER BY id DESC LIMIT 1;";
+		try (Connection conn = ConexionBD.getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				Avances avance = new Avances(rs.getInt("id"), rs.getString("fecha"), rs.getString("tramo_amp"),
+						rs.getString("tramp_mej"), rs.getString("tramo_sub"), rs.getString("tramo_bas"),
+						rs.getString("tramo_asf"), rs.getString("cunetas"), rs.getString("muros"),
+						rs.getString("porcentaje_ejecucion"), rs.getInt("proyecto_id_avance"));
+				return avance;
+			}
+		}
+		return null;
+	}
 }

@@ -77,7 +77,7 @@ function validarFecha() {
 	var inputFecha = document.getElementById("fecha");
     var mensaje = document.getElementById("fechaError");
 	var icon = document.getElementById("iconFecha");
-	var FechaRegex = /^(19|20)\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/;	
+	var FechaRegex = /^(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$/;	
 
     if (fecha === "") {
         mensaje.textContent = "La fecha es obligatoria.";
@@ -85,7 +85,7 @@ function validarFecha() {
 		icon.style.color = "red";
 		inputFecha.style.borderColor = "red";
     } else if(!FechaRegex.test(fecha)){
-        mensaje.textContent = "El fecha admite el formato yyyy/MM/dd";
+        mensaje.textContent = "El fecha admite el formato dd/MM/yyyy";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputFecha.style.borderColor = "red";

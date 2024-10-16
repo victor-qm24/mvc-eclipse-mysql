@@ -29,6 +29,7 @@ public class UsuarioServlet extends HttpServlet {
 	private final ProyectosDAO proyectosDAO = new ProyectosDAO();
 	private final TiposDocumentosDAO tiposDocumentosDAO = new TiposDocumentosDAO();
 	private final RolesDAO rolesDAO = new RolesDAO();
+	private final AvancesDAO avancesDAO = new AvancesDAO();
 
 	public UsuarioServlet() {
 		super();
@@ -112,6 +113,8 @@ public class UsuarioServlet extends HttpServlet {
 						RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
 						dispatcher.forward(request, response);
 					} else {
+						Avances avanceUltimo = avancesDAO.obtenerUltimoAvc();
+						request.setAttribute("avancesUltimo", avanceUltimo);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
 						dispatcher.forward(request, response);
 					}
