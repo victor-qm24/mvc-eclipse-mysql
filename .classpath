@@ -17,5 +17,7 @@
 	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/jbcrypt-0.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/gson-2.8.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/hellocharts-library-1.5.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/javax.activation-1.1.0.v201105071233.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

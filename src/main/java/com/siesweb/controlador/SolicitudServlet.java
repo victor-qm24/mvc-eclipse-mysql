@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,10 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
+import com.google.gson.Gson;
+import com.siesweb.dao.AvancesDAO;
 import com.siesweb.dao.ProyectosDAO;
 import com.siesweb.dao.SolicitudesDAO;
 import com.siesweb.dao.TemasDAO;
 import com.siesweb.dao.UsuariosDAO;
+import com.siesweb.modelo.Avances;
 import com.siesweb.modelo.Proyectos;
 import com.siesweb.modelo.Solicitudes;
 import com.siesweb.modelo.Temas;
@@ -33,6 +39,7 @@ public class SolicitudServlet extends HttpServlet {
 	private final ProyectosDAO proyectosDAO = new ProyectosDAO();
 	private final TemasDAO temasDAO = new TemasDAO();
 	private final SolicitudesDAO solicitudDAO = new SolicitudesDAO();
+	private final AvancesDAO avanceDAO = new AvancesDAO();
 	
     public SolicitudServlet() {
         super();        
@@ -50,7 +57,7 @@ public class SolicitudServlet extends HttpServlet {
 			break;
 		case "/insertarSolicitud":
 			insertarSolicitud(request, response);
-			break;
+			break;		
 		default:
 			System.out.println("No se reconoce la opcion enviada!");
 		}
@@ -157,7 +164,23 @@ public class SolicitudServlet extends HttpServlet {
 							solicitudDAO.agregarSolicitud(new Solicitudes(0, fech, observacion, estado, proy.getId(), tema.getId(), user.getId()));
 							JOptionPane.showMessageDialog(null, "Solicitud agregada con exito.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("/iniciarSesion");
+							
+							Avances avanceUltimo = avanceDAO.obtenerUltimoAvc();
+							List<Avances> avances = avanceDAO.obtenerAvc();
+							List<Proyectos> proyectos = proyectosDAO.obtenerProyectos();
+							List<Temas> temass = temasDAO.obtenerTemas();
+							
+							Gson gson = new Gson();
+							String json = gson.toJson(avances);					
+							
+							request.setAttribute("avancesJson", json);					    
+							request.setAttribute("avancesUltimo", avanceUltimo);
+							request.setAttribute("listaProyectos", proyectos);					    
+							request.setAttribute("listaTemas", temass);
+							
+							enviarEmail(request,response);
+							
+							RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
 							dispatcher.forward(request, response);
 						}else {
 							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
@@ -184,6 +207,61 @@ public class SolicitudServlet extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			System.out.println("No se pudo obtener el Id de rol, tipo y proyecto" + e);
+		}
+	}
+	
+	public void enviarEmail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+				
+		try {
+						
+			String emisor = request.getParameter("users");
+			Usuarios us = usuarioDAO.buscarDatosSesion(emisor);
+			String correoEmisor = us.getEmail();
+			
+			String asunto = request.getParameter("temas");
+	        String proyect = request.getParameter("proyect");
+	        String observacion = request.getParameter("observacion");
+	        String contenido = observacion + " \n\nProyecto asociado: " + proyect +" \n\nLa respuesta se debe enviar al correo: "
+	        		+ correoEmisor;
+	        
+	        // Configuración de la sesión en gmail
+	        Properties props = new Properties();
+	        props.put("mail.smtp.auth", "true");
+	        props.put("mail.smtp.starttls.enable", "true");
+	        props.put("mail.smtp.host", "smtp.gmail.com");
+	        props.put("mail.smtp.port", "587");
+	        
+	        final String username = "quinayas.manuel.24@gmail.com"; // Cambia esto por tu dirección de correo	        
+	        final String password = "ntgh fdaw twdg fcqa"; // Usa la contraseña de aplicación
+	        
+	        // Autenticación
+	        
+	        Session session = Session.getInstance(props,
+	                new javax.mail.Authenticator() {
+	                    protected PasswordAuthentication getPasswordAuthentication() {
+	                        return new PasswordAuthentication(username, password);
+	                    }
+	                });
+	        
+	        try {
+	            // Crear el mensaje
+	            Message message = new MimeMessage(session);
+	            message.setFrom(new InternetAddress(username));
+	            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(username));
+	            message.setSubject(asunto);
+	            message.setText(contenido);
+	            
+	            Transport.send(message);            	
+	            
+	            System.out.println("enviado");
+	        } catch (MessagingException e) {	            
+	            System.out.println("error al enviar" + e);	            
+	        }  
+	        
+	        
+		} catch (SQLException e) {
+			response.getWriter().println("Usuario no encontrado.");
+			e.printStackTrace();
 		}
 	}
 	

@@ -62,7 +62,7 @@
 					data-bs-toggle="dropdown">Más</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminTipo.jsp">Tipos
-								de documento</a></li>
+								de DNI</a></li>
 						<li><a class="dropdown-item" href="adminRol.jsp">Roles</a></li>
 						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
 						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
@@ -181,7 +181,7 @@
 			</div>
 			<div class="col-sm-6">
 				<div class="container-fluid table-responsive"
-					style="max-height: 100px; overflow-y: auto;">
+					style="max-height: 300px; overflow-y: auto;">
 					<table class="table table-hovertext-center">
 						<thead class="table-primary">
 							<tr>

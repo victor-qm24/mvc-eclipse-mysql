@@ -87,9 +87,10 @@
 	<section class="container-fluid p-3"
 		id="sec-estadisticas">
 		<h1>
-			<b>Pavimentación Palmitas - Lerma</b>
+			<b>Estadisticas</b>
 		</h1>
-		<h4>Avances estadisticos</h4>
+		<h4>Pavimentación PALMITAS - LERMA</h4>
+		<hr>
 		<div class="row mt-3">
 			<h4>Valores actuales</h4>
 			<div class="col-sm p-3 ms-2 me-2 rounded border border-success">
@@ -129,7 +130,7 @@
 				</div>
 			</div>
 		</div>
-		<hr>
+		
 		<div class="row mt-3 ">
 			<h4 >Graficas de historicos</h4>
 			<div class="col-sm p-3 ms-2 me-2 rounded border border-success">
@@ -299,7 +300,7 @@
 		<h1>
 			<b>Solicitudes</b>
 		</h1>
-		<br>
+		<hr>
 		<div class="row">
 			<div class="col-sm-6">
 				<form action="insertarSolicitud"
@@ -392,6 +393,63 @@
 			<div class="col-sm-6">
 				<img src="imagenes/vias-4.jpeg" alt="" class="d-block w-100 rounded">
 			</div>
+		</div>
+	</section>
+	<section class="container-fluid p-3 border-bottom"
+		id="sec-quienesSomos">
+		<h1>
+			<strong>¿Quienes somos?</strong>
+		</h1>
+		<hr>
+		<div class="row mt-4 mb-2 border-bottom">
+			<div class="col-sm-10 text-center">
+				<h2><strong>Nombre del proyecto</strong></h2>
+				<p class="display-6">Desarrollo de un aplicativo web para la
+				visualización de estadísticas viales mediante el análisis de la
+				información sobre el manejo de solicitudes por intervención de
+				propiedades privadas en la obra de pavimentación PALMITAS-LERMA</p>
+			</div>
+			<div class="col-sm-2">
+				<img src="imagenes/vias-2.jpg" alt="" srcset=""
+					class="d-block w-100">
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-6 border-end">
+				<h4 class="text-center mb-2">Misión</h4>
+				<p class="text-justify">Facilitar la vida de las personas mediante el uso de la tecnología, 
+				desarrollando soluciones innovadoras enfocadas a la calidad y personalización del resultado, 
+				que proporcionen una grata experiencia de usuario, y que aporten valor y tengan un impacto 
+				positivo en el día a día de nuestra sociedad</p>
+				<h4 class="text-center mb-2">Visión</h4>
+				<p class="text-justify">Para el 2030 nuestra empresa será un referente atractivo como empresa de desarrollo, 
+				en los productos y servicios ofrecidos, como proveedor tecnlógico y como lugar de trabajo, al diseñar y 
+				desarrollar servicios y soluciones software	diferenciales, que aporten un gran valor. </p>
+				<h4 class="text-center mb-2">Valores</h4>
+				<ul>
+					<li>Fuerte compromiso centrado en la cercanía al cliente y en la personalización del trato 
+					y del servicio.</li>
+					<li>Respeto y tolerancia hacia la forma de ver las cosas de los demás.</li>
+					<li>Confianza, paciencia y constancia en todo cuanto hacemos.</li>
+				</ul>
+			</div>
+			<div class="col-sm-4 d-flex justify-content-center align-items-center">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1993.7234526039933!2d-
+				76.95635159351161!3d1.975542499499571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s
+				0x8e2fbba7e25baf67%3A0x9fc0b65f9e063e82!2sLerma%2C%20Bol%C3%ADvar%2C%20Cauca!5e0!3m2!1ses
+				!2sco!4v1729197877762!5m2!1ses!2sco" width="550" height="400" style="border:0;" allowfullscreen="" 
+				loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+			</div>
+			<div class="col-sm-2 d-flex justify-content-center align-items-center">
+				<div class="card" style="width:250px">
+				    <img class="card-img-top" src="imagenes/foto-personal.jpg" alt="Card image" style="width:100%">
+				    <div class="card-body text-center">
+				      <h5 class="card-title">Victor Manuel Quinayas</h5>
+				      <p class="card-text">Ingeniero electrónico</p>				      
+				    </div>
+				</div>
+			</div>						
 		</div>
 	</section>
 	<footer class="p-2 bg-dark text-white text-center">

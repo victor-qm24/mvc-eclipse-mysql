@@ -181,7 +181,7 @@
 			</div>
 			<div class="col-sm-6">
 				<div class="container-fluid table-responsive"
-					style="max-height: 100px; overflow-y: auto;">
+					style="max-height: 300px; overflow-y: auto;">
 					<table class="table table-hover text-center">
 						<thead class="table-primary">
 							<tr>

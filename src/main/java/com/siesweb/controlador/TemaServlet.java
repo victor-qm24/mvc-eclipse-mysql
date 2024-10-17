@@ -30,7 +30,8 @@ public class TemaServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getServletPath();
-
+		 request.setCharacterEncoding("UTF-8");
+		 
 		switch (action) {
 		case "/insertarTema":
 			insertarTema(request, response);
@@ -57,6 +58,7 @@ public class TemaServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String descripcion = request.getParameter("descTema");
+		System.out.println(descripcion);
 		try {
 			if (!descripcion.isEmpty()) {
 				if (validarDescripcion(descripcion) ) {
@@ -150,7 +152,7 @@ public class TemaServlet extends HttpServlet {
 	
 	private void eliminarTema(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String idString = request.getParameter("idRoles");
+		String idString = request.getParameter("idTemas");
 		if (!idString.isEmpty()) {
 			if (validarId(idString)) {
 				int id = Integer.parseInt(idString);
