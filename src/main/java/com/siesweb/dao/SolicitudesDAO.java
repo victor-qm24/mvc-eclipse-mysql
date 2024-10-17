@@ -57,4 +57,18 @@ public class SolicitudesDAO {
 			pstmt.executeUpdate();
 		}
 	}
+	
+	public void agregarSolicitud(Solicitudes solicitud) throws SQLException {
+		String sql = "INSERT INTO Solicitudes (fecha, observacion, estado,"
+				+ "proyecto_id_solicitud, tema_id_solicitud, usuario_id_solicitud) VALUES (?, ?, ?, ?, ?, ?)";
+		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, solicitud.getFecha());
+			pstmt.setString(2, solicitud.getObservacion());
+			pstmt.setString(3, solicitud.getEstado());
+			pstmt.setInt(4, solicitud.getProyectoId());
+			pstmt.setInt(5, solicitud.getTemaId());
+			pstmt.setInt(6, solicitud.getUsuarioId());			
+			pstmt.executeUpdate();
+		}
+	}
 }

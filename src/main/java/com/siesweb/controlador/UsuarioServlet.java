@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import org.mindrot.jbcrypt.BCrypt;
+import com.google.gson.Gson;
 
 import com.siesweb.modelo.*;
 import com.siesweb.dao.*;
@@ -30,6 +31,7 @@ public class UsuarioServlet extends HttpServlet {
 	private final TiposDocumentosDAO tiposDocumentosDAO = new TiposDocumentosDAO();
 	private final RolesDAO rolesDAO = new RolesDAO();
 	private final AvancesDAO avancesDAO = new AvancesDAO();
+	private final TemasDAO temasDAO = new TemasDAO();
 
 	public UsuarioServlet() {
 		super();
@@ -97,11 +99,10 @@ public class UsuarioServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String user = request.getParameter("usuario");
-		String pass = request.getParameter("password");	
+		String pass = request.getParameter("password");		
 		
-
-		if (!user.isEmpty() && !pass.isEmpty()) {
-			try {
+		try {
+			if (!user.isEmpty() && !pass.isEmpty()) {
 				Usuarios usuario = usuarioDAO.buscarDatosSesion(user);
 				String passHash = usuario.getPassword();
 				if (BCrypt.checkpw(pass, passHash)) {
@@ -109,12 +110,24 @@ public class UsuarioServlet extends HttpServlet {
 					String nombreUser = usuario.getNombre();
 					HttpSession session = request.getSession();			        
 					session.setAttribute("nombreUser", nombreUser);
+					
 					if (idRol == 1) {
 						RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
 						dispatcher.forward(request, response);
 					} else {
 						Avances avanceUltimo = avancesDAO.obtenerUltimoAvc();
+						List<Avances> avances = avancesDAO.obtenerAvc();
+						List<Proyectos> proyectos = proyectosDAO.obtenerProyectos();
+						List<Temas> temas = temasDAO.obtenerTemas();
+						
+						Gson gson = new Gson();
+						String json = gson.toJson(avances);					
+						
+						request.setAttribute("avancesJson", json);					    
 						request.setAttribute("avancesUltimo", avanceUltimo);
+						request.setAttribute("listaProyectos", proyectos);					    
+						request.setAttribute("listaTemas", temas);
+						
 						RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
 						dispatcher.forward(request, response);
 					}
@@ -125,15 +138,15 @@ public class UsuarioServlet extends HttpServlet {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 					dispatcher.forward(request, response);
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+			} else {
+				System.out.println("Debe llenar todos los campos.");
+				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
 			}
-		} else {
-			System.out.println("Debe llenar todos los campos.");
-			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
-					JOptionPane.INFORMATION_MESSAGE);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 

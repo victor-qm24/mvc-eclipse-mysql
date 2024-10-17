@@ -8,6 +8,21 @@ import com.siesweb.modelo.*;
 
 public class UsuariosDAO {
 
+	public Usuarios obtenerIdUsuario(String users) throws SQLException {
+		String sql = "SELECT * FROM Usuarios WHERE usuario = ?";
+		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, users);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return new Usuarios(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"),
+						rs.getString("documento"), rs.getString("email"), rs.getString("telefono"),
+						rs.getString("usuario"), rs.getString("contraseña"), rs.getString("estado"), rs.getInt("tipo_documento_id_usuario"),
+						rs.getInt("proyecto_id_usuario"), rs.getInt("rol_id_usuario"));
+			}
+		}
+		return null;
+	}
+	
 	public Usuarios buscarDatosSesion(String user) throws SQLException {
 		String sql = "SELECT * FROM Usuarios WHERE usuario = ?";
 		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
