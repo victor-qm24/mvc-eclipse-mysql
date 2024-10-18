@@ -86,18 +86,19 @@
 						<div class="col-sm-7">
 							<!--grupo_titulo-->
 							<div class="formulario__grupo" id="grupo__titulo">
+							<label for="titulo" class="form-label formulario__label"><strong>Titulo</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="titulo" id="titulo"
-										class=" form-control formulario__input" placeholder="Titulo"
+										class=" form-control formulario__input" placeholder="Ingrese el titulo..."
 										oninput="validarTitulo()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconTitulo">check_circle</i>
+										id="tituloIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="tituloError"></p>
 							</div>
 						</div>
 						<div class="col-sm-1">
-							<label for="estado" class="form-label formulario__label">Estado</label>
+							<label for="estado" class="form-label formulario__label"><strong>Estado</strong></label>
 						</div>
 						<div class="col-sm-4">
 							<!--grupo__estado-->
@@ -111,7 +112,7 @@
 										<option value="Terminado">Terminado</option>
 										<option value="Suspendido">Suspendido</option>
 									</select> <i class="formulario__validacion-estado material-icons ms-1"
-										id="iconEstado">check_circle</i>
+										id="estadoIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="estadoError"></p>
 							</div>
@@ -121,12 +122,13 @@
 						<div class="col-sm-7">
 							<!--grupo__ubicacion-->
 							<div class="formulario__grupo" id="grupo__ubicacion">
+							<label for="ubicacion" class="form-label formulario__label"><strong>Ubicacion</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="ubicacion" id="ubicacion"
 										class=" form-control formulario__input"
-										placeholder="Ubicacion" oninput="validarUbicacion()">
+										placeholder="Ingrese la ubicacion..." oninput="validarUbicacion()">
 									<i class="formulario__validacion-estado material-icons ms-1"
-										id="iconUbicacion">check_circle</i>
+										id="ubicacionIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="ubicacionError"></p>
 							</div>
@@ -154,7 +156,7 @@
 										class=" form-control formulario__input" placeholder="Id"
 										oninput="validarIdProyecto()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconIdProyecto">check_circle</i>
+										id="idProyectoIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="idProyectoError"></p>
 							</div>
@@ -162,18 +164,19 @@
 						<div class="col-sm-5">
 							<!--grupo_titulo-->
 							<div class="formulario__grupo" id="grupo__title">
+							<label for="title" class="form-label formulario__label"><strong>Titulo</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="title" id="title"
-										class=" form-control formulario__input" placeholder="Titulo"
+										class=" form-control formulario__input" placeholder="Ingrese el titulo..."
 										oninput="validarTitle()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconTitle">check_circle</i>
+										id="titleIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="titleError"></p>
 							</div>
 						</div>
 						<div class="col-sm-1">
-							<label for="estado" class="form-label formulario__label">Estado</label>
+							<label for="state" class="form-label formulario__label"><strong>Estado</strong></label>
 						</div>
 						<div class="col-sm-4">
 							<!--grupo__estado-->
@@ -186,7 +189,7 @@
 										<option value="Terminado">Terminado</option>
 										<option value="Suspendido">Suspendido</option>
 									</select> <i class="formulario__validacion-estado material-icons ms-1"
-										id="iconState">check_circle</i>
+										id="stateIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="stateError"></p>
 							</div>
@@ -196,12 +199,13 @@
 						<div class="col-sm-7">
 							<!--grupo__ubicacion-->
 							<div class="formulario__grupo" id="grupo__ubication">
+							<label for="ubication" class="form-label formulario__label"><strong>Ubicacion</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="ubication" id="ubication"
 										class=" form-control formulario__input"
-										placeholder="Ubicacion" oninput="validarUbication()">
+										placeholder="Ingrese la ubicacion..." oninput="validarUbication()">
 									<i class="formulario__validacion-estado material-icons ms-1"
-										id="iconUbication">check_circle</i>
+										id="ubicationIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="ubicationError"></p>
 							</div>
@@ -233,7 +237,7 @@
 										class=" form-control formulario__input" placeholder="Id"
 										oninput="validarIdProyectos()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconIdProyectos">check_circle</i>
+										id="idProyectosIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="idProyectosError"></p>
 							</div>

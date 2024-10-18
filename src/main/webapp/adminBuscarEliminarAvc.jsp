@@ -62,7 +62,7 @@
 					data-bs-toggle="dropdown">Más</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminTipo.jsp">Tipos
-								de documento</a></li>
+								de DNI</a></li>
 						<li><a class="dropdown-item" href="adminRol.jsp">Roles</a></li>
 						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
 						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
@@ -84,7 +84,7 @@
 				<div class="row pt-3">
 					<div class="col-sm">
 						<form action="buscarAvce" method="POST" class="formulario"
-							id="formulario" onsubmit="return validarFormulario();">
+							id="formulario">
 							<div class="row">
 								<div class="col-sm-2">
 									<!--grupo__id-->
@@ -94,7 +94,7 @@
 												class=" form-control formulario__input" placeholder="Id"
 												oninput="validarIdLoad()"> <i
 												class="formulario__validacion-estado material-icons ms-1"
-												id="iconIdLoad">check_circle</i>
+												id="idLoadIcon">check_circle</i>
 										</div>
 										<p class="formulario__input-error" id="idLoadError"></p>
 									</div>
@@ -106,7 +106,7 @@
 							</div>
 						</form>
 						<form action="eliminarAvc" method="POST" class="formulario"
-							id="formulario" onsubmit="return validarFormulario();">
+							id="formulario">
 							<div class="row">
 								<div class="col-sm-2">
 									<!--grupo__id-->
@@ -116,7 +116,7 @@
 												class=" form-control formulario__input" placeholder="Id"
 												oninput="validarIdDelete()"> <i
 												class="formulario__validacion-estado material-icons ms-1"
-												id="iconIdDelete">check_circle</i>
+												id="idDeleteIcon">check_circle</i>
 										</div>
 										<p class="formulario__input-error" id="idDeleteError"></p>
 									</div>

@@ -1,106 +1,106 @@
 function validarIdActualizar() {
-    var idActualizar = document.getElementById("idActualizar").value;
-	var inputIdActualizar = document.getElementById("idActualizar");	
+    var id = document.getElementById("idActualizar").value;
+	var input = document.getElementById("idActualizar");	
     var mensaje = document.getElementById("idActualizarError");
-	var icon = document.getElementById("iconIdActualizar");
-	var IdRegex = /^[0-9]{1,3}$/;
+	var icon = document.getElementById("idActualizarIcon");
+	var Regex = /^[0-9]{1,3}$/;
 	
-    if (idActualizar === "") {
+    if (id === "") {
         mensaje.textContent = "El id es obligatorio.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
-		inputIdActualizar.style.borderColor = "red";
-    } else if(!IdRegex.test(idActualizar)){
-		mensaje.textContent = "El id admite solo numeros de hasta 3 cifras.";
+		input.style.borderColor = "red";
+    } else if(!Regex.test(id)){
+		mensaje.textContent = "El campo id admite solo numeros (3 cifras).";
         mensaje.style.color = "red";
 		icon.style.color = "red";
-		inputIdActualizar.style.borderColor = "red";
+		input.style.borderColor = "red";
 	}else{
 		mensaje.textContent = "";
 		mensaje.style.color = "green";
 		icon.style.color = "green";
-		inputIdActualizar.style.borderColor = "green";
+		input.style.borderColor = "green";
 	}
 }
 function validarIdBuscar() {
-	var idBuscar = document.getElementById("idBuscar").value;
-	var inputIdBuscar = document.getElementById("idBuscar");	
+	var id = document.getElementById("idBuscar").value;
+	var input = document.getElementById("idBuscar");	
     var mensaje = document.getElementById("idBuscarError");
-	var icon = document.getElementById("iconIdBuscar");
-	var IdRegex = /^[0-9]{1,3}$/;
+	var icon = document.getElementById("idBuscarIcon");
+	var Regex = /^[0-9]{1,3}$/;
 	
-    if (idBuscar === "") {
+    if (id === "") {
         mensaje.textContent = "El id es obligatorio.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
-		inputIdBuscar.style.borderColor = "red";
-    } else if(!IdRegex.test(idBuscar)){
-		mensaje.textContent = "El id admite solo numeros de hasta 3 cifras.";
+		input.style.borderColor = "red";
+    } else if(!Regex.test(id)){
+		mensaje.textContent = "El campo id admite solo numeros (3 cifras).";
         mensaje.style.color = "red";
 		icon.style.color = "red";
-		inputIdBuscar.style.borderColor = "red";
+		input.style.borderColor = "red";
 	}else{
 		mensaje.textContent = "";
 		mensaje.style.color = "green";
 		icon.style.color = "green";
-		inputIdBuscar.style.borderColor = "green";
+		input.style.borderColor = "green";
 	}
 }
 
 function validarIdEliminar() {
-	var idEliminar = document.getElementById("idEliminar").value;
-	var inputIdEliminar = document.getElementById("idEliminar");	
+	var id = document.getElementById("idEliminar").value;
+	var input = document.getElementById("idEliminar");	
     var mensaje = document.getElementById("idEliminarError");
-	var icon = document.getElementById("iconIdEliminar");
-	var IdRegex = /^[0-9]{1,3}$/;
+	var icon = document.getElementById("idEliminarIcon");
+	var Regex = /^[0-9]{1,3}$/;
 	
-    if (idEliminar === "") {
+    if (id === "") {
         mensaje.textContent = "El id es obligatorio.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
-		inputIdEliminar.style.borderColor = "red";
-    } else if(!IdRegex.test(idEliminar)){
-		mensaje.textContent = "El id admite solo numeros de hasta 3 cifras.";
+		input.style.borderColor = "red";
+    } else if(!Regex.test(id)){
+		mensaje.textContent = "El campo id admite solo numeros (3 cifras).";
         mensaje.style.color = "red";
 		icon.style.color = "red";
-		inputIdEliminar.style.borderColor = "red";
+		input.style.borderColor = "red";
 	}else{
 		mensaje.textContent = "";
 		mensaje.style.color = "green";
 		icon.style.color = "green";
-		inputIdEliminar.style.borderColor = "green";
+		input.style.borderColor = "green";
 	}
 }
 function validarIdInactivar() {
-    var idInactivar = document.getElementById("idInactivar").value;
-	var inputIdInactivar = document.getElementById("idInactivar");	
+    var id = document.getElementById("idInactivar").value;
+	var input = document.getElementById("idInactivar");	
     var mensaje = document.getElementById("idInactivarError");
-	var icon = document.getElementById("iconIdInactivar");
-	var IdRegex = /^[0-9]{1,3}$/;
+	var icon = document.getElementById("idInactivarIcon");
+	var Regex = /^[0-9]{1,3}$/;
 	
-    if (idInactivar === "") {
+    if (id === "") {
         mensaje.textContent = "El id es obligatorio.";
         mensaje.style.color = "red";
 		icon.style.color = "red";
-		inputIdInactivar.style.borderColor = "red";
-    } else if(!IdRegex.test(idInactivar)){
-		mensaje.textContent = "El id admite solo numeros de hasta 3 cifras.";
+		input.style.borderColor = "red";
+    } else if(!Regex.test(id)){
+		mensaje.textContent = "El campo id admite solo numeros (3 cifras).";
         mensaje.style.color = "red";
 		icon.style.color = "red";
-		inputIdInactivar.style.borderColor = "red";
+		input.style.borderColor = "red";
 	}else{
 		mensaje.textContent = "";
 		mensaje.style.color = "green";
 		icon.style.color = "green";
-		inputIdInactivar.style.borderColor = "green";
+		input.style.borderColor = "green";
 	}
 }
 function validarNombre() {
     var nombre = document.getElementById("nombre").value;
 	var inputNombre = document.getElementById("nombre");
     var mensaje = document.getElementById("nombreError");
-	var icon = document.getElementById("iconNombre");
-	var nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}$/;
+	var icon = document.getElementById("nombreIcon");
+	var nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,25}$/;
 	
 
     if (nombre === "") {
@@ -109,7 +109,7 @@ function validarNombre() {
 		icon.style.color = "red";
 		inputNombre.style.borderColor = "red";
     } else if(!nombreRegex.test(nombre)){
-        mensaje.textContent = "El nombre debe contener solo letras, además, debe estar entre 1 a 40 caracteres.";
+        mensaje.textContent = "El campo nombre admite solo texto (1 a 25).";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputNombre.style.borderColor = "red";
@@ -125,8 +125,8 @@ function validarApellido() {
     var apellido = document.getElementById("apellido").value;
 	var inputApellido = document.getElementById("apellido");
     var mensaje = document.getElementById("apellidoError");
-	var icon = document.getElementById("iconApellido");
-	var apellidoRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}$/;	
+	var icon = document.getElementById("apellidoIcon");
+	var apellidoRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,25}$/;	
 
     if (apellido === "") {
         mensaje.textContent = "El apellido es obligatorio.";
@@ -134,7 +134,7 @@ function validarApellido() {
 		icon.style.color = "red";
 		inputApellido.style.borderColor = "red";
     } else if(!apellidoRegex.test(apellido)){
-        mensaje.textContent = "El apellido debe contener solo letras, además, debe estar entre 1 a 40 caracteres.";
+        mensaje.textContent = "El campo apellido admite solo texto (1 a 25).";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputApellido.style.borderColor = "red";
@@ -150,7 +150,7 @@ function validarTipo() {
     var tipo = document.getElementById("tipo").value;
 	var inputTipo = document.getElementById("tipo");
     var mensaje = document.getElementById("tipoError");
-	var icon = document.getElementById("iconTipo");
+	var icon = document.getElementById("tipoIcon");
 	
     if (tipo === "") {
         mensaje.textContent = "El tipo de documento es obligatorio.";
@@ -169,8 +169,8 @@ function validarDocumento() {
     var documento = document.getElementById("documento").value;
 	var inputDocumento = document.getElementById("documento");
     var mensaje = document.getElementById("documentoError");
-	var icon = document.getElementById("iconDocumento");
-	var documentoRegex = /^[0-9]{8,10}$/;	
+	var icon = document.getElementById("documentoIcon");
+	var documentoRegex = /^[0-9]{1,15}$/;	
 
     if (documento === "") {
         mensaje.textContent = "El documento es obligatorio.";
@@ -178,7 +178,7 @@ function validarDocumento() {
 		icon.style.color = "red";
 		inputDocumento.style.borderColor = "red";
     } else if(!documentoRegex.test(documento)){
-        mensaje.textContent = "El documento debe contener solo numeros, además, debe estar entre 8 a 10 caracteres.";
+        mensaje.textContent = "El campo documento admite solo numeros (1 a 15).";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputDocumento.style.borderColor = "red";
@@ -194,7 +194,7 @@ function validarEmail() {
     var email = document.getElementById("email").value;
 	var inputEmail = document.getElementById("email");
     var mensaje = document.getElementById("emailError");
-	var icon = document.getElementById("iconEmail");
+	var icon = document.getElementById("emailIcon");
 	var emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 		
 
@@ -204,7 +204,7 @@ function validarEmail() {
 		icon.style.color = "red";
 		inputEmail.style.borderColor = "red";
     } else if(!emailRegex.test(email)){
-        mensaje.textContent = "Correo no valido";
+        mensaje.textContent = "El campo email admite solo formato example@example.com (1 a 50).";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputEmail.style.borderColor = "red";
@@ -220,8 +220,8 @@ function validarTelefono() {
     var telefono = document.getElementById("telefono").value;
 	var inputTelefono = document.getElementById("telefono");
     var mensaje = document.getElementById("telefonoError");
-	var icon = document.getElementById("iconTelefono");
-	var TelefonoRegex = /^[0-9]{7,14}$/;	
+	var icon = document.getElementById("telefonoIcon");
+	var TelefonoRegex = /^[0-9]{1,15}$/;	
 
     if (telefono === "") {
         mensaje.textContent = "El telefono es obligatorio.";
@@ -229,7 +229,7 @@ function validarTelefono() {
 		icon.style.color = "red";
 		inputTelefono.style.borderColor = "red";
     } else if(!TelefonoRegex.test(telefono)){
-        mensaje.textContent = "El telefono admite solo numeros, además, debe estar entre 7 y 14 digitos.";
+        mensaje.textContent = "El campo telefono admite solo numeros (1 y 15).";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputTelefono.style.borderColor = "red";
@@ -245,8 +245,8 @@ function validarUsuario() {
     var usuario = document.getElementById("usuario").value;
 	var inputUser = document.getElementById("usuario");
     var mensaje = document.getElementById("usuarioError");
-	var icon = document.getElementById("iconUsuario");
-	var usuarioRegex = /^[a-zA-Z0-9._-]{4,16}$/;
+	var icon = document.getElementById("usuarioIcon");
+	var usuarioRegex = /^[a-zA-Z0-9._-]{1,25}$/;
 		
 
     if (usuario === "") {
@@ -255,7 +255,7 @@ function validarUsuario() {
 		icon.style.color = "red";
 		inputUser.style.borderColor = "red";
     } else if(!usuarioRegex.test(usuario)){
-        mensaje.textContent = "El usuario debe contener solo letras, numeros y guiones, además, debe estar entre 4 a 16 caracteres.";
+        mensaje.textContent = "El campo usuario admite solo texto, numeros y guiones (1 a 25).";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputUser.style.borderColor = "red";
@@ -270,7 +270,7 @@ function validarPassword() {
     var password = document.getElementById("password").value;
 	var inputPass = document.getElementById("password");
     var mensaje = document.getElementById("passwordError");
-	var icon = document.getElementById("iconPassword");	
+	var icon = document.getElementById("passwordIcon");	
 	var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 	                    
 
@@ -280,7 +280,7 @@ function validarPassword() {
 		icon.style.color = "red";
 		inputPass.style.borderColor = "red";
     } else if(!passwordRegex.test(password)){
-        mensaje.textContent = "El password debe ser de 8 caracteres o más, debe inluir un numero, letra mayuscula y minuscula y un caracter especial.";
+        mensaje.textContent = "El campo password minimo debe inluir un numero, letra mayuscula y minuscula, y un caracter especial (@$!%*?&) (8 o más).";
 		mensaje.style.color = "red";
 		icon.style.color = "red";
 		inputPass.style.borderColor = "red";
@@ -296,7 +296,7 @@ function validarEstado() {
     var estado = document.getElementById("estado").value;
 	var inputEstado = document.getElementById("estaddo");
     var mensaje = document.getElementById("estadoError");
-	var icon = document.getElementById("iconEstado");
+	var icon = document.getElementById("estadoIcon");
 	
     if (estado === "" || estado === "-") {
         mensaje.textContent = "El estado es obligatorio.";
@@ -315,7 +315,7 @@ function validarRol() {
     var rol = document.getElementById("rol").value;
 	var inputRol = document.getElementById("rol");
     var mensaje = document.getElementById("rolError");
-	var icon = document.getElementById("iconRol");
+	var icon = document.getElementById("rolIcon");
 	
     if (rol === "") {
         mensaje.textContent = "El rol es obligatorio.";
@@ -334,7 +334,7 @@ function validarProyecto() {
     var proyecto = document.getElementById("proyecto").value;
 	var inputProyecto = document.getElementById("proyecto");
     var mensaje = document.getElementById("proyectoError");
-	var icon = document.getElementById("iconProyecto");
+	var icon = document.getElementById("proyectoIcon");
 	
     if (proyecto === "") {
         mensaje.textContent = "El proyecto es obligatorio.";
@@ -347,33 +347,4 @@ function validarProyecto() {
 		icon.style.color = "green";
 		inputProyecto.style.borderColor = "green";
 	}
-}
-
-function validarFormulario() {
-    validarUsuario();
-    validarPassword();
-	validarIdActualizar();
-	validarIdBuscar();
-	validarIdEliminar();
-	validarIdInactivar();
-	validarNombre();
-	validarApellido();
-	validarTipo();
-	validarDocumento();
-	validarEmail();
-	validarTelefono();
-    validarRol();
-	validarProyecto();
-	
-    return document.getElementById("idError").textContent === "" + 
-	document.getElementById("nombreError").textContent === ""+
-	document.getElementById("apellidoError").textContent === "" +
-	document.getElementById("tipoError").textContent === "" + 
-	document.getElementById("documentoError").textContent === ""+
-	document.getElementById("emailError").textContent === "" + 
-	document.getElementById("telefonoError").textContent === ""+
-	document.getElementById("usuarioError").textContent === "" + 
-	document.getElementById("passwordError").textContent === ""+
-	document.getElementById("rolError").textContent === "" + 
-	document.getElementById("proyectoError").textContent === "";
 }

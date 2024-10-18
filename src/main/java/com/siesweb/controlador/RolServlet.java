@@ -57,24 +57,25 @@ public class RolServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String descripcion = request.getParameter("descRol");
-		try {
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {		
 			if (!descripcion.isEmpty()) {
 				if (validarDescripcion(descripcion) ) {
-					HttpSession session = request.getSession(false);
-					if (session != null && session.getAttribute("nombreUser") != null) {
+					try {
 						rolesDAO.insertarRol(new Roles(0, descripcion));
 						JOptionPane.showMessageDialog(null, "Rol agregado con exito.", "!Advertencia¡",
 								JOptionPane.INFORMATION_MESSAGE);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 						dispatcher.forward(request, response);
-					}else {
-						JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+					} catch (SQLException e) {
+						System.out.println("Error al insertar rol." + e);
+						JOptionPane.showMessageDialog(null, "Error al insertar rol.", "!Advertencia¡",
 								JOptionPane.INFORMATION_MESSAGE);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+						RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 						dispatcher.forward(request, response);
-					}
-				} else {
-					System.out.println("Uno o varios campos no son validos.");
+					}					
+				} else {					
 					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
@@ -87,8 +88,12 @@ public class RolServlet extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 				dispatcher.forward(request, response);
 			}
-		} catch (SQLException e) {
-			System.out.println(e);
+		
+		}else {
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+					JOptionPane.INFORMATION_MESSAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 	
@@ -96,54 +101,47 @@ public class RolServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String idString = request.getParameter("idRol");	
 		String descripcion = request.getParameter("descripcionRol");
-		if (!idString.isEmpty()) {
-			try {
-				if (!descripcion.isEmpty()) {
-					if (validarDescripcion(descripcion) && validarId(idString)) {						
-						
-						int id = Integer.parseInt(idString);
-						HttpSession session = request.getSession(false);
-						if (session != null && session.getAttribute("nombreUser") != null) {
-							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-							if (respuesta == JOptionPane.YES_OPTION) {
-							
-								rolesDAO.actualizarRol(new Roles(id, descripcion));
-								JOptionPane.showMessageDialog(null, "Rol actualizado con exito.", "!Advertencia¡",
-										JOptionPane.INFORMATION_MESSAGE);
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
-								dispatcher.forward(request, response);
-							}else {
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
-								dispatcher.forward(request, response);
-							}
-						}else {
-							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {			
+			if (!idString.isEmpty() && !descripcion.isEmpty()) {
+				if (validarDescripcion(descripcion) && validarId(idString)) {
+					int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+					if (respuesta == JOptionPane.YES_OPTION) {
+						try {
+							int id = Integer.parseInt(idString);
+							rolesDAO.actualizarRol(new Roles(id, descripcion));
+							JOptionPane.showMessageDialog(null, "Rol actualizado con exito.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
+							dispatcher.forward(request, response);
+						} catch (SQLException e) {
+							System.out.println("Error al actualizar rol." + e);
+							JOptionPane.showMessageDialog(null, "Error al actualizar rol.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 							dispatcher.forward(request, response);
 						}
-					} else {
-						System.out.println("Uno o varios campos no son validos.");
-						JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
-								JOptionPane.INFORMATION_MESSAGE);
+					}else {
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 						dispatcher.forward(request, response);
 					}
-				} else {
-					System.out.println("Debe llenar todos los campos.");
-					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
+				} else {					
+					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 					dispatcher.forward(request, response);
 				}
-			} catch (SQLException e) {
-				System.out.println(e);
+			} else {				
+				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
+				dispatcher.forward(request, response);
 			}
 		}else {
-			System.out.println("Ingresa un id porfavor");
-			JOptionPane.showMessageDialog(null, "Debes ingresar el id del Rol.", "!Advertencia¡",
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -151,71 +149,74 @@ public class RolServlet extends HttpServlet {
 	private void eliminarRol(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String idString = request.getParameter("idRoles");
-		if (!idString.isEmpty()) {
-			if (validarId(idString)) {
-				int id = Integer.parseInt(idString);
-				try {
-					List<Roles> rol = rolesDAO.buscarRol(id);
-					if (!rol.isEmpty()) {
-						HttpSession session = request.getSession(false);
-						if (session != null && session.getAttribute("nombreUser") != null) {
-							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-							if (respuesta == JOptionPane.YES_OPTION) {
-								rolesDAO.eliminarRol(id);
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
-								dispatcher.forward(request, response);
-							} else {
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
-								dispatcher.forward(request, response);
-							}
-						}else {
-							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {		
+			if (!idString.isEmpty()) {
+				if (validarId(idString)) {
+					int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+					if (respuesta == JOptionPane.YES_OPTION) {
+						try {
+							int id = Integer.parseInt(idString);
+							rolesDAO.eliminarRol(id);
+							JOptionPane.showMessageDialog(null, "Rol eliminado con exito.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
+							dispatcher.forward(request, response);
+						} catch (SQLException e) {
+							System.out.println("Error al eliminar rol." + e);
+							JOptionPane.showMessageDialog(null, "Error al eliminar rol.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
-						System.out.println("No se encontro el id a eliminar.");
-						JOptionPane.showMessageDialog(null, "No se encontro el id a eliminar.", "!Advertencia¡",
-								JOptionPane.INFORMATION_MESSAGE);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 						dispatcher.forward(request, response);
 					}
-				} catch (SQLException e) {
+				} else {					
+					JOptionPane.showMessageDialog(null, "El id no es valido.", "!Advertencia¡",
+							JOptionPane.INFORMATION_MESSAGE);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
+					dispatcher.forward(request, response);
 				}
-			} else {
-				System.out.println("El id no es valido.");
-				JOptionPane.showMessageDialog(null, "El id no es valido.", "!Advertencia¡",
+			} else {				
+				JOptionPane.showMessageDialog(null, "Debes ingresar el id del Rol.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 				dispatcher.forward(request, response);
 			}
-		} else {
-			System.out.println("Ingresa un id porfavor");
-			JOptionPane.showMessageDialog(null, "Debes ingresar el id del Rol.", "!Advertencia¡",
+		}else {
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
 	
 	private void listarRol(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			HttpSession session = request.getSession(false);
-			if (session != null && session.getAttribute("nombreUser") != null) {
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {
+			try {
 				List<Roles> roles = rolesDAO.obtenerRoles();
 				request.setAttribute("listaRoles", roles);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 				dispatcher.forward(request, response);
-			}else {
-				JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+			} catch (SQLException e) {
+				System.out.println("Error al listar roles." + e);
+				JOptionPane.showMessageDialog(null, "Error al listar roles.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminRol.jsp");
 				dispatcher.forward(request, response);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}else {
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+					JOptionPane.INFORMATION_MESSAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
 		}
+		
 	}
 	
 	public static boolean validarId(String id) {
@@ -226,7 +227,7 @@ public class RolServlet extends HttpServlet {
 	}
 	
 	public static boolean validarDescripcion(String descripcion) {
-		String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}$";
+		String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,25}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(descripcion);
 		return matcher.matches();

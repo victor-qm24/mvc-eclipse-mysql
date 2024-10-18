@@ -62,7 +62,7 @@
 					data-bs-toggle="dropdown">Más</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminTipo.jsp">Tipos
-								de documento</a></li>
+								de DNI</a></li>
 						<li><a class="dropdown-item" href="adminRol.jsp">Roles</a></li>
 						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
 						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
@@ -82,8 +82,7 @@
 		<h6>Debes llenar todos los campos del formulario.</h6>
 		<div class="row mt-3">
 			<div class="col-sm-6 bg-dark-subtle">
-				<form action="actualizarAvc" method="POST"
-					onsubmit="return validarFormulario();">
+				<form action="actualizarAvc" method="POST">
 					<div class="row pt-3">
 						<div class="col-sm-2">
 							<!--grupo__id-->
@@ -93,7 +92,7 @@
 										class=" form-control formulario__input" placeholder="Id"
 										oninput="validarIdUpdate()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconIdUpdate">check_circle</i>
+										id="idUpdateIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="idUpdateError"></p>
 							</div>
@@ -109,33 +108,35 @@
 										class="formulario__input form-control"
 										oninput="validarFecha()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconFecha">check_circle</i>
+										id="fechaIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="fechaError"></p>
 							</div>
 							<!-- Grupo: Tramo ampliado -->
 							<div class="formulario__grupo" id="grupo__tramo_amp">
-								<label for="tramo_amp" class="formulario__label form-label"><strong>T.
-										ampliado</strong></label>
+								<label for="tramo_amp" class="formulario__label form-label"><strong>Tramo 
+								ampliado</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="tramo_amp" id="tramo_amp"
+										placeholder="00000.00"
 										class="formulario__input form-control"
 										oninput="validarTramo_amp()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconTramo_amp">check_circle</i>
+										id="tramo_ampIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="tramo_ampError"></p>
 							</div>
 							<!-- Grupo: Tramo mejorado -->
 							<div class="formulario__grupo" id="grupo__tramo_mej">
-								<label for="tramo_mej" class="formulario__label form-label"><strong>T.
+								<label for="tramo_mej" class="formulario__label form-label"><strong>Tramo 
 										mejorado</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="tramo_mej"
+										placeholder="00000.00"
 										class="formulario__input form-control" id="tramo_mej"
 										oninput="validarTramo_mej()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconTramo_mej">check_circle</i>
+										id="tramo_mejIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="tramo_mejError"></p>
 							</div>
@@ -143,40 +144,43 @@
 						<div class="col-sm-4">
 							<!-- Grupo: Tramo sub-base -->
 							<div class="formulario__grupo" id="grupo__tramo_sub">
-								<label for="tramo_sub" class="formulario__label form-label"><strong>T.
+								<label for="tramo_sub" class="formulario__label form-label"><strong>Tramo con 
 										subBase</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="tramo_sub"
+										placeholder="00000.00"
 										class="formulario__input form-control" id="tramo_sub"
 										oninput="validarTramo_sub()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconTramo_sub">check_circle</i>
+										id="tramo_subIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="tramo_subError"></p>
 							</div>
 							<!-- Grupo: Tramo base -->
 							<div class="formulario__grupo" id="grupo__tramo_bas">
-								<label for="tramo_bas" class="formulario__label form-label"><strong>T.
+								<label for="tramo_bas" class="formulario__label form-label"><strong>Tramo con 
 										base</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="tramo_bas"
+										placeholder="00000.00"
 										class="formulario__input form-control" id="tramo_bas"
 										oninput="validarTramo_bas()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconTramo_bas">check_circle</i>
+										id="tramo_basIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="tramo_basError"></p>
 							</div>
 							<!-- Grupo: Tramo asfaltado -->
 							<div class="formulario__grupo" id="grupo__tramo_asf">
-								<label for="tramo_asf" class="formulario__label form-label"><strong>T.
-										asfaltado</strong></label>
+								<label for="tramo_asf" class="formulario__label form-label"><strong>Tramo con 
+										asfalto</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="tramo_asf" id="tramo_asf"
+										placeholder="00000.00"
 										class="formulario__input form-control"
 										oninput="validarTramo_asf()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconTramo_asf">check_circle</i>
+										id="tramo_asfIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="tramo_asfError"></p>
 							</div>
@@ -198,7 +202,7 @@
 								            }
 								        %>
 									</select> <i class="formulario__validacion-estado material-icons ms-1"
-										id="iconProyecto">check_circle</i>
+										id="proyectoIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="proyectoError"></p>
 							</div>
@@ -210,10 +214,11 @@
 										terminadas</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="cunetas" id="cunetas"
+										placeholder="000"
 										class="formulario__input form-control"
 										oninput="validarCunetas()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconCunetas">check_circle</i>
+										id="cunetasIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="cunetasError"></p>
 							</div>
@@ -223,10 +228,11 @@
 										terminados</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="muros" id="muros"
+										placeholder="000"
 										class="formulario__input form-control"
 										oninput="validarMuros()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconMuros">check_circle</i>
+										id="murosIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="murosError"></p>
 							</div>
@@ -236,10 +242,11 @@
 										de ejecucion</b></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="ejecucion" id="ejecucion"
+										placeholder="000"
 										class="formulario__input form-control"
 										oninput="validarEjecucion()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconEjecucion">check_circle</i>
+										id="ejecucionIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="ejecucionError"></p>
 							</div>

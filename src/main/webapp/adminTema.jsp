@@ -62,7 +62,7 @@
 					data-bs-toggle="dropdown">Más</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminTipo.jsp">Tipos
-								de documento</a></li>
+								de DNI</a></li>
 						<li><a class="dropdown-item" href="adminRol.jsp">Roles</a></li>
 						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
 						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
@@ -73,8 +73,8 @@
 			</ul>
 		</div>
 	</nav>
-	<section class="container-fluid p-3"
-		style="margin-top: 100px;" id="sec-tipo">
+	<section class="container-fluid p-3" style="margin-top: 100px;"
+		id="sec-tipo">
 		<h1>
 			<b>CRUD Temas</b>
 		</h1>
@@ -84,12 +84,13 @@
 				<form method="POST" action="insertarTema">
 					<!--grupo_descricpion_tema-->
 					<div class="formulario__grupo" id="grupo__descTema">
+					<label for="descTema" class="form-label formulario__label"><strong>Descripcion</strong></label>
 						<div class="formulario__grupo-input d-flex">
 							<input type="text" name="descTema" id="descTema"
 								class=" form-control formulario__input mb-2"
-								placeholder="Descripcion" oninput="validarDescTema()"> <i
+								placeholder="Ingrese descripcion..." oninput="validarDescTema()"> <i
 								class="formulario__validacion-estado material-icons ms-1"
-								id="iconDescTema">check_circle</i>
+								id="descTemaIcon">check_circle</i>
 						</div>
 						<p class="formulario__input-error" id="descTemaError"></p>
 					</div>
@@ -111,7 +112,7 @@
 										class=" form-control formulario__input mb-2" placeholder="Id"
 										oninput="validarIdTema()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconIdTema">check_circle</i>
+										id="idTemaIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="idTemaError"></p>
 							</div>
@@ -119,12 +120,13 @@
 						<div class="col-sm-9">
 							<!--grupo_descricpion_rol-->
 							<div class="formulario__grupo" id="grupo__descripcionTema">
+							<label for="descripcionTema" class="form-label formulario__label"><strong>Descripcion</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="descripcionTema" id="descripcionTema"
 										class=" form-control formulario__input mb-2"
-										placeholder="Descripcion" oninput="validarDescripcionTema()">
+										placeholder="Ingrese descripcion..." oninput="validarDescripcionTema()">
 									<i class="formulario__validacion-estado material-icons ms-1"
-										id="iconDescripcionTema">check_circle</i>
+										id="descripcionTemaIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="descripcionTemaError"></p>
 							</div>
@@ -156,7 +158,7 @@
 										class=" form-control formulario__input mb-2" placeholder="Id"
 										oninput="validarIdTemas()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconIdTemas">check_circle</i>
+										id="idTemasIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="idTemasError"></p>
 							</div>

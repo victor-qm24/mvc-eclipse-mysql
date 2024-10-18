@@ -62,7 +62,7 @@
 					data-bs-toggle="dropdown">Más</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminTipo.jsp">Tipos
-								de documento</a></li>
+								de DNI</a></li>
 						<li><a class="dropdown-item" href="adminRol.jsp">Roles</a></li>
 						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
 						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
@@ -73,8 +73,8 @@
 			</ul>
 		</div>
 	</nav>
-	<section class="container-fluid p-3"
-		style="margin-top: 100px;" id="sec-tipo">
+	<section class="container-fluid p-3" style="margin-top: 100px;"
+		id="sec-tipo">
 		<h1>
 			<b>CRUD Roles</b>
 		</h1>
@@ -83,13 +83,14 @@
 			<div class="col-sm-6 border-end">
 				<form method="POST" action="insertarRol">
 					<!--grupo_descricpion_rol-->
-					<div class="formulario__grupo" id="grupo__descripcionRol">
+					<div class="formulario__grupo" id="grupo__descRol">
+					<label for="descRol" class="form-label formulario__label"><strong>Descripcion</strong></label>
 						<div class="formulario__grupo-input d-flex">
 							<input type="text" name="descRol" id="descRol"
 								class=" form-control formulario__input mb-2"
-								placeholder="Descripcion" oninput="validarDescRol()"> <i
+								placeholder="Ingrese descripcion..." oninput="validarDescRol()"> <i
 								class="formulario__validacion-estado material-icons ms-1"
-								id="iconDescRol">check_circle</i>
+								id="descRolIcon">check_circle</i>
 						</div>
 						<p class="formulario__input-error" id="descRolError"></p>
 					</div>
@@ -111,7 +112,7 @@
 										class=" form-control formulario__input mb-2" placeholder="Id"
 										oninput="validarIdRol()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconIdRol">check_circle</i>
+										id="idRolIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="idRolError"></p>
 							</div>
@@ -119,12 +120,13 @@
 						<div class="col-sm-9">
 							<!--grupo_descricpion_rol-->
 							<div class="formulario__grupo" id="grupo__descripcionRol">
+							<label for="descripcionRol" class="form-label formulario__label"><strong>Descripcion</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="descripcionRol" id="descripcionRol"
 										class=" form-control formulario__input mb-2"
-										placeholder="Descripcion" oninput="validarDescripcionRol()">
+										placeholder="Ingrese descripcion..." oninput="validarDescripcionRol()">
 									<i class="formulario__validacion-estado material-icons ms-1"
-										id="iconDescripcionRol">check_circle</i>
+										id="descripcionRolIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="descripcionRolError"></p>
 							</div>
@@ -156,7 +158,7 @@
 										class=" form-control formulario__input mb-2" placeholder="Id"
 										oninput="validarIdRoles()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconIdRoles">check_circle</i>
+										id="idRolesIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="idRolesError"></p>
 							</div>

@@ -62,7 +62,7 @@
 					data-bs-toggle="dropdown">Más</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminTipo.jsp">Tipos
-								de documento</a></li>
+								de DNI</a></li>
 						<li><a class="dropdown-item" href="adminRol.jsp">Roles</a></li>
 						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
 						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
@@ -84,7 +84,7 @@
 				<div class="row pt-3">
 					<div class="col-sm-4">
 						<form action="buscar" method="POST" class="formulario"
-							id="formulario" onsubmit="return validarFormulario();">
+							id="formulario">
 							<div class="row">
 								<div class="col-sm-6">
 									<!--grupo__id-->
@@ -94,7 +94,7 @@
 												class=" form-control formulario__input" placeholder="Id"
 												oninput="validarIdBuscar()"> <i
 												class="formulario__validacion-estado material-icons ms-1"
-												id="iconIdBuscar">check_circle</i>
+												id="idBuscarIcon">check_circle</i>
 										</div>
 										<p class="formulario__input-error" id="idBuscarError"></p>
 									</div>
@@ -108,7 +108,7 @@
 					</div>
 					<div class="col-sm-4">
 						<form action="eliminar" method="POST" class="formulario"
-							id="formulario" onsubmit="return validarFormulario();">
+							id="formulario">
 							<div class="row">
 								<div class="col-sm-6">
 									<!--grupo__id-->
@@ -118,7 +118,7 @@
 												class=" form-control formulario__input" placeholder="Id"
 												oninput="validarIdEliminar()"> <i
 												class="formulario__validacion-estado material-icons ms-1"
-												id="iconIdEliminar">check_circle</i>
+												id="idEliminarIcon">check_circle</i>
 										</div>
 										<p class="formulario__input-error" id="idEliminarError"></p>
 									</div>
@@ -132,7 +132,7 @@
 					</div>
 					<div class="col-sm-4">
 						<form action="inactivar" method="POST" class="formulario"
-							id="formulario" onsubmit="return validarFormulario();">
+							id="formulario">
 							<div class="row">
 								<div class="col-sm-6">
 									<!--grupo__id-->
@@ -142,7 +142,7 @@
 												class=" form-control formulario__input" placeholder="Id"
 												oninput="validarIdInactivar()"> <i
 												class="formulario__validacion-estado material-icons ms-1"
-												id="iconIdInactivar">check_circle</i>
+												id="idInactivarIcon">check_circle</i>
 										</div>
 										<p class="formulario__input-error" id="idInactivarError"></p>
 									</div>

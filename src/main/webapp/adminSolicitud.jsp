@@ -62,7 +62,7 @@
 					data-bs-toggle="dropdown">Más</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="adminTipo.jsp">Tipos
-								de documento</a></li>
+								de DNI</a></li>
 						<li><a class="dropdown-item" href="adminRol.jsp">Roles</a></li>
 						<li><a class="dropdown-item" href="adminProyecto.jsp">Proyectos</a></li>
 						<li><a class="dropdown-item" href="adminSolicitud.jsp">Solicitudes</a></li>
@@ -73,8 +73,8 @@
 			</ul>
 		</div>
 	</nav>
-	<section class="container-fluid p-3"
-		style="margin-top: 100px;" id="sec-tipo">
+	<section class="container-fluid p-3" style="margin-top: 100px;"
+		id="sec-tipo">
 		<h1>
 			<b>CRUD Solicitudes</b>
 		</h1>
@@ -92,7 +92,7 @@
 										class=" form-control formulario__input" placeholder="Id"
 										oninput="validarIdSolicitud()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconIdSolicitud">check_circle</i>
+										id="idSolicitudIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="idSolicitudError"></p>
 							</div>

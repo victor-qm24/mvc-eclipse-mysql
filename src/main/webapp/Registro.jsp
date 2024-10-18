@@ -47,17 +47,18 @@
 		<div class="row mt-3">
 			<div class="col-sm-6 bg-dark-subtle p-3 rounded">
 				<form action="registrar" method="POST" class=" formulario"
-					id="formulario" onsubmit="return validarFormulario();">
+					id="formulario">
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<!--grupo__nombre-->
 							<div class="formulario__grupo" id="grupo__nombre">
+							<label for="nombre" class="form-label formulario__label"><strong>Nombre</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="nombre" id="nombre"
-										class=" form-control formulario__input" placeholder="Nombres"
+										class=" form-control formulario__input" placeholder="Ingrese su nombre..."
 										oninput="validarNombre()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconNombre">check_circle</i>
+										id="nombreIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="nombreError"></p>
 							</div>
@@ -65,12 +66,13 @@
 						<div class="col-sm-6">
 							<!--grupo__apellidos-->
 							<div class="formulario__grupo" id="grupo__apellido">
+							<label for="apellido" class="form-label formulario__label"><strong>Apellido</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="apellido" id="apellido"
 										class=" form-control formulario__input"
-										placeholder="Apellidos" oninput="validarApellido()"> <i
+										placeholder="Ingrese su apellido..." oninput="validarApellido()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconApellido">check_circle</i>
+										id="apellidoIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="apellidoError"></p>
 							</div>
@@ -80,13 +82,12 @@
 						<div class="col-sm-6">
 							<!--grupo__tipo-->
 							<div class="formulario__grupo" id="grupo__tipo">
-								<label for="tipo" class="form-label formulario__label">Tipo
-									de documento</label>
+								<label for="tipo" class="form-label formulario__label"><strong>Tipo
+									de documento</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<select name="tipo" id="tipo"
 										class="form-select formulario__input" oninput="validarTipo()">
-										<%	
-                                        	
+										<%
 								            List<TiposDocumentos> listaTipos = (List<TiposDocumentos>) request.getAttribute("listaTipos");
 								            if(listaTipos != null){
                                 				for (TiposDocumentos tipo : listaTipos) {
@@ -97,7 +98,7 @@
 								            }
 								        %>
 									</select> <i class="formulario__validacion-estado material-icons ms-1"
-										id="iconTipo">check_circle</i>
+										id="tipoIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="tipoError"></p>
 							</div>
@@ -105,13 +106,13 @@
 						<div class="col-sm-6">
 							<!--grupo__documento-->
 							<div class="formulario__grupo" id="grupo__documento">
-								<label for="documento" class="form-label formulario__label">Documento</label>
+								<label for="documento" class="form-label formulario__label"><strong>Documento</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="documento" id="documento"
 										class=" form-control formulario__input"
-										placeholder="Documento" oninput="validarDocumento()">
+										placeholder="Ingrese su documento..." oninput="validarDocumento()">
 									<i class="formulario__validacion-estado material-icons ms-1"
-										id="iconDocumento">check_circle</i>
+										id="documentoIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="documentoError"></p>
 							</div>
@@ -121,12 +122,13 @@
 						<div class="col-sm-6">
 							<!--grupo__email-->
 							<div class="formulario__grupo" id="grupo__email">
+							<label for="email" class="form-label formulario__label"><strong>Email</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="email" id="email"
-										class=" form-control formulario__input" placeholder="Email"
+										class=" form-control formulario__input" placeholder="example@example.com"
 										oninput="validarEmail()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconEmail">check_circle</i>
+										id="emailIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="emailError"></p>
 							</div>
@@ -134,12 +136,13 @@
 						<div class="col-sm-6">
 							<!--grupo__telefono-->
 							<div class="formulario__grupo" id="grupo__telefono">
+							<label for="telefono" class="form-label formulario__label"><strong>Telefono</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="telefono" id="telefono"
-										class="formulario__input form-control" placeholder="Telefono"
+										class="formulario__input form-control" placeholder="0000000000"
 										oninput="validarTelefono()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconTelefono">check_circle</i>
+										id="telefonoIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="telefonoError"></p>
 							</div>
@@ -149,12 +152,13 @@
 						<div class="col-sm-6">
 							<!--grupo-usuario-->
 							<div class="formulario__grupo" id="grupo__usuario">
+							<label for="usuario" class="form-label formulario__label"><strong>Usuario</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="usuario" id="usuario"
 										class="formulario__input form-control"
-										oninput="validarUsuario()" placeholder="Usuario"> <i
+										oninput="validarUsuario()" placeholder="Ingrese su usuario..."> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconUsuario">check_circle</i>
+										id="usuarioIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="usuarioError"></p>
 							</div>
@@ -162,12 +166,13 @@
 						<div class="col-sm-6">
 							<!--grupo-password-->
 							<div class="formulario__grupo" id="grupo__password">
+							<label for="password" class="form-label formulario__label"><strong>Password</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="password" name="password" id="password"
 										class="formulario__input form-control"
-										oninput="validarPassword()" placeholder="Password"> <i
+										oninput="validarPassword()" placeholder="**********"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconPassword">check_circle</i>
+										id="passwordIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="passwordError"></p>
 							</div>
@@ -177,7 +182,7 @@
 						<div class="col-sm-6">
 							<!--grupo__rol-->
 							<div class="formulario__grupo" id="grupo__rol">
-								<label for="rol" class="form-label formulario__label">Rol</label>
+								<label for="rol" class="form-label formulario__label"><strong>Rol</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<select name="rol" id="rol"
 										class="form-select formulario__input" oninput="validarRol()">
@@ -192,7 +197,7 @@
 								            }
 								        %>
 									</select> <i class="formulario__validacion-estado material-icons ms-1"
-										id="iconRol">check_circle</i>
+										id="rolIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="rolError"></p>
 							</div>
@@ -200,7 +205,7 @@
 						<div class="col-sm-6">
 							<!--grupo__proyecto-->
 							<div class="formulario__grupo" id="grupo__proyecto">
-								<label for="proyecto" class="form-label formulario__label">Proyecto</label>
+								<label for="proyecto" class="form-label formulario__label"><strong>Proyecto</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<select name="proyecto" id="proyecto"
 										class="form-select formulario__input"
@@ -216,7 +221,7 @@
 								            }
 								        %>
 									</select> <i class="formulario__validacion-estado material-icons ms-1"
-										id="iconProyecto">check_circle</i>
+										id="proyectoIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="proyectoError"></p>
 							</div>
@@ -224,21 +229,10 @@
 					</div>
 					<div class="row mt-4">
 						<div class="col-sm-6">
-							<!--Mensaje-exito-error-->
-							<div
-								class="formulario__mensaje h-50 border rounded bg-danger ps-2 pe-2 lh-1 d-none mt-2"
-								id="formulario__mensaje">
-								<p>
-									<i class="material-icons me-2">assignment_late</i><b>Error:
-									</b>Por favor rellena el formulario correctamente.
-								</p>
-							</div>
+							<!--Mensaje-exito-error-->							
 							<div class="formulario__grupo formulario__grupo-btn-enviar">
 								<input type="submit" value="Registrarse"
-									class="btn btn-primary float-end formulario__btn">
-								<p class="formulario__mensaje-exito text-success d-none"
-									id="formulario__mensaje-exito">Te has registrado
-									exitosamente!</p>
+									class="btn btn-primary float-end formulario__btn">								
 							</div>
 						</div>
 						<div class="col-sm-6">
@@ -256,8 +250,7 @@
 		</div>
 	</section>
 
-	<footer
-		class="p-2 bg-dark text-white text-center">
+	<footer class="p-2 bg-dark text-white text-center">
 		<div class="row">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">

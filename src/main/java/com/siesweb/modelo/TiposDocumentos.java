@@ -19,6 +19,6 @@ public class TiposDocumentos {
 
 	@Override
 	public String toString() {
-		return descripcion_tipo;
+		return "TiposDocumentos [id=" + id + ", descripcion_tipo=" + descripcion_tipo + "]";
 	}
 }

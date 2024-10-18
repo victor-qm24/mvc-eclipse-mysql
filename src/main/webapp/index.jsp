@@ -51,52 +51,37 @@
 						<div class="col-sm-8">
 							<!--grupo-usuario-->
 							<div class="formulario__grupo" id="grupo__usuario">
-								<label for="usuario" class="form-label formulario__label">Usuario</label>
+								<label for="usuario" class="form-label formulario__label"><strong>Usuario</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="usuario" id="usuario"
+										placeholder="Ingrese su usuario..."
 										class="formulario__input form-control mb-2"
 										oninput="validarUsuario()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconUsuario">check_circle</i>
+										id="usuarioIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="usuarioError"></p>
 							</div>
 							<!--grupo-password-->
 							<div class="formulario__grupo" id="grupo__password">
-								<label for="usuario" class="form-label formulario__label">Password</label>
+								<label for="usuario" class="form-label formulario__label"><strong>Password</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="password" name="password" id="password"
+										placeholder="**********"
 										class="formulario__input form-control"
 										oninput="validarPassword()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconPassword">check_circle</i>
+										id="passwordIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="passwordError"></p>
 							</div>
-							<!--Mensaje-exito-error-->
-							<div
-								class="formulario__mensaje h-25 border rounded bg-danger ps-2 pe-2 lh-1 d-none mt-2"
-								id="formulario__mensaje">
-								<p>
-									<i class="material-icons me-2">assignment_late</i><b>Error:
-									</b>Por favor rellena el formulario correctamente.
-								</p>
-							</div>
-							<div
-								class="formulario__mensaje2 h-25 border rounded bg-danger ps-2 pe-2 lh-1 d-none mt-2"
-								id="formulario__mensaje2">
-								<p>
-									<i class="material-icons me-2">assignment_late</i><b>Error:
-									</b>Datos no registrados en la base de datos..
-								</p>
-							</div>
+							<!--Mensaje-exito-error-->					
+							
 							<div class="formulario__grupo formulario__grupo-btn-enviar mt-4">
-								<a href="cargarRegistro" class="">Eres nuevo, registrate.</a> <input
+								<a href="cargarRegistro" class="">Eres nuevo, registrate.</a>
+								<input
 									type="submit" value="Iniciar sesión"
-									class="btn btn-primary float-end formulario__btn">
-								<p class="formulario__mensaje-exito text-success d-none"
-									id="formulario__mensaje-exito">Formulario enviado
-									exitosamente!</p>
+									class="btn btn-primary float-end formulario__btn">								
 							</div>
 						</div>
 					</div>

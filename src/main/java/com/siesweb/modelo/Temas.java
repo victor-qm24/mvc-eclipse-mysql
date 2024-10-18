@@ -15,8 +15,6 @@ public class Temas {
 
 	@Override
 	public String toString() {
-		return "Temas [descripcion_tema=" + descripcion_tema + "]";
+		return "Temas [id=" + id + ", descripcion_tema=" + descripcion_tema + "]";
 	}
-	
-	
 }

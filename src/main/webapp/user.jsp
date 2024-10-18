@@ -47,7 +47,7 @@
 				<li class="nav-item"><a class="nav-link"
 					href="#sec-quienesSomos">¿Quienes somos?</a></li>
 				<li><a class="dropdown-item " href="logout"><i
-					class="material-icons nav-link">logout</i></a></li>
+						class="material-icons nav-link">logout</i></a></li>
 			</ul>
 		</div>
 	</nav>
@@ -64,7 +64,7 @@
         %>
 		<hr>
 		<div class="container-fluid bg-light">
-			<div class="row text-center">			
+			<div class="row text-center">
 				<div class="col-sm">
 					<h2>
 						<b>Nombre del proyecto</b>
@@ -72,20 +72,19 @@
 					<p class="display-6">Desarrollo de un aplicativo web para la
 						visualización de estadísticas viales mediante el análisis de la
 						información sobre el manejo de solicitudes por intervención de
-						propiedades privadas en la obra de pavimentación PALMITAS-LERMA</p>							
-				</div>			
+						propiedades privadas en la obra de pavimentación PALMITAS-LERMA</p>
+				</div>
 			</div>
-			<div class="row p-4">			
+			<div class="row p-4">
 				<div class="col-sm embed-responsive">
 					<video class="embed-responsive-item mx-auto d-block" controls>
-				    	<source src="imagenes/lerma-via.mp4" type="video/mp4">			    			    
-					</video>								
-				</div>			
+						<source src="imagenes/lerma-via.mp4" type="video/mp4">
+					</video>
+				</div>
 			</div>
-		</div>		
+		</div>
 	</section>
-	<section class="container-fluid p-3"
-		id="sec-estadisticas">
+	<section class="container-fluid p-3" id="sec-estadisticas">
 		<h1>
 			<b>Estadisticas</b>
 		</h1>
@@ -105,7 +104,7 @@
 								<th class="text-primary"><h5>Tramo base (m)</h5></th>
 								<th class="text-primary"><h5>Tramo asfaltado (m)</h5></th>
 								<th class="text-primary"><h5>Cunetas terminadas</h5></th>
-								<th class="text-primary"><h5>Muros terminados</h5></th>								
+								<th class="text-primary"><h5>Muros terminados</h5></th>
 								<th class="text-primary"><h5>Ejecucion (%)</h5></th>
 							</tr>
 						</thead>
@@ -130,30 +129,39 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="row mt-3 ">
-			<h4 >Graficas de historicos</h4>
+			<h4>Graficas de historicos</h4>
 			<div class="col-sm p-3 ms-2 me-2 rounded border border-success">
-				<div class="container-fluid table-responsive" style="max-height: 500px; overflow-y: auto;">
+				<div class="container-fluid table-responsive"
+					style="max-height: 500px; overflow-y: auto;">
 					<table class="table table-borderless text-center">
 						<thead class="">
 							<tr class="">
-								
+
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td><canvas id="myChartTramo_amp" style="width:100%;max-width:300px" class=""></canvas></td>
-								<td><canvas id="myChartTramo_mej" style="width:100%;max-width:300px" class=""></canvas></td>
-								<td><canvas id="myChartTramo_sub" style="width:100%;max-width:300px" class=""></canvas></td>
-								<td><canvas id="myChartTramo_bas" style="width:100%;max-width:300px" class=""></canvas></td>										
+								<td><canvas id="myChartTramo_amp"
+										style="width: 100%; max-width: 300px" class=""></canvas></td>
+								<td><canvas id="myChartTramo_mej"
+										style="width: 100%; max-width: 300px" class=""></canvas></td>
+								<td><canvas id="myChartTramo_sub"
+										style="width: 100%; max-width: 300px" class=""></canvas></td>
+								<td><canvas id="myChartTramo_bas"
+										style="width: 100%; max-width: 300px" class=""></canvas></td>
 							</tr>
 							<tr>
-								<td><canvas id="myChartTramo_asf" style="width:100%;max-width:300px" class=""></canvas></td>
-								<td><canvas id="myChartEjecucion" style="width:100%;max-width:300px" class=""></canvas></td>
-								<td><canvas id="myChartCunetas" style="width:100%;max-width:300px" class=""></canvas></td>
-								<td><canvas id="myChartMuros" style="width:100%;max-width:300px" class=""></canvas></td>
-							</tr>							
+								<td><canvas id="myChartTramo_asf"
+										style="width: 100%; max-width: 300px" class=""></canvas></td>
+								<td><canvas id="myChartEjecucion"
+										style="width: 100%; max-width: 300px" class=""></canvas></td>
+								<td><canvas id="myChartCunetas"
+										style="width: 100%; max-width: 300px" class=""></canvas></td>
+								<td><canvas id="myChartMuros"
+										style="width: 100%; max-width: 300px" class=""></canvas></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -305,33 +313,33 @@
 			<div class="col-sm-6">
 				<form action="insertarSolicitud"
 					class="d-block bg-dark-subtle rounded p-3 h-100 formulario"
-					id="formulario" onsubmit="return validarFormulario();">
+					id="formulario">
 					<!--grupo__fech-->
 					<div class="formulario__grupo" id="grupo__fech">
-						<label for="fech" class="form-label formulario__label">Fecha</label>
+						<label for="fech" class="form-label formulario__label"><strong>Fecha</strong></label>
 						<div class="formulario__grupo-input d-flex">
 							<input type="date" name="fech" id="fech"
-								class="formulario__input form-control"								
-								oninput="validarFech()"> <i
-								class="formulario__validacion-estado material-icons ms-1" id="iconFech">check_circle</i>
+								class="formulario__input form-control" oninput="validarFech()">
+							<i class="formulario__validacion-estado material-icons ms-1"
+								id="fechIcon">check_circle</i>
 						</div>
 						<p class="formulario__input-error" id="fechError"></p>
 					</div>
 					<!--grupo__users-->
 					<div class="formulario__grupo" id="grupo__emails">
-						<label for="users" class="form-label formulario__label">Usuario</label>
+						<label for="users" class="form-label formulario__label"><strong>Usuario</strong></label>
 						<div class="formulario__grupo-input d-flex">
 							<input type="text" name="users" id="users"
 								class="formulario__input form-control"
-								placeholder="Ingrese su usuario..."
-								oninput="validarUsers()"> <i
-								class="formulario__validacion-estado material-icons ms-1" id="iconUsers">check_circle</i>
+								placeholder="Ingrese su usuario..." oninput="validarUsers()">
+							<i class="formulario__validacion-estado material-icons ms-1"
+								id="usersIcon">check_circle</i>
 						</div>
 						<p class="formulario__input-error" id="usersError"></p>
 					</div>
 					<!--grupo__proyect-->
 					<div class="formulario__grupo" id="grupo__proyect">
-						<label for="proyect" class="form-label formulario__label">Proyecto</label>
+						<label for="proyect" class="form-label formulario__label"><strong>Proyecto</strong></label>
 						<div class="formulario__grupo-input d-flex">
 							<select name="proyect" id="proyect"
 								class="form-select formulario__input mb-2"
@@ -341,22 +349,22 @@
 								            if(listaProyecto != null){
                                 				for (Proyectos proyecto : listaProyecto) {
 								        %>
-										<option value="<%= proyecto.getTitulo() %>"><%= proyecto.getTitulo() %></option>
-										<%
+								<option value="<%= proyecto.getTitulo() %>"><%= proyecto.getTitulo() %></option>
+								<%
 								            	}
 								            }
 								        %>
-							</select> <i class="formulario__validacion-estado material-icons ms-1" id="iconProyect">check_circle</i>
+							</select> <i class="formulario__validacion-estado material-icons ms-1"
+								id="proyectIcon">check_circle</i>
 						</div>
 						<p class="formulario__input-error" id="proyectError"></p>
 					</div>
 					<!--grupo__temas-->
 					<div class="formulario__grupo" id="grupo__temas">
-						<label for="temas" class="form-label formulario__label">Tema</label>
+						<label for="temas" class="form-label formulario__label"><strong>Tema</strong></label>
 						<div class="formulario__grupo-input d-flex">
 							<select name="temas" id="temas"
-								class="form-select formulario__input"
-								oninput="validarTemas()">
+								class="form-select formulario__input" oninput="validarTemas()">
 								<%
 						            List<Temas> listaTema = (List<Temas>) request.getAttribute("listaTemas");
 						            if(listaTema != null){
@@ -367,22 +375,25 @@
 						            	}
 						            }
 						        %>
-							</select> <i class="formulario__validacion-estado material-icons ms-1" id="iconTemas">check_circle</i>
+							</select> <i class="formulario__validacion-estado material-icons ms-1"
+								id="temasIcon">check_circle</i>
 						</div>
 						<p class="formulario__input-error" id="temasError"></p>
 					</div>
 					<!--grupo__observacion-->
 					<div class="formulario__grupo" id="grupo__observacion">
-						<label for="observacion" class="form-label formulario__label">Observacion</label>
+						<label for="observacion" class="form-label formulario__label"><strong>Observacion</strong></label>
 						<div class="formulario__grupo-input d-flex">
 							<textarea rows="5" cols="1" name="observacion" id="observacion"
-								class=" form-control formulario__input mb-2">
+								class=" form-control formulario__input mb-2" oninput="validarObservacion()">
 							</textarea>
-							 <a href="#" class="form-text ms-1"><i class="material-icons ms-1">attach_file</i></a>
-							 <i class="formulario__validacion-estado material-icons ms-1" id="iconObservacion">check_circle</i>
+							<a href="#" class="form-text ms-1"><i
+								class="material-icons ms-1">attach_file</i></a> <i
+								class="formulario__validacion-estado material-icons ms-1"
+								id="observacionIcon">check_circle</i>
 						</div>
 						<p class="formulario__input-error" id="observacionError"></p>
-					</div>					
+					</div>
 					<div
 						class="formulario__grupo formulario__grupo-btn-enviar mb-5 mt-2">
 						<input type="submit" value="Enviar"
@@ -403,53 +414,65 @@
 		<hr>
 		<div class="row mt-4 mb-2 border-bottom">
 			<div class="col-sm-10 text-center">
-				<h2><strong>Nombre del proyecto</strong></h2>
+				<h2>
+					<strong>Nombre del proyecto</strong>
+				</h2>
 				<p class="display-6">Desarrollo de un aplicativo web para la
-				visualización de estadísticas viales mediante el análisis de la
-				información sobre el manejo de solicitudes por intervención de
-				propiedades privadas en la obra de pavimentación PALMITAS-LERMA</p>
+					visualización de estadísticas viales mediante el análisis de la
+					información sobre el manejo de solicitudes por intervención de
+					propiedades privadas en la obra de pavimentación PALMITAS-LERMA</p>
 			</div>
 			<div class="col-sm-2">
 				<img src="imagenes/vias-2.jpg" alt="" srcset=""
 					class="d-block w-100">
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-sm-6 border-end">
 				<h4 class="text-center mb-2">Misión</h4>
-				<p class="text-justify">Facilitar la vida de las personas mediante el uso de la tecnología, 
-				desarrollando soluciones innovadoras enfocadas a la calidad y personalización del resultado, 
-				que proporcionen una grata experiencia de usuario, y que aporten valor y tengan un impacto 
-				positivo en el día a día de nuestra sociedad</p>
+				<p class="text-justify">Facilitar la vida de las personas
+					mediante el uso de la tecnología, desarrollando soluciones
+					innovadoras enfocadas a la calidad y personalización del resultado,
+					que proporcionen una grata experiencia de usuario, y que aporten
+					valor y tengan un impacto positivo en el día a día de nuestra
+					sociedad</p>
 				<h4 class="text-center mb-2">Visión</h4>
-				<p class="text-justify">Para el 2030 nuestra empresa será un referente atractivo como empresa de desarrollo, 
-				en los productos y servicios ofrecidos, como proveedor tecnlógico y como lugar de trabajo, al diseñar y 
-				desarrollar servicios y soluciones software	diferenciales, que aporten un gran valor. </p>
+				<p class="text-justify">Para el 2030 nuestra empresa será un
+					referente atractivo como empresa de desarrollo, en los productos y
+					servicios ofrecidos, como proveedor tecnlógico y como lugar de
+					trabajo, al diseñar y desarrollar servicios y soluciones software
+					diferenciales, que aporten un gran valor.</p>
 				<h4 class="text-center mb-2">Valores</h4>
 				<ul>
-					<li>Fuerte compromiso centrado en la cercanía al cliente y en la personalización del trato 
-					y del servicio.</li>
-					<li>Respeto y tolerancia hacia la forma de ver las cosas de los demás.</li>
+					<li>Fuerte compromiso centrado en la cercanía al cliente y en
+						la personalización del trato y del servicio.</li>
+					<li>Respeto y tolerancia hacia la forma de ver las cosas de
+						los demás.</li>
 					<li>Confianza, paciencia y constancia en todo cuanto hacemos.</li>
 				</ul>
 			</div>
-			<div class="col-sm-4 d-flex justify-content-center align-items-center">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1993.7234526039933!2d-
+			<div
+				class="col-sm-4 d-flex justify-content-center align-items-center">
+				<iframe
+					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1993.7234526039933!2d-
 				76.95635159351161!3d1.975542499499571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s
 				0x8e2fbba7e25baf67%3A0x9fc0b65f9e063e82!2sLerma%2C%20Bol%C3%ADvar%2C%20Cauca!5e0!3m2!1ses
-				!2sco!4v1729197877762!5m2!1ses!2sco" width="550" height="400" style="border:0;" allowfullscreen="" 
-				loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				!2sco!4v1729197877762!5m2!1ses!2sco"
+					width="550" height="400" style="border: 0;" allowfullscreen=""
+					loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 			</div>
-			<div class="col-sm-2 d-flex justify-content-center align-items-center">
-				<div class="card" style="width:250px">
-				    <img class="card-img-top" src="imagenes/foto-personal.jpg" alt="Card image" style="width:100%">
-				    <div class="card-body text-center">
-				      <h5 class="card-title">Victor Manuel Quinayas</h5>
-				      <p class="card-text">Ingeniero electrónico</p>				      
-				    </div>
+			<div
+				class="col-sm-2 d-flex justify-content-center align-items-center">
+				<div class="card" style="width: 250px">
+					<img class="card-img-top" src="imagenes/foto-personal.jpg"
+						alt="Card image" style="width: 100%">
+					<div class="card-body text-center">
+						<h5 class="card-title">Victor Manuel Quinayas</h5>
+						<p class="card-text">Ingeniero electrónico</p>
+					</div>
 				</div>
-			</div>						
+			</div>
 		</div>
 	</section>
 	<footer class="p-2 bg-dark text-white text-center">
@@ -467,6 +490,6 @@
 			</div>
 			<div class="col-sm-3"></div>
 		</div>
-	</footer>	
+	</footer>
 </body>
 </html>

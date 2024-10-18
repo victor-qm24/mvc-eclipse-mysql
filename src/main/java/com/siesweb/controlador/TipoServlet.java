@@ -57,38 +57,41 @@ public class TipoServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String descripcion = request.getParameter("descTipo");
-		try {
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {		
 			if (!descripcion.isEmpty()) {
 				if (validarDescripcion(descripcion) ) {
-					HttpSession session = request.getSession(false);
-					if (session != null && session.getAttribute("nombreUser") != null) {
+					try {
 						tiposDocumentosDAO.insertarTipo(new TiposDocumentos(0, descripcion));
-							JOptionPane.showMessageDialog(null, "Usuario agregado con exito.", "!Advertencia¡",
+							JOptionPane.showMessageDialog(null, "Tipo de documento insertado con exito.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("Registro.jsp");
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 							dispatcher.forward(request, response);
-					}else {
-						JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+					} catch (SQLException e) {
+						System.out.println("Error al insertar tipo de documento." + e);
+						JOptionPane.showMessageDialog(null, "Error al insertar tipo de documento.", "!Advertencia¡",
 								JOptionPane.INFORMATION_MESSAGE);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+						RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 						dispatcher.forward(request, response);
-					}
-				} else {
-					System.out.println("Uno o varios campos no son validos.");
+					}					
+				} else {					
 					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
-					RequestDispatcher dispatcher = request.getRequestDispatcher("Registro.jsp");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 					dispatcher.forward(request, response);
 				}
-			} else {
-				System.out.println("Debe llenar todos los campos.");
+			} else {				
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("Registro.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 				dispatcher.forward(request, response);
 			}
-		} catch (SQLException e) {
-			System.out.println(e);
+		}else {
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+					JOptionPane.INFORMATION_MESSAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 	
@@ -96,54 +99,47 @@ public class TipoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String idString = request.getParameter("idTipo");	
 		String descripcion = request.getParameter("descripcionTipo");
-		if (!idString.isEmpty()) {
-			try {
-				if (!descripcion.isEmpty()) {
-					if (validarDescripcion(descripcion) && validarId(idString)) {						
-						
-						int id = Integer.parseInt(idString);
-						HttpSession session = request.getSession(false);
-						if (session != null && session.getAttribute("nombreUser") != null) {
-							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-							if (respuesta == JOptionPane.YES_OPTION) {
-							
-								tiposDocumentosDAO.actualizarTipo(new TiposDocumentos(id, descripcion));
-								JOptionPane.showMessageDialog(null, "Tipo de documento actualizado con exito.", "!Advertencia¡",
-										JOptionPane.INFORMATION_MESSAGE);
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
-								dispatcher.forward(request, response);
-							}else {
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
-								dispatcher.forward(request, response);
-							}
-						}else {
-							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {
+			if (!idString.isEmpty() && !descripcion.isEmpty()) {
+				if (validarDescripcion(descripcion) && validarId(idString)) {
+					int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+					if (respuesta == JOptionPane.YES_OPTION) {
+						try {
+							int id = Integer.parseInt(idString);
+							tiposDocumentosDAO.actualizarTipo(new TiposDocumentos(id, descripcion));
+							JOptionPane.showMessageDialog(null, "Tipo de documento actualizado con exito.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+							dispatcher.forward(request, response);
+						} catch (SQLException e) {
+							System.out.println("Error al actualizar tipo de documento." + e);
+							JOptionPane.showMessageDialog(null, "Error al actualizar tipo de documento.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 							dispatcher.forward(request, response);
 						}
-					} else {
-						System.out.println("Uno o varios campos no son validos.");
-						JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
-								JOptionPane.INFORMATION_MESSAGE);
+					}else {
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 						dispatcher.forward(request, response);
-					}
-				} else {
-					System.out.println("Debe llenar todos los campos.");
-					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
+					}					
+				} else {					
+					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 					dispatcher.forward(request, response);
 				}
-			} catch (SQLException e) {
-				System.out.println(e);
+			} else {				
+				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+				dispatcher.forward(request, response);
 			}
 		}else {
-			System.out.println("Ingresa un id porfavor");
-			JOptionPane.showMessageDialog(null, "Debes ingresar el id del Tipo de documento.", "!Advertencia¡",
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -151,71 +147,73 @@ public class TipoServlet extends HttpServlet {
 	private void eliminarTipo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String idString = request.getParameter("idTipoDoc");
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {
 		if (!idString.isEmpty()) {
 			if (validarId(idString)) {
 				int id = Integer.parseInt(idString);
-				try {
-					List<TiposDocumentos> tipo = tiposDocumentosDAO.buscarTipo(id);
-					if (!tipo.isEmpty()) {
-						HttpSession session = request.getSession(false);
-						if (session != null && session.getAttribute("nombreUser") != null) {
-							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-							if (respuesta == JOptionPane.YES_OPTION) {
-								tiposDocumentosDAO.eliminarTipo(id);
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
-								dispatcher.forward(request, response);
-							} else {
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
-								dispatcher.forward(request, response);
-							}
-						}else {
-							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+					int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+					if (respuesta == JOptionPane.YES_OPTION) {
+						try {
+							tiposDocumentosDAO.eliminarTipo(id);
+							JOptionPane.showMessageDialog(null, "Tipo de documento eliminado con exito.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
+							dispatcher.forward(request, response);
+						} catch (SQLException e) {
+							System.out.println("Error al eliminar tipo de documento." + e);
+							JOptionPane.showMessageDialog(null, "Error al eliminar tipo de documento.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
-						System.out.println("No se encontro el id a eliminar.");
-						JOptionPane.showMessageDialog(null, "No se encontro el id a eliminar.", "!Advertencia¡",
-								JOptionPane.INFORMATION_MESSAGE);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 						dispatcher.forward(request, response);
 					}
-				} catch (SQLException e) {
-				}
-			} else {
-				System.out.println("El id no es valido.");
+			} else {				
 				JOptionPane.showMessageDialog(null, "El id no es valido.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 				dispatcher.forward(request, response);
 			}
-		} else {
-			System.out.println("Ingresa un id porfavor");
+		} else {			
 			JOptionPane.showMessageDialog(null, "Debes ingresar el id del Tipo de documento.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 			dispatcher.forward(request, response);
 		}
+		}else {
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+					JOptionPane.INFORMATION_MESSAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 	
 	private void listarTipo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			HttpSession session = request.getSession(false);
-			if (session != null && session.getAttribute("nombreUser") != null) {
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {
+			try {
 				List<TiposDocumentos> tipos = tiposDocumentosDAO.obtenerTipos();
 				request.setAttribute("listaTipos", tipos);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 				dispatcher.forward(request, response);
-			}else {
-				JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+			} catch (SQLException e) {
+				System.out.println("Error al listar tipos de documento." + e);
+				JOptionPane.showMessageDialog(null, "Error al listar tipos de documento.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTipo.jsp");
 				dispatcher.forward(request, response);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		}else {
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+					JOptionPane.INFORMATION_MESSAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
+		}		
 	}
 	
 	public static boolean validarId(String id) {
@@ -226,7 +224,7 @@ public class TipoServlet extends HttpServlet {
 	}
 	
 	public static boolean validarDescripcion(String descripcion) {
-		String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}$";
+		String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,25}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(descripcion);
 		return matcher.matches();

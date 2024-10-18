@@ -71,72 +71,73 @@ public class SolicitudServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String idString = request.getParameter("idSolicitud");
 		String estado = "Terminado";
-		if (!idString.isEmpty()) {
-			if (validarId(idString)) {
-				int id = Integer.parseInt(idString);
-				try {
-					List<Solicitudes> solicitud = solicitudDAO.buscarSolicitud(id);
-					
-					if (!solicitud.isEmpty()) {
-						HttpSession session = request.getSession(false);
-						if (session != null && session.getAttribute("nombreUser") != null) {
-							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-							if (respuesta == JOptionPane.YES_OPTION) {
-								solicitudDAO.actualizarSolicitud(new Solicitudes(id,"","",estado,0,0,0));
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
-								dispatcher.forward(request, response);
-							} else {
-								RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
-								dispatcher.forward(request, response);
-							}
-						}else {
-							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {
+			if (!idString.isEmpty()) {
+				if (validarId(idString)) {
+					int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+					if (respuesta == JOptionPane.YES_OPTION) {
+						try {
+							int id = Integer.parseInt(idString);
+							solicitudDAO.actualizarSolicitud(new Solicitudes(id,"","",estado,0,0,0));
+							JOptionPane.showMessageDialog(null, "Solicitud ejecutada con exito.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
+							dispatcher.forward(request, response);
+						} catch (SQLException e) {
+							System.out.println("Error al ejecutar solicitud." + e);
+							JOptionPane.showMessageDialog(null, "Error al ejecutar solicitud.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
 							dispatcher.forward(request, response);
 						}
 					} else {
-						System.out.println("No se encontro el id a ejecutar.");
-						JOptionPane.showMessageDialog(null, "No se encontro el id a ejecutar.", "!Advertencia¡",
-								JOptionPane.INFORMATION_MESSAGE);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
 						dispatcher.forward(request, response);
 					}
-				} catch (SQLException e) {
+				} else {					
+					JOptionPane.showMessageDialog(null, "El id no es valido.", "!Advertencia¡",
+							JOptionPane.INFORMATION_MESSAGE);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
+					dispatcher.forward(request, response);
 				}
-			} else {
-				System.out.println("El id no es valido.");
-				JOptionPane.showMessageDialog(null, "El id no es valido.", "!Advertencia¡",
+			} else {				
+				JOptionPane.showMessageDialog(null, "Debes ingresar el id de la solicitud.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
 				dispatcher.forward(request, response);
 			}
-		} else {
-			System.out.println("Ingresa un id porfavor");
-			JOptionPane.showMessageDialog(null, "Debes ingresar el id de la solicitud.", "!Advertencia¡",
+		}else {
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
 	
 	private void listarSolicitud(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			HttpSession session = request.getSession(false);
-			if (session != null && session.getAttribute("nombreUser") != null) {
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {
+			try {
 				List<Solicitudes> solicitudes = solicitudDAO.obtenerSolicitudes();			
 				request.setAttribute("listaSolicitudes", solicitudes);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
 				dispatcher.forward(request, response);
-			}else {
-				JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+			} catch (SQLException e) {
+				System.out.println("Error al listar solicitudes." + e);
+				JOptionPane.showMessageDialog(null, "Error al listar solicitudes.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("adminSolicitud.jsp");
 				dispatcher.forward(request, response);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		}else {
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+					JOptionPane.INFORMATION_MESSAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
+		}		
 	}
 	
 	private void insertarSolicitud(HttpServletRequest request, HttpServletResponse response)
@@ -147,76 +148,72 @@ public class SolicitudServlet extends HttpServlet {
 		String proyect = request.getParameter("proyect");
 		String temas = request.getParameter("temas");		
 		String observacion = request.getParameter("observacion");		
-
-		try {
-			Temas tema = temasDAO.obtenerIdTema(temas);
-			Proyectos proy = proyectosDAO.obtenerIdProyecto(proyect);
-			Usuarios user = usuarioDAO.obtenerIdUsuario(users);
-
+		
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("nombreUser") != null) {
 			if (!users.isEmpty() && !proyect.isEmpty() && !temas.isEmpty()) {
-				System.out.println(users + user.getUsuario());
-				if (users.equals(user.getUsuario())) {
-
-					if (tema != null && proy != null && user != null) {
-						HttpSession session = request.getSession(false);
-						if (session != null && session.getAttribute("nombreUser") != null) {
-							String estado = "Pendiente";
-							solicitudDAO.agregarSolicitud(new Solicitudes(0, fech, observacion, estado, proy.getId(), tema.getId(), user.getId()));
-							JOptionPane.showMessageDialog(null, "Solicitud agregada con exito.", "!Advertencia¡",
-									JOptionPane.INFORMATION_MESSAGE);
-							
+				if(validarFecha(fech) && validarUsuario(users) && validarObservacion(observacion)) {
+					try {	
+						Temas tema = temasDAO.obtenerIdTema(temas);
+						Proyectos proy = proyectosDAO.obtenerIdProyecto(proyect);
+						Usuarios user = usuarioDAO.obtenerIdUsuario(users);	
+						String estado = "Pendiente";
+						if (users.equals(user.getUsuario())) {
+							solicitudDAO.agregarSolicitud(new Solicitudes(0, fech, observacion, estado, proy.getId(), tema.getId(), user.getId()));												
 							Avances avanceUltimo = avanceDAO.obtenerUltimoAvc();
 							List<Avances> avances = avanceDAO.obtenerAvc();
 							List<Proyectos> proyectos = proyectosDAO.obtenerProyectos();
-							List<Temas> temass = temasDAO.obtenerTemas();
-							
+							List<Temas> temass = temasDAO.obtenerTemas();						
 							Gson gson = new Gson();
-							String json = gson.toJson(avances);					
-							
+							String json = gson.toJson(avances);	
 							request.setAttribute("avancesJson", json);					    
 							request.setAttribute("avancesUltimo", avanceUltimo);
 							request.setAttribute("listaProyectos", proyectos);					    
 							request.setAttribute("listaTemas", temass);
-							
 							enviarEmail(request,response);
-							
+							JOptionPane.showMessageDialog(null, "Solicitud agregada con exito.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
 							RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
 							dispatcher.forward(request, response);
-						}else {
-							JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+						} else {						
+							JOptionPane.showMessageDialog(null, "El usuario debe ser el mismo con el que se registro.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+							RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
 							dispatcher.forward(request, response);
 						}
-					} else {
-						System.out.println("No se pudo obtener el id de tema, usuario o proyecto.");
+					} catch (SQLException e) {
+						System.out.println("Error al enviar solicitud." + e);
+						JOptionPane.showMessageDialog(null, "Error al enviar solicitud.", "!Advertencia¡",
+								JOptionPane.INFORMATION_MESSAGE);
+						RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
+						dispatcher.forward(request, response);
 					}
-				} else {
-					System.out.println("El email debe ser el mismo con el que se registro.");
-					JOptionPane.showMessageDialog(null, "El email debe ser el mismo con el que se registro.", "!Advertencia¡",
+				}else {
+					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
 					dispatcher.forward(request, response);
 				}
-			} else {
-				System.out.println("Debe llenar todos los campos.");
+			} else {				
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
 				dispatcher.forward(request, response);
 			}
-		} catch (SQLException e) {
-			System.out.println("No se pudo obtener el Id de rol, tipo y proyecto" + e);
+		}else {
+			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
+					JOptionPane.INFORMATION_MESSAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 	
 	public void enviarEmail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 				
-		try {
-						
-			String emisor = request.getParameter("users");
-			Usuarios us = usuarioDAO.buscarDatosSesion(emisor);
-			String correoEmisor = us.getEmail();
+		try {						
+			String usuarioEmisor = request.getParameter("users");
+			Usuarios datosUsuario = usuarioDAO.buscarDatosSesion(usuarioEmisor);
+			String correoEmisor = datosUsuario.getEmail();
 			
 			String asunto = request.getParameter("temas");
 	        String proyect = request.getParameter("proyect");
@@ -231,37 +228,35 @@ public class SolicitudServlet extends HttpServlet {
 	        props.put("mail.smtp.host", "smtp.gmail.com");
 	        props.put("mail.smtp.port", "587");
 	        
-	        final String username = "quinayas.manuel.24@gmail.com"; // Cambia esto por tu dirección de correo	        
-	        final String password = "ntgh fdaw twdg fcqa"; // Usa la contraseña de aplicación
+	        final String correoAdmin = "quinayas.manuel.24@gmail.com"; // Cambia esto por tu dirección de correo	        
+	        final String passwordAdmin = "ntgh fdaw twdg fcqa"; // Usa la contraseña de aplicación
 	        
-	        // Autenticación
-	        
+	        // Autenticación	        
 	        Session session = Session.getInstance(props,
 	                new javax.mail.Authenticator() {
 	                    protected PasswordAuthentication getPasswordAuthentication() {
-	                        return new PasswordAuthentication(username, password);
+	                        return new PasswordAuthentication(correoAdmin, passwordAdmin);
 	                    }
 	                });
 	        
 	        try {
 	            // Crear el mensaje
 	            Message message = new MimeMessage(session);
-	            message.setFrom(new InternetAddress(username));
-	            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(username));
+	            message.setFrom(new InternetAddress(correoAdmin));
+	            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correoAdmin)); //correo trabajo social
 	            message.setSubject(asunto);
 	            message.setText(contenido);
 	            
-	            Transport.send(message);            	
-	            
-	            System.out.println("enviado");
+	            Transport.send(message);
+	            JOptionPane.showMessageDialog(null, "Solicitud enviada con exito al correo.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
 	        } catch (MessagingException e) {	            
-	            System.out.println("error al enviar" + e);	            
-	        }  
-	        
-	        
+	            System.out.println("error al enviar" + e);
+	            JOptionPane.showMessageDialog(null, "Error al enviar solicitud al correo.", "!Advertencia¡",
+						JOptionPane.INFORMATION_MESSAGE);
+	        } 
 		} catch (SQLException e) {
-			response.getWriter().println("Usuario no encontrado.");
-			e.printStackTrace();
+			System.out.println("Usuario no encontrado" + e);
 		}
 	}
 	
@@ -269,6 +264,27 @@ public class SolicitudServlet extends HttpServlet {
 		String regex = "^[0-9]{1,3}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(id);
+		return matcher.matches();
+	}
+	
+	public static boolean validarFecha(String fecha) {
+		String regex = "^(\\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(fecha);
+		return matcher.matches();
+	}
+	
+	public static boolean validarUsuario(String usuario) {
+		String regex = "^[a-zA-Z0-9._-]{1,25}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(usuario);
+		return matcher.matches();
+	}
+	
+	public static boolean validarObservacion(String observacion) {
+		String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,100}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(observacion);
 		return matcher.matches();
 	}
 }

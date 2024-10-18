@@ -73,8 +73,8 @@
 			</ul>
 		</div>
 	</nav>
-	<section class="container-fluid p-3"
-		style="margin-top: 100px;" id="sec-tipo">
+	<section class="container-fluid p-3" style="margin-top: 100px;"
+		id="sec-tipo">
 		<h1>
 			<b>CRUD Tipos de documento</b>
 		</h1>
@@ -84,12 +84,13 @@
 				<form method="POST" action="insertarTipo">
 					<!--grupo_descricpion_tipo-->
 					<div class="formulario__grupo" id="grupo__descTipo">
+					<label for="descTipo" class="form-label formulario__label"><strong>Descripcion</strong></label>
 						<div class="formulario__grupo-input d-flex">
 							<input type="text" name="descTipo" id="descTipo"
 								class=" form-control formulario__input mb-2"
-								placeholder="Descripcion" oninput="validarDescTipo()"> <i
+								placeholder="Ingrese descripcion..." oninput="validarDescTipo()"> <i
 								class="formulario__validacion-estado material-icons ms-1"
-								id="iconDescTipo">check_circle</i>
+								id="descTipoIcon">check_circle</i>
 						</div>
 						<p class="formulario__input-error" id="descTipoError"></p>
 					</div>
@@ -111,7 +112,7 @@
 										class=" form-control formulario__input mb-2" placeholder="Id"
 										oninput="validarIdTipo()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconIdTipo">check_circle</i>
+										id="idTipoIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="idTipoError"></p>
 							</div>
@@ -119,12 +120,13 @@
 						<div class="col-sm-9">
 							<!--grupo_descricpion_tipo-->
 							<div class="formulario__grupo" id="grupo__descripcionTipo">
+							<label for="descripcionTipo" class="form-label formulario__label"><strong>Descripcion</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="descripcionTipo" id="descripcionTipo"
 										class=" form-control formulario__input mb-2"
-										placeholder="Descripcion" oninput="validarDescripcionTipo()">
+										placeholder="Ingrese descripcion..." oninput="validarDescripcionTipo()">
 									<i class="formulario__validacion-estado material-icons ms-1"
-										id="iconDescripcionTipo">check_circle</i>
+										id="descripcionTipoIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="descripcionTipoError"></p>
 							</div>
@@ -156,7 +158,7 @@
 										class=" form-control formulario__input mb-2" placeholder="Id"
 										oninput="validarIdTipos()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="iconIdTipos">check_circle</i>
+										id="idTiposIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="idTiposError"></p>
 							</div>
