@@ -146,7 +146,7 @@ public class TipoServlet extends HttpServlet {
 	
 	private void eliminarTipo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String idString = request.getParameter("idTipoDoc");
+		String idString = request.getParameter("idTipos");
 		
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("nombreUser") != null) {

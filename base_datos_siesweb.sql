@@ -1,5 +1,5 @@
-create database siesweb;
-use siesweb;
+create database proyecto_siesweb;
+use proyecto_siesweb;
 
 CREATE TABLE TipoDocumento (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,9 +62,9 @@ create table Avances (
 );
 
 insert into Proyectos (titulo,estado,ubicacion) VALUES ("Pavimentacion PALMITAS-LERMA","Terminado","Lerma");
-insert into TipoDocumento (descripcion_tipo) VALUES ("Tarjeta de identidad");
-insert into Roles (descripcion_rol) values ("Invitado");
-insert into Temas (descripcion_tema) values ("Otros");
+insert into TipoDocumento (descripcion_tipo) VALUES ("Cedula de ciudadania");
+insert into Roles (descripcion_rol) values ("Administrador");
+insert into Temas (descripcion_tema) values ("Daños");
 
 ALTER TABLE Usuarios DROP COLUMN estado;
 describe Usuarios;

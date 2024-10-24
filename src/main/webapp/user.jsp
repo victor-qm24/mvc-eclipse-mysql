@@ -28,6 +28,12 @@
 	color: blue;
 }
 </style>
+<script type="text/javascript">	
+	history.pushState(null, null, location.href);	
+	window.addEventListener('popstate', function(event) {	    
+	    window.location.href = 'logout';
+	});
+</script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm fixed-top bg-success">
@@ -386,13 +392,18 @@
 						<div class="formulario__grupo-input d-flex">
 							<textarea rows="5" cols="1" name="observacion" id="observacion"
 								class=" form-control formulario__input mb-2" oninput="validarObservacion()">
-							</textarea>
-							<a href="#" class="form-text ms-1"><i
-								class="material-icons ms-1">attach_file</i></a> <i
+							</textarea>							
+							<a href="#" class="form-text ms-1"></a><i
 								class="formulario__validacion-estado material-icons ms-1"
 								id="observacionIcon">check_circle</i>
 						</div>
 						<p class="formulario__input-error" id="observacionError"></p>
+					</div>
+					<!--grupo__file-->
+					<div class="formulario__grupo" id="grupo__file">						
+						<div class="formulario__grupo-input">													
+							<input type="file" id="file">
+						</div>						
 					</div>
 					<div
 						class="formulario__grupo formulario__grupo-btn-enviar mb-5 mt-2">
@@ -491,5 +502,6 @@
 			<div class="col-sm-3"></div>
 		</div>
 	</footer>
+	<script type="text/javascript" src="javaScript/validateOtros.js"></script>
 </body>
 </html>

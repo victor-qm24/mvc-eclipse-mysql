@@ -64,13 +64,14 @@
 							</div>
 							<!--grupo-password-->
 							<div class="formulario__grupo" id="grupo__password">
-								<label for="usuario" class="form-label formulario__label"><strong>Password</strong></label>
-								<div class="formulario__grupo-input d-flex">
+								<label for="password" class="form-label formulario__label"><strong>Password</strong></label>
+								<div class="formulario__grupo-input d-flex">									
 									<input type="password" name="password" id="password"
 										placeholder="**********"
 										class="formulario__input form-control"
-										oninput="validarPassword()"> <i
-										class="formulario__validacion-estado material-icons ms-1"
+										oninput="validarPassword()">
+									<!--<a href="#" id="cambio" ><i class="material-icons">remove_red_eye</i></a>-->
+									<i class="formulario__validacion-estado material-icons ms-1"
 										id="passwordIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="passwordError"></p>

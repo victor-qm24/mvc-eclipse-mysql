@@ -95,6 +95,7 @@
 								<th>Telefono</th>
 								<th>Usuario</th>
 								<th>Contraseña</th>
+								<th>Estado</th>
 								<th>Rol</th>
 								<th>Proyecto</th>
 							</tr>
@@ -119,7 +120,8 @@
 					            		out.print("<td>" + usuario.getEmail() + "</td>");
 					            		out.print("<td>" + usuario.getTelefono() + "</td>");
 					            		out.print("<td>" + usuario.getUsuario() + "</td>");
-					            		out.print("<td>" + usuario.getPassword() + "</td>");				            						            		
+					            		out.print("<td>" + usuario.getPassword() + "</td>");
+					            		out.print("<td>" + usuario.getEstado() + "</td>");
 					            		
 					            		if(usuario.getRolId() == 1){
 					            			out.print("<td>" + "Administrador" + "</td>");

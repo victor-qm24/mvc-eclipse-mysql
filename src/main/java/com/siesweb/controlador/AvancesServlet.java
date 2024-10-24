@@ -187,13 +187,20 @@ public class AvancesServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("nombreUser") != null) {
 			if (!idStr.isEmpty()) {
-				if (validarId(idStr)) {
+				if (validarId(idStr)) {					
 					try {
 						int id = Integer.parseInt(idStr);
-						List<Avances> avanc = avancesDAO.buscarAvc(id);
-						request.setAttribute("Avanc", avanc);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
-						dispatcher.forward(request, response);
+						List<Avances> avanc = avancesDAO.buscarAvc(id);						
+						if(!avanc.isEmpty()) {
+							request.setAttribute("Avanc", avanc);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
+							dispatcher.forward(request, response);
+						}else {
+							JOptionPane.showMessageDialog(null, "Avance no encontrado.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarAvc.jsp");
+							dispatcher.forward(request, response);
+						}
 					} catch (SQLException e) {
 						System.out.println("Error al buscar avance." + e);
 						JOptionPane.showMessageDialog(null, "Error al buscar avance.", "!Advertencia¡",

@@ -171,7 +171,7 @@ public class SolicitudServlet extends HttpServlet {
 							request.setAttribute("listaProyectos", proyectos);					    
 							request.setAttribute("listaTemas", temass);
 							enviarEmail(request,response);
-							JOptionPane.showMessageDialog(null, "Solicitud agregada con exito.", "!Advertencia¡",
+							JOptionPane.showMessageDialog(null, "Solicitud enviada con exito.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
 							RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
 							dispatcher.forward(request, response);
@@ -221,6 +221,8 @@ public class SolicitudServlet extends HttpServlet {
 	        String contenido = observacion + " \n\nProyecto asociado: " + proyect +" \n\nLa respuesta se debe enviar al correo: "
 	        		+ correoEmisor;
 	        
+	     // Obtener el archivo adjunto	        
+	        
 	        // Configuración de la sesión en gmail
 	        Properties props = new Properties();
 	        props.put("mail.smtp.auth", "true");
@@ -245,11 +247,9 @@ public class SolicitudServlet extends HttpServlet {
 	            message.setFrom(new InternetAddress(correoAdmin));
 	            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correoAdmin)); //correo trabajo social
 	            message.setSubject(asunto);
-	            message.setText(contenido);
-	            
-	            Transport.send(message);
-	            JOptionPane.showMessageDialog(null, "Solicitud enviada con exito al correo.", "!Advertencia¡",
-						JOptionPane.INFORMATION_MESSAGE);
+	            message.setText(contenido);	            
+	         	            
+	            Transport.send(message);	            
 	        } catch (MessagingException e) {	            
 	            System.out.println("error al enviar" + e);
 	            JOptionPane.showMessageDialog(null, "Error al enviar solicitud al correo.", "!Advertencia¡",

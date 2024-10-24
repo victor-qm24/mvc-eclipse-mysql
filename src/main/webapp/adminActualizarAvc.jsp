@@ -88,7 +88,7 @@
 							<!--grupo__id-->
 							<div class="formulario__grupo" id="grupo__id">
 								<div class="formulario__grupo-input d-flex">
-									<input type="text" name="idUodate" id="idUpdate"
+									<input type="text" name="idUpdate" id="idUpdate"
 										class=" form-control formulario__input" placeholder="Id"
 										oninput="validarIdUpdate()"> <i
 										class="formulario__validacion-estado material-icons ms-1"

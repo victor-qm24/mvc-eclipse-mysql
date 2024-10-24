@@ -94,7 +94,7 @@
 										class="formulario__input form-control"
 										oninput="validarFecha()"> <i
 										class="formulario__validacion-estado material-icons ms-1"
-										id="FechaIcon">check_circle</i>
+										id="fechaIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="fechaError"></p>
 							</div>

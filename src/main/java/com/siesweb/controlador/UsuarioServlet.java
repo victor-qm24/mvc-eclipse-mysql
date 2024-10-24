@@ -101,57 +101,69 @@ public class UsuarioServlet extends HttpServlet {
 
 		String user = request.getParameter("usuario");
 		String pass = request.getParameter("password");
-		
-		if (!user.isEmpty() && !pass.isEmpty()) {
-			try {
-				Usuarios usuario = usuarioDAO.buscarDatosSesion(user);
-				String passHash = usuario.getPassword();
-				if (BCrypt.checkpw(pass, passHash)) {
-					int idRol = usuario.getRolId();					
-					String nombreUser = usuario.getNombre();
-					HttpSession session = request.getSession();			        
-					session.setAttribute("nombreUser", nombreUser);					
-					
-					if (idRol == 1) {
-						RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
-						dispatcher.forward(request, response);
-					} else {
-						Avances avanceUltimo = avancesDAO.obtenerUltimoAvc();
-						List<Avances> avances = avancesDAO.obtenerAvc();
-						List<Proyectos> proyectos = proyectosDAO.obtenerProyectos();
-						List<Temas> temas = temasDAO.obtenerTemas();
-						
-						Gson gson = new Gson();
-						String json = gson.toJson(avances);					
-						
-						request.setAttribute("avancesJson", json);					    
-						request.setAttribute("avancesUltimo", avanceUltimo);
-						request.setAttribute("listaProyectos", proyectos);					    
-						request.setAttribute("listaTemas", temas);
-						
-						RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
+		if(user != null && pass != null) {
+			if (!user.isEmpty() && !pass.isEmpty()) {
+				try {
+					Usuarios usuario = usuarioDAO.buscarDatosSesion(user);
+					String passHash = usuario.getPassword();
+					if (BCrypt.checkpw(pass, passHash)) {
+						int idRol = usuario.getRolId();					
+						String nombreUser = usuario.getNombre();
+						String estadoUser = usuario.getEstado();
+						HttpSession session = request.getSession();			        
+						session.setAttribute("nombreUser", nombreUser);					
+						System.out.println(estadoUser);
+						if(estadoUser.equals("Activo")) {
+							if (idRol == 1) {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
+								dispatcher.forward(request, response);
+							} else {
+								Avances avanceUltimo = avancesDAO.obtenerUltimoAvc();
+								List<Avances> avances = avancesDAO.obtenerAvc();
+								List<Proyectos> proyectos = proyectosDAO.obtenerProyectos();
+								List<Temas> temas = temasDAO.obtenerTemas();
+								
+								Gson gson = new Gson();
+								String json = gson.toJson(avances);					
+								
+								request.setAttribute("avancesJson", json);					    
+								request.setAttribute("avancesUltimo", avanceUltimo);
+								request.setAttribute("listaProyectos", proyectos);					    
+								request.setAttribute("listaTemas", temas);
+								
+								RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
+								dispatcher.forward(request, response);
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Datos de sesion correctos, pero te encuentras en estado inactivo", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+							dispatcher.forward(request, response);
+						}
+					} else {					
+						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "!Advertencia¡",
+								JOptionPane.INFORMATION_MESSAGE);
+						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 						dispatcher.forward(request, response);
 					}
-				} else {					
-					JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "!Advertencia¡",
+				} catch (SQLException e) {
+					System.out.println("Usuario no registrado." + e);
+					JOptionPane.showMessageDialog(null, "Usuario no registrado.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 					dispatcher.forward(request, response);
 				}
-			} catch (SQLException e) {
-				System.out.println("Usuario no registrado." + e);
-				JOptionPane.showMessageDialog(null, "Usuario no registrado.", "!Advertencia¡",
+			} else {
+				System.out.println("Debe llenar todos los campos.");
+				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
 			}
-		} else {
-			System.out.println("Debe llenar todos los campos.");
-			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
-					JOptionPane.INFORMATION_MESSAGE);
+		}else {			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
-		}		
+		}
 	}
 
 	private void registrar(HttpServletRequest request, HttpServletResponse response)
@@ -410,10 +422,18 @@ public class UsuarioServlet extends HttpServlet {
 					try {
 						int id = Integer.parseInt(idStr);
 						List<Usuarios> user = usuarioDAO.buscarUsuario(id);
-						request.setAttribute("User", user);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarUser.jsp");
-						dispatcher.forward(request, response);
+						if(!user.isEmpty()) {
+							request.setAttribute("User", user);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarUser.jsp");
+							dispatcher.forward(request, response);
+						}else {
+							JOptionPane.showMessageDialog(null, "Usuario no encontrado.", "!Advertencia¡",
+									JOptionPane.INFORMATION_MESSAGE);
+							RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarUser.jsp");
+							dispatcher.forward(request, response);
+						}
 					} catch (SQLException e) {
+						System.out.println("Error al buscar usuario." + e);
 						JOptionPane.showMessageDialog(null, "Error al buscar usuario.", "!Advertencia¡",
 								JOptionPane.INFORMATION_MESSAGE);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminBuscarEliminarUser.jsp");
