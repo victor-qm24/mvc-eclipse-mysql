@@ -78,7 +78,7 @@
 		<h1>
 			<b>CRUD Solicitudes</b>
 		</h1>
-		<h6>Aqui puedes eliminar y listar.</h6>
+		<h6>Aqui puedes ejecutar y listar.</h6>
 		<div class="row p-3">
 			<div class="col-sm-4 border-end">
 				<form method="POST" action="actualizarSolicitud">
@@ -98,7 +98,7 @@
 							</div>
 						</div>
 						<div class="col-sm-3">
-							<!--gurpo_button_eliminar-->
+							<!--gurpo_button_ejecutar-->
 							<div class="formulario__grupo formulario__grupo-btn-enviar">
 								<input type="submit" value="Ejecutar"
 									class="btn btn-danger float-end formulario__btn">

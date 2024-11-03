@@ -77,6 +77,7 @@ public class Avances {
 	public String toString() {
 		return "Avances [id=" + id + ", fecha=" + fecha + ", tramo_amp=" + tramo_amp + ", tramo_mej=" + tramo_mej
 				+ ", tramo_sub=" + tramo_sub + ", tramo_bas=" + tramo_bas + ", tramo_asf=" + tramo_asf + ", cunetas="
-				+ cunetas + ", muros=" + muros + ", porcentaje_ejecucion=" + porcentaje_ejecucion + "proyectoId=" + proyectoId + "]";
+				+ cunetas + ", muros=" + muros + ", porcentaje_ejecucion=" + porcentaje_ejecucion + "proyectoId="
+				+ proyectoId + "]";
 	}
 }

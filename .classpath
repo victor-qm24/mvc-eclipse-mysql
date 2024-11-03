@@ -13,11 +13,24 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="D:/ADSO_SENA/INSTALADORES/mysql-connector-j-8.0.31/mysql-connector-j-8.0.31.jar"/>
 	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/jbcrypt-0.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/gson-2.8.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/hellocharts-library-1.5.8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/javax.mail.jar"/>
 	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/javax.activation-1.1.0.v201105071233.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/mysql-connector-j-8.0.31.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/itextpdf-5.5.13.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/jasperreports-7.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/jasperreports-fonts-7.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/javassist-3.26.0-GA.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/jcommon-1.0.24.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/jfreechart-1.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/slf4j-api-1.7.30.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/slf4j-simple-1.7.30.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/org.apache.commons.collections4_4.4.0.v20221112-0806.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/org.apache.commons.commons-io_2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/quina/eclipse-workspace/proyecto_siesweb/src/main/webapp/WEB-INF/lib/org.apache.commons.logging_1.2.0.v20180409-1502.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

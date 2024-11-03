@@ -92,8 +92,8 @@ public class AvancesDAO {
 		}
 		return avances;
 	}
-	
-	public Avances obtenerUltimoAvc() throws SQLException {		
+
+	public Avances obtenerUltimoAvc() throws SQLException {
 		String sql = "SELECT * FROM Avances ORDER BY id DESC LIMIT 1;";
 		try (Connection conn = ConexionBD.getConnection();
 				Statement stmt = conn.createStatement();

@@ -27,9 +27,11 @@
 		<div class="container-fluid">
 			<ul>
 				<li class="d-inline"><a href="#" class="navbar-brand"><img
-						src="imagenes/logo_siesweb_v2.jpg" alt="" class="img-fluid"></a></li>
+						src="imagenes/logo_siesweb_v2.jpg" alt="" class="img-fluid">
+						</a></li>
 				<li class="d-inline"><a href="#" class="navbar-brand"><img
-						src="imagenes/logo-ing-vias.PNG" alt="" class="img-fluid"></a></li>
+						src="imagenes/logo-ing-vias.PNG" alt="" class="img-fluid">
+						</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -46,18 +48,19 @@
 					name="formulario">
 					<div class="row mb-3 pt-5">
 						<div class="col-sm-4">
-							<img src="imagenes/logo_login.png" alt="" class="img-fluid w-100">
+							<img src="imagenes/logo_login.png" class="img-fluid w-100">
 						</div>
 						<div class="col-sm-8">
 							<!--grupo-usuario-->
 							<div class="formulario__grupo" id="grupo__usuario">
-								<label for="usuario" class="form-label formulario__label"><strong>Usuario</strong></label>
+								<label for="usuario" class="form-label formulario__label">
+								<strong>Usuario</strong></label>
 								<div class="formulario__grupo-input d-flex">
 									<input type="text" name="usuario" id="usuario"
 										placeholder="Ingrese su usuario..."
 										class="formulario__input form-control mb-2"
 										oninput="validarUsuario()"> <i
-										class="formulario__validacion-estado material-icons ms-1"
+										class="material-icons ms-1"
 										id="usuarioIcon">check_circle</i>
 								</div>
 								<p class="formulario__input-error" id="usuarioError"></p>

@@ -63,9 +63,10 @@ create table Avances (
 
 insert into Proyectos (titulo,estado,ubicacion) VALUES ("Pavimentacion PALMITAS-LERMA","Terminado","Lerma");
 insert into TipoDocumento (descripcion_tipo) VALUES ("Cedula de ciudadania");
-insert into Roles (descripcion_rol) values ("Administrador");
+insert into Roles (descripcion_rol) values ("Invitado");
 insert into Temas (descripcion_tema) values ("Daños");
 
-ALTER TABLE Usuarios DROP COLUMN estado;
-describe Usuarios;
+
 select * from Usuarios;
+describe Usuarios;
+alter table Usuarios modify contraseña varchar(100) not null;

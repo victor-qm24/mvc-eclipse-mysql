@@ -18,20 +18,20 @@ import javax.swing.JOptionPane;
 import com.siesweb.dao.TemasDAO;
 import com.siesweb.modelo.Temas;
 
-
-@WebServlet({"/TemaServlet","/insertarTema","/actualizarTema","/eliminarTema","/listarTema"})
+@WebServlet({ "/TemaServlet", "/insertarTema", "/actualizarTema", "/eliminarTema", "/listarTema" })
 public class TemaServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;       
+	private static final long serialVersionUID = 1L;
 	private final TemasDAO temaDAO = new TemasDAO();
-	
-    public TemaServlet() {
-        super();        
-    }
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	public TemaServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String action = request.getServletPath();
-		 request.setCharacterEncoding("UTF-8");
-		 
+		request.setCharacterEncoding("UTF-8");
+
 		switch (action) {
 		case "/insertarTema":
 			insertarTema(request, response);
@@ -49,24 +49,25 @@ public class TemaServlet extends HttpServlet {
 			System.out.println("No se reconoce la opcion enviada!");
 		}
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
-	
+
 	private void insertarTema(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String descripcion = request.getParameter("descTema");		
-		
+		String descripcion = request.getParameter("descTema");
+
 		HttpSession session = request.getSession(false);
-		if (session != null && session.getAttribute("nombreUser") != null) {		
+		if (session != null && session.getAttribute("nombreUser") != null) {
 			if (!descripcion.isEmpty()) {
-				if (validarDescripcion(descripcion) ) {
+				if (validarDescripcion(descripcion)) {
 					try {
 						temaDAO.insertarTema(new Temas(0, descripcion));
 						JOptionPane.showMessageDialog(null, "Tema agregado con exito.", "!Advertencia¡",
-									JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.INFORMATION_MESSAGE);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 						dispatcher.forward(request, response);
 					} catch (SQLException e) {
@@ -75,33 +76,33 @@ public class TemaServlet extends HttpServlet {
 								JOptionPane.INFORMATION_MESSAGE);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 						dispatcher.forward(request, response);
-					}					
-				} else {					
+					}
+				} else {
 					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 					dispatcher.forward(request, response);
 				}
-			} else {				
+			} else {
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 				dispatcher.forward(request, response);
 			}
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-	
+
 	private void actualizarTema(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		String idString = request.getParameter("idTema");	
+
+		String idString = request.getParameter("idTema");
 		String descripcion = request.getParameter("descripcionTema");
-		
+
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("nombreUser") != null) {
 			if (!idString.isEmpty() && !descripcion.isEmpty()) {
@@ -122,35 +123,35 @@ public class TemaServlet extends HttpServlet {
 							RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 							dispatcher.forward(request, response);
 						}
-					}else {
+					} else {
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 						dispatcher.forward(request, response);
 					}
-				} else {					
+				} else {
 					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 					dispatcher.forward(request, response);
 				}
-			} else {				
+			} else {
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 				dispatcher.forward(request, response);
 			}
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-	
+
 	private void eliminarTema(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String idString = request.getParameter("idTemas");
-		
+
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("nombreUser") != null) {
 			if (!idString.isEmpty()) {
@@ -175,28 +176,29 @@ public class TemaServlet extends HttpServlet {
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 						dispatcher.forward(request, response);
 					}
-				} else {					
+				} else {
 					JOptionPane.showMessageDialog(null, "El id no es valido.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 					dispatcher.forward(request, response);
 				}
-			} else {				
+			} else {
 				JOptionPane.showMessageDialog(null, "Debes ingresar el id del Tema.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 				dispatcher.forward(request, response);
 			}
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-	
-	private void listarTema(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	private void listarTema(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("nombreUser") != null) {
 			try {
@@ -211,21 +213,21 @@ public class TemaServlet extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminTema.jsp");
 				dispatcher.forward(request, response);
 			}
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-	
+
 	public static boolean validarId(String id) {
 		String regex = "^[0-9]{1,3}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(id);
 		return matcher.matches();
 	}
-	
+
 	public static boolean validarDescripcion(String descripcion) {
 		String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,25}$";
 		Pattern pattern = Pattern.compile(regex);

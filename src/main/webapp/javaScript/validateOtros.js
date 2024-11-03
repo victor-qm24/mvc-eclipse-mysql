@@ -271,7 +271,7 @@ function validarIdRoles() {
 	var id = document.getElementById("idRoles").value;
 	var input = document.getElementById("idRoles");
 	var mensaje = document.getElementById("idRolesError");
-	var icon = document.getElementById("iconIdRoles");
+	var icon = document.getElementById("idRolesIcon");
 	var Regex = /^[0-9]{1,3}$/;
 
 	if (id === "") {

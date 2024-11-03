@@ -61,7 +61,7 @@ public class Usuarios {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public String getEstado() {
 		return estado;
 	}
@@ -82,6 +82,7 @@ public class Usuarios {
 	public String toString() {
 		return "Usuarios [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", documento=" + documento
 				+ ", email=" + email + ", telefono=" + telefono + ", usuario=" + usuario + ", password=" + password
-				+ ", estado=" + estado + ", tipoDocumentoId=" + tipoDocumentoId + ", proyectoId=" + proyectoId + ", rolId=" + rolId + "]";
+				+ ", estado=" + estado + ", tipoDocumentoId=" + tipoDocumentoId + ", proyectoId=" + proyectoId
+				+ ", rolId=" + rolId + "]";
 	}
 }

@@ -129,7 +129,6 @@
 						</form>
 					</div>
 				</div>
-
 				<div class="container-fluid table-responsive"
 					style="max-height: 200px; overflow-y: auto;">
 					<table class="table table-hover mt-3 text-center">

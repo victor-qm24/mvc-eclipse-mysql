@@ -28,12 +28,7 @@
 	color: blue;
 }
 </style>
-<script type="text/javascript">	
-	history.pushState(null, null, location.href);	
-	window.addEventListener('popstate', function(event) {	    
-	    window.location.href = 'logout';
-	});
-</script>
+
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm fixed-top bg-success">
@@ -91,9 +86,16 @@
 		</div>
 	</section>
 	<section class="container-fluid p-3" id="sec-estadisticas">
-		<h1>
-			<b>Estadisticas</b>
-		</h1>
+		<div class="row">
+			<div class="col-sm-4 d-flex justify-content-start align-items-center">
+				<h1>
+					<strong>Estadisticas</strong>
+				</h1>
+				<a href="generarReporte"><i class="material-icons text-danger ms-2"
+				style="">
+				picture_as_pdf</i></a>
+			</div>			
+		</div>
 		<h4>Pavimentación PALMITAS - LERMA</h4>
 		<hr>
 		<div class="row mt-3">
@@ -438,7 +440,6 @@
 					class="d-block w-100">
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col-sm-6 border-end">
 				<h4 class="text-center mb-2">Misión</h4>

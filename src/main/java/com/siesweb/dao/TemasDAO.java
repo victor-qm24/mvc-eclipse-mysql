@@ -22,24 +22,24 @@ public class TemasDAO {
 		}
 		return null;
 	}
-	
+
 	public void insertarTema(Temas tema) throws SQLException {
 		String sql = "INSERT INTO Temas (descripcion_tema) VALUES (?)";
 		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, tema.getDescripcion_tema());			
+			pstmt.setString(1, tema.getDescripcion_tema());
 			pstmt.executeUpdate();
 		}
 	}
-	
+
 	public void actualizarTema(Temas tema) throws SQLException {
 		String sql = "UPDATE Temas SET descripcion_tema = ? WHERE id = ?";
 		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, tema.getDescripcion_tema());			
+			pstmt.setString(1, tema.getDescripcion_tema());
 			pstmt.setInt(2, tema.getId());
 			pstmt.executeUpdate();
 		}
 	}
-	
+
 	public List<Temas> buscarTema(int id) throws SQLException {
 		List<Temas> temas = new ArrayList<>();
 		String sql = "SELECT * FROM Temas WHERE id = ?";
@@ -53,7 +53,7 @@ public class TemasDAO {
 		}
 		return temas;
 	}
-	
+
 	public void eliminarTema(int id) throws SQLException {
 		String sql = "DELETE FROM Temas WHERE id = ?";
 		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -61,7 +61,7 @@ public class TemasDAO {
 			pstmt.executeUpdate();
 		}
 	}
-	
+
 	public List<Temas> obtenerTemas() throws SQLException {
 		List<Temas> temas = new ArrayList<>();
 		String sql = "SELECT * FROM Temas";

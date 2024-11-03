@@ -18,17 +18,17 @@ import javax.swing.JOptionPane;
 import com.siesweb.dao.ProyectosDAO;
 import com.siesweb.modelo.Proyectos;
 
-
-@WebServlet({"/ProyectoServlet","/insertarProyecto","/actualizarProyecto","/eliminarProyecto","/listarProyecto"})
+@WebServlet({ "/ProyectoServlet", "/insertarProyecto", "/actualizarProyecto", "/eliminarProyecto", "/listarProyecto" })
 public class ProyectoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final ProyectosDAO proyectosDAO = new ProyectosDAO();
-       
-    public ProyectoServlet() {
-        super();        
-    }
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	public ProyectoServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String action = request.getServletPath();
 
 		switch (action) {
@@ -46,31 +46,32 @@ public class ProyectoServlet extends HttpServlet {
 			break;
 		default:
 			System.out.println("No se reconoce la opcion enviada!");
-		}		
+		}
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
-	
+
 	private void insertarProyecto(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		String titulo = request.getParameter("titulo");
 		String estado = request.getParameter("estado");
-		String ubicacion = request.getParameter("ubicacion");		
-		
+		String ubicacion = request.getParameter("ubicacion");
+
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("nombreUser") != null) {
-			
+
 			if (!titulo.isEmpty() && !estado.isEmpty() && !ubicacion.isEmpty()) {
 				if (validar(titulo) && validarEstado(estado) && validar(ubicacion)) {
 					try {
 						proyectosDAO.insertarProyecto(new Proyectos(0, titulo, estado, ubicacion));
-							JOptionPane.showMessageDialog(null, "Proyecto agregado con exito.", "!Advertencia¡",
-									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
-							dispatcher.forward(request, response);
+						JOptionPane.showMessageDialog(null, "Proyecto agregado con exito.", "!Advertencia¡",
+								JOptionPane.INFORMATION_MESSAGE);
+						RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+						dispatcher.forward(request, response);
 					} catch (SQLException e) {
 						System.out.println("Error al insertar proyecto." + e);
 						JOptionPane.showMessageDialog(null, "Error al insertar proyecto.", "!Advertencia¡",
@@ -78,130 +79,145 @@ public class ProyectoServlet extends HttpServlet {
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 						dispatcher.forward(request, response);
 					}
-				} else {					
+				} else {
 					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 					dispatcher.forward(request, response);
 				}
-			} else {				
+			} else {
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 				dispatcher.forward(request, response);
 			}
-			
-		}else {			
+
+		} else {
 			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-	
+
 	private void actualizarProyecto(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String idString = request.getParameter("idProyecto");	
+		String idString = request.getParameter("idProyecto");
 		String titulo = request.getParameter("title");
 		String estado = request.getParameter("state");
 		String ubicacion = request.getParameter("ubication");
-		
+
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("nombreUser") != null) {
 			if (!idString.isEmpty() && !titulo.isEmpty() && !estado.isEmpty() && !ubicacion.isEmpty()) {
-				if (validar(titulo) && validarEstado(estado) && validar(ubicacion) && validarId(idString)) {
-							
-					int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-					if (respuesta == JOptionPane.YES_OPTION) {
-						try {
-							int id = Integer.parseInt(idString);
-							proyectosDAO.actualizarProyecto(new Proyectos(id, titulo, estado, ubicacion));
-							JOptionPane.showMessageDialog(null, "Proyecto actualizado con exito.", "!Advertencia¡",
-									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
-							dispatcher.forward(request, response);
-						} catch (SQLException e) {
-							System.out.println("Error al actualizar proyecto." + e);
-							JOptionPane.showMessageDialog(null, "Error al actualizar proyecto.", "!Advertencia¡",
+				if (validar(titulo) && validarEstado(estado) && validar(ubicacion) && validarId(idString)) {					
+					try {
+						int id = Integer.parseInt(idString);
+						List<Proyectos> proyecto = proyectosDAO.buscarProyecto(id);
+						if(!proyecto.isEmpty()) {
+							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+							if (respuesta == JOptionPane.YES_OPTION) {
+								proyectosDAO.actualizarProyecto(new Proyectos(id, titulo, estado, ubicacion));
+								JOptionPane.showMessageDialog(null, "Proyecto actualizado con exito.", "!Advertencia¡",
+										JOptionPane.INFORMATION_MESSAGE);
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+								dispatcher.forward(request, response);
+							} else {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+								dispatcher.forward(request, response);
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Proyecto no registrado.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
 							RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 							dispatcher.forward(request, response);
 						}
-					}else {
+					} catch (SQLException e) {
+						System.out.println("Error al actualizar proyecto." + e);
+						JOptionPane.showMessageDialog(null, "Error al actualizar proyecto.", "!Advertencia¡",
+								JOptionPane.INFORMATION_MESSAGE);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 						dispatcher.forward(request, response);
 					}
-							
-				} else {					
+				} else {
 					JOptionPane.showMessageDialog(null, "Uno o varios campos no son validos.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 					dispatcher.forward(request, response);
 				}
-			} else {				
+			} else {
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 				dispatcher.forward(request, response);
 			}
-		}else {			
+		} else {
 			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-	
+
 	private void eliminarProyecto(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String idString = request.getParameter("idProyectos");
-		
+
 		HttpSession session = request.getSession(false);
-		if (session != null && session.getAttribute("nombreUser") != null) {		
+		if (session != null && session.getAttribute("nombreUser") != null) {
 			if (!idString.isEmpty()) {
-				if (validarId(idString)) {
-					int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
-					if (respuesta == JOptionPane.YES_OPTION) {
-						try {
-							int id = Integer.parseInt(idString);
-							proyectosDAO.eliminarProyecto(id);
-							JOptionPane.showMessageDialog(null, "Proyecto eliminado con exito.", "!Advertencia¡",
-									JOptionPane.INFORMATION_MESSAGE);
-							RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
-							dispatcher.forward(request, response);
-						} catch (SQLException e) {
-							System.out.println("Error al eliminar proyecto." + e);
-							JOptionPane.showMessageDialog(null, "Error al eliminar proyecto.", "!Advertencia¡",
+				if (validarId(idString)) {					
+					try {
+						int id = Integer.parseInt(idString);
+						List<Proyectos> proyecto = proyectosDAO.buscarProyecto(id);
+						if(!proyecto.isEmpty()) {
+							int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro?");
+							if (respuesta == JOptionPane.YES_OPTION) {
+								proyectosDAO.eliminarProyecto(id);
+								JOptionPane.showMessageDialog(null, "Proyecto eliminado con exito.", "!Advertencia¡",
+										JOptionPane.INFORMATION_MESSAGE);
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+								dispatcher.forward(request, response);
+							} else {
+								RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
+								dispatcher.forward(request, response);
+							}	
+						}else {
+							JOptionPane.showMessageDialog(null, "Proyecto no registrado.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
 							RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 							dispatcher.forward(request, response);
 						}
-					} else {
+					} catch (SQLException e) {
+						System.out.println("Error al eliminar proyecto." + e);
+						JOptionPane.showMessageDialog(null, "Error al eliminar proyecto.", "!Advertencia¡",
+								JOptionPane.INFORMATION_MESSAGE);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 						dispatcher.forward(request, response);
-					}
-				} else {					
+					}					
+				} else {
 					JOptionPane.showMessageDialog(null, "El id no es valido.", "!Advertencia¡",
 							JOptionPane.INFORMATION_MESSAGE);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 					dispatcher.forward(request, response);
 				}
-			} else {				
+			} else {
 				JOptionPane.showMessageDialog(null, "Debes ingresar el id del Proyecto.", "!Advertencia¡",
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 				dispatcher.forward(request, response);
 			}
-		}else {			
+		} else {
 			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-	
-	private void listarProyecto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	private void listarProyecto(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("nombreUser") != null) {
 			try {
@@ -216,29 +232,29 @@ public class ProyectoServlet extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("adminProyecto.jsp");
 				dispatcher.forward(request, response);
 			}
-		}else {			
+		} else {
 			JOptionPane.showMessageDialog(null, "Debes volver a iniciar sesión.", "!Advertencia¡",
 					JOptionPane.INFORMATION_MESSAGE);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
-		
+
 	}
-	
+
 	public static boolean validarId(String id) {
 		String regex = "^[0-9]{1,3}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(id);
 		return matcher.matches();
 	}
-	
+
 	public static boolean validar(String validar) {
 		String regex = "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,100}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(validar);
 		return matcher.matches();
 	}
-	
+
 	public static boolean validarEstado(String estado) {
 		String regex = "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,25}$";
 		Pattern pattern = Pattern.compile(regex);

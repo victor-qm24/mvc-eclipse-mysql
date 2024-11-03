@@ -19,24 +19,24 @@ public class TiposDocumentosDAO {
 		}
 		return null;
 	}
-	
+
 	public void insertarTipo(TiposDocumentos tipo) throws SQLException {
 		String sql = "INSERT INTO TipoDocumento (descripcion_tipo) VALUES (?)";
 		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, tipo.getDescripcion_tipo());			
+			pstmt.setString(1, tipo.getDescripcion_tipo());
 			pstmt.executeUpdate();
 		}
 	}
-	
+
 	public void actualizarTipo(TiposDocumentos tipo) throws SQLException {
 		String sql = "UPDATE TipoDocumento SET descripcion_tipo = ? WHERE id = ?";
 		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, tipo.getDescripcion_tipo());			
+			pstmt.setString(1, tipo.getDescripcion_tipo());
 			pstmt.setInt(2, tipo.getId());
 			pstmt.executeUpdate();
 		}
 	}
-	
+
 	public List<TiposDocumentos> buscarTipo(int id) throws SQLException {
 		List<TiposDocumentos> tipos = new ArrayList<>();
 		String sql = "SELECT * FROM TipoDocumento WHERE id = ?";
@@ -50,7 +50,7 @@ public class TiposDocumentosDAO {
 		}
 		return tipos;
 	}
-	
+
 	public void eliminarTipo(int id) throws SQLException {
 		String sql = "DELETE FROM TipoDocumento WHERE id = ?";
 		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -58,7 +58,7 @@ public class TiposDocumentosDAO {
 			pstmt.executeUpdate();
 		}
 	}
-	
+
 	public List<TiposDocumentos> obtenerTipos() throws SQLException {
 		List<TiposDocumentos> tipos = new ArrayList<>();
 		String sql = "SELECT * FROM TipoDocumento";

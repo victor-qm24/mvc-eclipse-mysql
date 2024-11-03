@@ -83,7 +83,6 @@
 		<div class="row mt-3">
 			<div class="col-sm-6 bg-dark-subtle">
 				<form action="insertarAvc" method="POST">
-
 					<div class="row p-3">
 						<div class="col-sm-4">
 							<!--grupo__fecha-->

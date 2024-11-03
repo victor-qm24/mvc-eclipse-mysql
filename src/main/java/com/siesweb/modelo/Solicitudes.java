@@ -8,9 +8,9 @@ public class Solicitudes {
 	private final int proyectoId;
 	private final int temaId;
 	private final int usuarioId;
-	
-	
-	public Solicitudes(int id, String fecha, String observacion, String estado, int proyectoId, int temaId, int usuarioId) {
+
+	public Solicitudes(int id, String fecha, String observacion, String estado, int proyectoId, int temaId,
+			int usuarioId) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -20,19 +20,38 @@ public class Solicitudes {
 		this.temaId = temaId;
 		this.usuarioId = usuarioId;
 	}
-	
 
-	public int getId() {return id;}
-	public String getFecha() {return fecha;}
-	public String getObservacion() {return observacion;}
-	public String getEstado() {return estado;}
-	public int getProyectoId() {return proyectoId;}
-	public int getTemaId() {return temaId;}
-	public int getUsuarioId() {return usuarioId;}
+	public int getId() {
+		return id;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public int getProyectoId() {
+		return proyectoId;
+	}
+
+	public int getTemaId() {
+		return temaId;
+	}
+
+	public int getUsuarioId() {
+		return usuarioId;
+	}
 
 	@Override
 	public String toString() {
-		return "Solicitudes [id=" + id + ", fecha" + fecha + ", observacion=" + observacion + ", estado=" + estado + ", proyectoId=" + proyectoId + ", temaId="
-				+ temaId + ", usuarioId=" + usuarioId + "]";
-	}	
+		return "Solicitudes [id=" + id + ", fecha" + fecha + ", observacion=" + observacion + ", estado=" + estado
+				+ ", proyectoId=" + proyectoId + ", temaId=" + temaId + ", usuarioId=" + usuarioId + "]";
+	}
 }

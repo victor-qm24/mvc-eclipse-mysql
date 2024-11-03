@@ -197,7 +197,6 @@ function validarEmail() {
 	var icon = document.getElementById("emailIcon");
 	var emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
-
 	if (email === "") {
 		mensaje.textContent = "El email es obligatorio.";
 		mensaje.style.color = "red";
