@@ -35,7 +35,6 @@ public class UsuarioServlet extends HttpServlet {
 
 	public UsuarioServlet() {
 		super();
-
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -90,12 +89,12 @@ public class UsuarioServlet extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
-	private void iniciar_sesion(HttpServletRequest request, HttpServletResponse response)
+	public boolean iniciar_sesion(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		String user = request.getParameter("usuario");
@@ -118,6 +117,7 @@ public class UsuarioServlet extends HttpServlet {
 									if (idRol == 1) {
 										RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
 										dispatcher.forward(request, response);
+										return true;
 									} else {
 										Avances avanceUltimo = avancesDAO.obtenerUltimoAvc();
 										List<Avances> avances = avancesDAO.obtenerAvc();
@@ -134,6 +134,7 @@ public class UsuarioServlet extends HttpServlet {
 		
 										RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
 										dispatcher.forward(request, response);
+										return true;
 									}
 								} else {
 									JOptionPane.showMessageDialog(null,
@@ -141,18 +142,21 @@ public class UsuarioServlet extends HttpServlet {
 											JOptionPane.INFORMATION_MESSAGE);
 									RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 									dispatcher.forward(request, response);
+									return false;
 								}
 							} else {
 								JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "!Advertencia¡",
 										JOptionPane.INFORMATION_MESSAGE);
 								RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 								dispatcher.forward(request, response);
+								return false;
 							}
 						}else {
 							JOptionPane.showMessageDialog(null, "Usuario no registrado.", "!Advertencia¡",
 									JOptionPane.INFORMATION_MESSAGE);
 							RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 							dispatcher.forward(request, response);
+							return false;
 						}
 					} catch (SQLException e) {
 						System.out.println("Usuario no registrado." + e);
@@ -166,6 +170,7 @@ public class UsuarioServlet extends HttpServlet {
 							JOptionPane.INFORMATION_MESSAGE);					
 					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 					dispatcher.forward(request, response);
+					return false;
 				}
 			} else {
 				System.out.println("Debe llenar todos los campos.");
@@ -173,11 +178,14 @@ public class UsuarioServlet extends HttpServlet {
 						JOptionPane.INFORMATION_MESSAGE);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
+				return false;
 			}
-		} else {
+		} else {			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
+			return false;
 		}
+		return false;
 	}
 
 	private void registrar(HttpServletRequest request, HttpServletResponse response)

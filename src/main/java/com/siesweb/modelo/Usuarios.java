@@ -1,5 +1,7 @@
 package com.siesweb.modelo;
 
+import java.util.Objects;
+
 public class Usuarios {
 	private final int id;
 	private final String nombre;
@@ -85,4 +87,27 @@ public class Usuarios {
 				+ ", estado=" + estado + ", tipoDocumentoId=" + tipoDocumentoId + ", proyectoId=" + proyectoId
 				+ ", rolId=" + rolId + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(apellido, documento, email, estado, id, nombre, password, proyectoId, rolId, telefono,
+				tipoDocumentoId, usuario);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuarios other = (Usuarios) obj;
+		return Objects.equals(apellido, other.apellido) && Objects.equals(documento, other.documento)
+				&& Objects.equals(email, other.email) && Objects.equals(estado, other.estado) && id == other.id
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(password, other.password)
+				&& proyectoId == other.proyectoId && rolId == other.rolId && Objects.equals(telefono, other.telefono)
+				&& tipoDocumentoId == other.tipoDocumentoId && Objects.equals(usuario, other.usuario);
+	}	
+	
 }
